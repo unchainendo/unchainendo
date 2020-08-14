@@ -13,7 +13,17 @@
   </url>
   
   <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/test/</loc>
+    <lastmod>2019-06-17T20:28:10+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pages.github.ibm.com/YUENDO/yuendo/post/general/</loc>
+    <lastmod>2019-06-17T20:28:10+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/test/general/</loc>
     <lastmod>2019-06-17T20:28:10+09:00</lastmod>
   </url>
   
@@ -34,6 +44,11 @@
   
   <url>
     <loc>https://pages.github.ibm.com/YUENDO/yuendo/post/2019/06/sample/</loc>
+    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/test/general/sample/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
   </url>
   
