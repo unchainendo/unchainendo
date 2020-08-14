@@ -3,8 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-3/</loc>
+    <lastmod>2019-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/</loc>
+    <lastmod>2019-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/test/general/sample/</loc>
+    <lastmod>2019-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pages.github.ibm.com/YUENDO/yuendo/</loc>
-    <lastmod>2019-06-17T20:28:10+09:00</lastmod>
+    <lastmod>2019-06-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -38,17 +53,7 @@
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://pages.github.ibm.com/YUENDO/yuendo/post/2019/06/sample/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/test/general/sample/</loc>
     <lastmod>2019-06-17T00:00:00+00:00</lastmod>
   </url>
   
