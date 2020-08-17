@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://pages.github.ibm.com/YUENDO/yuendo/" />
+        <link rel="canonical" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://pages.github.ibm.com/YUENDO/yuendo/amp/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">
+        <title> 
+            CCD表の環境を整備する | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="作業前提 背景 ホストからDBサーバーへのQレプリケーション環境が完成した後に以下の追加要件が発生したのでCCD環境の構築手順を整理した。 最終的" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="CCD表の環境を整備する | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="作業前提 背景 ホストからDBサーバーへのQレプリケーション環境が完成した後に以下の追加要件が発生したのでCCD環境の構築手順を整理した。 最終的" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://pages.github.ibm.com/YUENDO/yuendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://pages.github.ibm.com/YUENDO/yuendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://pages.github.ibm.com/YUENDO/yuendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/post">Blog</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/test">Test</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/" itemprop="item" >
+                    
+                        べんきょう
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/" itemprop="item" >
+                    
+                        Projects
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/" itemprop="item" >
+                    
+                        201909_Qrep整備
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" itemprop="item" >
+                    
+                        CCD表の環境を整備する
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/">
+                                201909_Qrep整備
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/">Db2</a>
+                                    </li>
+                                
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/">MQ</a>
+                                    </li>
+                                
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/">Qrep</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" >
+                    <h1 class="m-entry__header-title-link-text">CCD表の環境を整備する</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/03/01</time>
+            </div>
+
+            
+            
+                <div class="m-entry__header-eyecache">
+                    <img class="m-entry__header-eyecache-img" src="https://pages.github.ibm.com/YUENDO/yuendo/images/yukb.b1b9047d8bef62a1022745783862cc386960801a6015b5eab912f289dc625f78.png" >
+                </div>
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="作業前提">作業前提</h3>
+<h4 id="背景">背景</h4>
+<p>ホストからDBサーバーへのQレプリケーション環境が完成した後に以下の追加要件が発生したのでCCD環境の構築手順を整理した。
+最終的には構築せずに終わってしまったが、手順は検証環境での稼働確認の上で作成したものなので今後のために残しておく。</p>
+<ul>
+<li>ターゲットDBは本来参照しかしない想定だが、あるテーブルでターゲット側のレコードが「NOT FOUND」となる事象が発生した。(EXCEPTIONS表にエラーが記録された)</li>
+<li>ターゲット表のレコードを何か(誰か)が削除した可能性があるため、ターゲット表の更新履歴を残せる仕組みがほしい。</li>
+<li>Db2の監査機能(db2audit)を使用するとデータベース単位でログが収集されてしまい、かつQレプリケーションによる正常な更新処理も全て記録されるため
+ログ保管領域の管理やログの消込の実装が必要になり非常に手間がかかる。</li>
+<li>そこでターゲットDBに対してQキャプチャーを仕掛け、特定のテーブルに対するQレプリケーション以外の変更をCCD表として吐き出す仕組みを構築したいということになった。</li>
+</ul>
+<h4 id="実装方針">実装方針</h4>
+<p>CCD環境を整備するにあたって、既に実装済みのQレプリケーション環境への影響等を考慮して以下の実装方針とすることとした。</p>
+<ul>
+<li>DBサーバー上のQrep用ユーザーはCCD環境用に新しいものを作成し、そのユーザーに紐づくスキーマにQアプライとQキャプチャーの新しい制御表を作成する。</li>
+<li>IDRサーバー上のQアプライ実行ユーザー(db2qrep)はCCD環境用のQキャプチャー/アプライ実行ユーザーとしても使用する。ただしログやパスワードファイル、IPCファイル等の出力先(主にcapture_path, apply_path)はディレクトリを新規作成して分けて管理する。(一緒にすると管理が煩雑になるため。)</li>
+<li>MQについてはCCD環境用にキュー・マネージャーを分けて作成する必要はないためCCD環境のMQオブジェクトの作成先としても利用(共用)する。
+キュー・マネージャーを共用することでデータパス(/var/mqm/qmgrs)やログパス(/var/mqm/log)も共用することとなり、本来はファイルシステムサイズの再設計が必要となるところだが、今回は対象が1テーブルのみで、かつCCD表に格納するのはQレプリケーションによる更新「以外」の変更履歴のみとなるため、もともと余裕を持って設計しているデータパスとログパスはそのまま共用することとする。</li>
+</ul>
+<h4 id="環境区分">環境区分</h4>
+<ul>
+<li>IDRサーバー
+Qキャプチャー、Qアプライを稼働させる環境</li>
+<li>DBサーバー
+(本来のQレプリケーション環境における)ターゲットDBが存在する環境</li>
+</ul>
+<h4 id="ソフトウェアバージョン">ソフトウェアバージョン</h4>
+<ul>
+<li>IDRサーバー
+<ul>
+<li>Db2 Standart Edition V11.5</li>
+<li>IDR for Availability V1.2 (ARCH_LEVEL=1140)</li>
+<li>MQ V9.1</li>
+</ul>
+</li>
+<li>DBサーバー
+<ul>
+<li>Db2 V11.5</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-事前準備">1. 事前準備</h3>
+<h4 id="ccd環境用qrep制御表スキーマユーザー作成">CCD環境用Qrep制御表スキーマ・ユーザー作成</h4>
+<p>DBサーバー上でCCD環境用のQキャプチャーとQアプライの制御表用のスキーマと紐づくユーザーを作成する。
+本来のQレプリケーション環境でアプライ制御表のためのスキーマ(ユーザー)はqrep_targetとしていたためCCD環境用のスキーマ(ユーザー)はqrep_ccdとする。1つのスキーマでQキャプチャーとQアプライの制御表を作成することはできるが、複数のQアプライの制御表を作成することはできないため今回スキーマ(ユーザー)は必ず作らないといけない。
+また、DBサーバー上のテーブルにアクセスできるようにするためqrep_targetユーザーと同様にターゲットDBのDBADM権限を付与しておくこと。</p>
+<h3 id="2-db2設定">2. Db2設定</h3>
+<h4 id="qアプライ実行ユーザー環境設定">Qアプライ実行ユーザー環境設定</h4>
+<p>IDRサーバー上のQアプライ実行ユーザー(db2qrep)はCCD環境としても共用するが、ログやIPCファイル、パスワードファイルの格納場所は分けておきたいので、CCD環境専用のディレクトリを作成してそこをcapture_path、apply_pathとする。
+以降の作業は基本的にQアプライ実行ユーザー(db2qrep)で実施する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CCD用ディレクトリの作成</span>
+su - db2qrep
+mkdir /home/db2qrep/qrep_ccd
+</code></pre></div><h3 id="3-mq設定">3. MQ設定</h3>
+<h4 id="mqオブジェクトの作成">MQオブジェクトの作成</h4>
+<p>CCD環境用のMQオブジェクトを作成する。
+CCD環境は同一サーバー内でQキャプチャーとQアプライが稼働するためチャネル接続用のオブジェクト(チャネルやリスナー)は不要。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQオブジェクト作成用スクリプトの作成</span>
+<span class="nb">cd</span> /home/db2qrep/MQ
+cat &gt; ./create_ccd_mqobjects.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">define qlocal(&lt;データキュー名&gt;) MAXDEPTH(1000000)
+</span><span class="s">define qlocal(&lt;再始動キュー名&gt;) MAXDEPTH(1000000)
+</span><span class="s">define qlocal(&lt;管理キュー名&gt;) MAXDEPTH(1000000)
+</span><span class="s">DEFINE QMODEL (&lt;スピルキュー名&gt;) DEFSOPT(SHARED) MAXDEPTH(1000000)  MSGDLVSQ(FIFO) DEFTYPE(PERMDYN)
+</span><span class="s">EOF</span>
+
+<span class="c1"># MQオブジェクトの作成</span>
+<span class="c1"># runmqsc &lt;キュー・マネージャー名&gt; &lt; &lt;スクリプト名&gt;</span>
+runmqsc QMG &lt; ./create_ccd_mqobjects.txt
+
+<span class="c1"># MQオブジェクトの確認</span>
+<span class="nb">echo</span> <span class="s2">&#34;display qstatus(*)&#34;</span> <span class="p">|</span> runmqsc QMG
+</code></pre></div><h3 id="4-qrep設定">4. Qrep設定</h3>
+<h4 id="パスワードファイルの作成">パスワードファイルの作成</h4>
+<p>CCD環境用ディレクトリにパスワードファイルを生成してターゲットDBの認証情報を登録する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パスワードファイルの生成(カレントディレクトリに生成される)</span>
+<span class="nb">cd</span> /home/db2qrep/qrep
+asnpwd init encrypt password
+
+<span class="c1"># ターゲットDBの認証情報を登録</span>
+<span class="c1"># asnpwd add alias &lt;DB名&gt; id &lt;接続ユーザー名&gt; password &lt;パスワード&gt;</span>
+asnpwd add <span class="nb">alias</span> TARGETDB id qrep_target password xxxxxx
+
+<span class="c1"># エントリ確認</span>
+asnpwd list
+</code></pre></div><h4 id="制御表作成">制御表作成</h4>
+<p>制御表作成用のスクリプトを作成してasnclpコマンドで実行する。
+キャプチャー制御表はモニター間隔、上限(MONITOR INTERVAL, MONITOR LIMIT)をパラメータとして与える。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義関連スクリプトの配置先ディレクトリを作成</span>
+<span class="nb">cd</span> /home/db2qrep/QREP/define
+
+<span class="c1"># キャプチャー制御表作成スクリプトを作成</span>
+cat &gt; ./create_ccd_capture_ctltable.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
+</span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
+</span><span class="s">SET SERVER CAPTURE TO DB &lt;ターゲットDB名&gt;;
+</span><span class="s">
+</span><span class="s">SET QMANAGER &lt;キュー・マネージャー名&gt; FOR CAPTURE SCHEMA;
+</span><span class="s">SET CAPTURE SCHEMA SOURCE &lt;制御表スキーマ名&gt;;
+</span><span class="s">SET OUTPUT CAPTURE SCRIPT &#34;capture_ccd_ctltable.sql&#34;;
+</span><span class="s">SET OUTPUT TARGET SCRIPT &#34;apply_ccd_ctltable.sql&#34;;
+</span><span class="s">
+</span><span class="s">#SET RUN SCRIPT LATER;
+</span><span class="s">SET RUN SCRIPT NOW STOP ON SQL ERROR ON;
+</span><span class="s">
+</span><span class="s">CREATE CONTROL TABLES FOR CAPTURE SERVER USING RESTARTQ &lt;再始動キュー名&gt; ADMINQ &lt;管理キュー名&gt; MONITOR LIMIT 93600 MONITOR INTERVAL 60000 IN UW TBSPACE &lt;制御表用の表スペース&gt;;
+</span><span class="s">EOF</span>
+
+<span class="c1"># キャプチャー制御表作成</span>
+asnclp -f ./create_ccd_capture_ctltable.txt
+
+<span class="c1"># アプライ制御表作成スクリプトを作成</span>
+cat &gt; ./create_ccd_apply_ctltable.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
+</span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
+</span><span class="s">SET SERVER TARGET TO DB &lt;ターゲットDB名&gt;;
+</span><span class="s">
+</span><span class="s">SET QMANAGER &lt;キュー・マネージャー名&gt; FOR APPLY SCHEMA;
+</span><span class="s">SET APPLY SCHEMA &lt;制御表スキーマ名&gt;;
+</span><span class="s">SET OUTPUT CAPTURE SCRIPT &#34;capture_ccd_ctltable.sql&#34;;
+</span><span class="s">SET OUTPUT TARGET SCRIPT &#34;apply_ccd_ctltable.sql&#34;;
+</span><span class="s">
+</span><span class="s">#SET RUN SCRIPT LATER;
+</span><span class="s">SET RUN SCRIPT NOW STOP ON SQL ERROR ON;
+</span><span class="s">
+</span><span class="s">CREATE CONTROL TABLES FOR APPLY SERVER USING MONITOR LIMIT 93600 MONITOR INTERVAL 60000 IN UW TBSPACE &lt;制御表用の表スペース&gt;;
+</span><span class="s">EOF</span>
+
+<span class="c1"># アプライ制御表作成</span>
+asnclp -f ./create_apply_ctltable.txt
+
+<span class="c1"># ターゲットDBに接続してQアプライとQキャプチャーの制御表が作成されたことを確認</span>
+db2 connect to TARGETDB user qrep_ccd using xxxxxx
+db2 list tables <span class="k">for</span> schema qrep_ccd
+db2 list tables <span class="k">for</span> schema asn
+</code></pre></div><h4 id="qマップの作成">Qマップの作成</h4>
+<p>Qマップも同じように作成用スクリプトを用意して実行する。
+ここではアプライエージェント数(NUM APPLY AGENTS)とハートビート間隔(HEARTBEAT INTERVAL)と最大メッセージサイズ(MAX MESSAGE SIZE)を指定。
+※本来のQレプリケーションとは異なり、今回はCCD表なのでアプライエージェント数(NUM APPLY AGENTS)は1とする。CCD表への複数アプライエージェントによる差分適用は順序(整合性)が保たれないため。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qマップ作成スクリプトを作成</span>
+cat &gt; ./create_ccd_qmap.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
+</span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
+</span><span class="s">SET SERVER TARGET TO DB &lt;ターゲットDB名&gt;;
+</span><span class="s">SET SERVER CAPTURE TO DB &lt;ソースDB名&gt;;
+</span><span class="s">
+</span><span class="s">SET CAPTURE SCHEMA SOURCE &lt;制御表スキーマ名&gt;;
+</span><span class="s">SET APPLY SCHEMA &lt;制御表スキーマ名&gt;;
+</span><span class="s">
+</span><span class="s">#SET RUN SCRIPT LATER;
+</span><span class="s">SET RUN SCRIPT NOW STOP ON SQL ERROR ON;
+</span><span class="s">
+</span><span class="s">SET OUTPUT CAPTURE SCRIPT &#34;cap_creqmap.sql&#34;;
+</span><span class="s">SET OUTPUT TARGET SCRIPT &#34;app_creqmap.sql&#34;;
+</span><span class="s">
+</span><span class="s">CREATE REPLQMAP &#34;&lt;Qマップ名&gt;&#34; USING ADMINQ &#34;&lt;管理キュー名&gt;&#34; RECVQ &#34;&lt;受信キュー名&gt;&#34; SENDQ &#34;&lt;ホスト側送信キュー名&gt;&#34; NUM APPLY AGENTS 1 HEARTBEAT INTERVAL 60000 MAX MESSAGE SIZE 64;
+</span><span class="s">EOF</span>
+
+<span class="c1"># Qマップ作成</span>
+asnclp -f ./create_ccd_qmap.txt
+
+<span class="c1"># Qマップが作成されたことを確認</span>
+db2 <span class="s2">&#34;select * from qrep_ccd.ibmqrep_recvqueues&#34;</span>
+</code></pre></div><h4 id="制御表の変更">制御表の変更</h4>
+<p>設計したパラメータを制御表に入れ込んでいく。
+以下の4つのパラメータに対して入れ込むパラメータは基本的にもともとのQレプリケーション環境と一緒。</p>
+<ul>
+<li>Qアプライ
+<ul>
+<li>IBMQREP_APPLYPARMS表</li>
+<li>IBMQREP_RECVQUEUES表</li>
+</ul>
+</li>
+<li>Qキャプチャー
+<ul>
+<li>IBMQREP_CAPPARMS表</li>
+<li>IBMQREP_SENDQUEUES表</li>
+</ul>
+</li>
+</ul>
+<p>変更方法は通常のUPDATE文でOK。
+<code>db2 &quot;update &lt;制御表スキーマ&gt;.&lt;制御表&gt; set &lt;設定項目&gt;=&lt;設定値&gt;</code>
+追加でキャプチャー制御表の「IBMQREP_IGNTRAN表」に以下のレコードをINSERTする。
+AITHID列にQrep用ユーザー名を指定することで、Qレプリケーションによる更新はCCD表に書き出されないようになる(無視される)。
+これを設定しないと対象表に対する全トランザクションがCCD表に書き出されるので非常にサイズが膨れ上がりもともと探したかった異常な更新も見つけにくくなってしまう。</p>
+<table>
+<thead>
+<tr>
+<th>AUTHID</th>
+<th>AUTHTOKEN</th>
+<th>PLANNAME</th>
+<th>IGNTRANTRC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>qrep_target</td>
+<td>null</td>
+<td>null</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-テスト用サブスクリプションの作成と起動">5. テスト用サブスクリプションの作成と起動</h3>
+<h4 id="テスト用サブスクリプション作成">テスト用サブスクリプション作成</h4>
+<p>CCD環境での「ソース表」はターゲットDBにある監視対象の「ターゲット表」。
+そしてCCD環境での「ターゲット表」はターゲットDBに作成する新しいCCD表。
+ホスト→DBサーバーのQrepはソース表、ターゲット表をそれぞれ先に作成しておいたが、
+今回はCCD表という特殊な表のためターゲット表はasnclpコマンドが生成するSQL文を利用して作成する。
+以下は通常のQsubと異なるオプションなので要注意。</p>
+<ul>
+<li>SET RUN SCRIPT LATER<br>
+今回はターゲット表をQsubと一緒に作成するため、スクリプト実行時にそのまま制御表に書き込ませてしまうとターゲット表の表スペースを指定できない。そのため「SET RUN SCRIPT LATER」とすることでasnclpコマンド実行時に出力されるSQLを手で修正してから手動実行する。</li>
+<li>EXIST なし<br>
+ターゲット表(CCD表)は事前に作成せずQsub作成時に作成するのでターゲット表が既に存在することを示す「EXIST」オプションは外しておく。</li>
+<li>HAS LOAD PHASE N<br>
+Qsub起動時にフルリフレッシュを行わない。
+非完全のCCD表を構成する場合このオプションは必須。</li>
+<li>TYPE CCD CONDENSED OFF COMPLETE OFF WITH OUW COLS ALL<br>
+非圧縮(&ldquo;CONDENSED OFF&rdquo;)かつ非完全(&ldquo;COMPLTE OFF&rdquo;)のCCD表を構成する。
+非圧縮は1つのレコードに対して最新状態だけでなくこれまでの全ての変更履歴をレコードとして保持する。
+非完全はソース表と同じ行数のレコードを持つのではなく、更新された行のデータのみ持つという意味。</li>
+<li>CAPTURE LOAD W (デフォルト、指定なし)
+ソース表へのロード処理を検知したら警告を出す。(フルリフレッシュは行わない)</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qサブスクリプション作成用スクリプトの準備</span>
+<span class="nb">cd</span> /home/db2qrep/QREP/define
+cat &gt; ./create_qsub_test_ccd.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
+</span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
+</span><span class="s">
+</span><span class="s">SET SERVER CAPTURE TO DB &lt;ソースDB名&gt;;
+</span><span class="s">SET SERVER TARGET TO DB &lt;ターゲットDB名&gt;;
+</span><span class="s">
+</span><span class="s">SET CAPTURE SCHEMA SOURCE &lt;制御表スキーマ&gt;;
+</span><span class="s">SET APPLY SCHEMA &lt;制御表スキーマ&gt;;
+</span><span class="s">
+</span><span class="s">SET RUN SCRIPT LATER;
+</span><span class="s">#SET RUN SCRIPT NOW STOP ON SQL ERROR ON;
+</span><span class="s">
+</span><span class="s">SET OUTPUT CAPTURE SCRIPT &#34;cap_creqsub_testtable_ccd.sql&#34;;
+</span><span class="s">SET OUTPUT TARGET SCRIPT &#34;app_creqsub_testtable_ccd.sql&#34;;
+</span><span class="s">
+</span><span class="s">CREATE QSUB USING REPLQMAP &#34;&lt;Qマップ名&gt;&#34; (SUBNAME &#34;&lt;Qsub名&gt;&#34; &#34;&lt;ソース表スキーマ名&gt;&#34;.&#34;&lt;ソース表名&gt;&#34; OPTIONS SPILL_MODELQ &#34;&lt;スピルキュー名&gt;&#34;
+</span><span class="s">HAS LOAD PHASE N CONFLICT ACTION F ERROR ACTION S REPLICATE ADD COLUMN Y START AUTOMATICALLY NO TARGET NAME &#34;&lt;ターゲット表スキーマ名&gt;&#34;.&#34;&lt;ターゲット表名&gt;&#34;
+</span><span class="s">TYPE CCD CONDENSED OFF COMPLETE OFF WITH OUW COLS ALL);
+</span><span class="s">EOF</span>
+
+<span class="c1"># 作成したスクリプトを実行(制御表への書き込みはされない)</span>
+asnclp -f ./create_qsub_test_ccd.txt
+
+<span class="c1"># 生成されたSQLファイルを直接編集してCCD表の表スペースを指定のものに書き換える</span>
+vi ./app_creqsub_testtable_ccd.sql
+
+<span class="c1"># ターゲットDBへ接続</span>
+db2 connect to TARGETDB user qrep_ccd using xxxxxx
+
+<span class="c1"># Qsub作成用SQLの実行</span>
+db2 -tvf ./app_creqsub_testtable_ccd.sql
+db2 -tvf ./cap_creqsub_testtable_ccd.sql
+
+<span class="c1"># Qsub確認</span>
+db2 <span class="s2">&#34;select SUBNAME,STATE from qrep_ccd.ibmqrep_targets&#34;</span>
+db2 <span class="s2">&#34;select SUBNAME,STATE from qrep_ccd.ibmqrep_subs&#34;</span>
+
+<span class="c1"># CCD表の確認</span>
+db2 describe table &lt;ターゲット表スキーマ&gt;.&lt;ターゲット表名&gt;
+db2 <span class="s2">&#34;select * from &lt;ターゲット表スキーマ&gt;.&lt;ターゲット表名&gt;
+</span></code></pre></div><h4 id="qキャプチャーアプライの起動">Qキャプチャー・アプライの起動</h4>
+<p>Qキャプチャー起動、停止のシェルスクリプトを作成して起動・停止できることを確認する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qキャプチャー起動スクリプトの作成</span>
+cat /xxx/xxx/ccd_capturestart.sh <span class="s">&lt;&lt; EOF
+</span><span class="s">export DB2CODEPAGE=943
+</span><span class="s">export TMPDIR=/home/db2qrep/qrep
+</span><span class="s">nohup asnqcap capture_server=&lt;ターゲットDB名&gt; capture_schema=&lt;制御表スキーマ名&gt; capture_path=/home/db2qrep/qrep startmode=&#34;warmsi&#34; &amp;
+</span><span class="s">EOF</span>
+chown u+x /xxx/xxx/ccd_capturestart.sh
+
+<span class="c1"># Qキャプチャー停止スクリプトの作成</span>
+cat /xxx/xxx/ccd_capturestop.sh <span class="s">&lt;&lt; EOF
+</span><span class="s">export TMPDIR=/home/db2qrep/qrep
+</span><span class="s">asnqacmd capture_server=&lt;ターゲットDB名&gt; capture_schema=&lt;制御表スキーマ名&gt; stop
+</span><span class="s">EOF</span>
+chown u+x /xxx/xxx/ccd_capturestop.sh
+
+<span class="c1"># Qアプライ起動スクリプトの作成</span>
+cat /xxx/xxx/ccd_applystart.sh <span class="s">&lt;&lt; EOF
+</span><span class="s">export DB2CODEPAGE=943
+</span><span class="s">export TMPDIR=/home/db2qrep/qrep
+</span><span class="s">nohup asnqcap apply_server=&lt;ターゲットDB名&gt; apply_schema=&lt;制御表スキーマ名&gt; apply_path=/home/db2qrep/qrep &amp;
+</span><span class="s">EOF</span>
+chown u+x /xxx/xxx/ccd_applystart.sh
+
+<span class="c1"># Qアプライ停止スクリプトの作成</span>
+cat /xxx/xxx/ccd_applystop.sh <span class="s">&lt;&lt; EOF
+</span><span class="s">export TMPDIR=/home/db2qrep/qrep
+</span><span class="s">asnqacmd apply_server=&lt;ターゲットDB名&gt; apply_schema=&lt;制御表スキーマ名&gt; stop
+</span><span class="s">EOF</span>
+chown u+x /xxx/xxx/ccd_applystop.sh
+
+<span class="c1"># Qキャプチャーの起動</span>
+/xxx/xxx/ccd_applystart.sh
+
+<span class="c1"># Qアプライの起動</span>
+/xxx/xxx/ccd_applystart.sh
+
+<span class="c1"># プロセスを確認</span>
+ps -ef <span class="p">|</span> grep asnqapp <span class="p">|</span> grep -v grep
+</code></pre></div><p>あとはテスト用Qsubを起動してqrep_target以外のユーザーが対象テーブルを更新するとCCD表に変更履歴が格納されることを確認すればOK。</p>
+
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=CCD%E8%A1%A8%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92%E6%95%B4%E5%82%99%E3%81%99%E3%82%8B&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FCCD%25E8%25A1%25A8%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=CCD%E8%A1%A8%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92%E6%95%B4%E5%82%99%E3%81%99%E3%82%8B&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FCCD%25E8%25A1%25A8%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FCCD%25E8%25A1%25A8%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=CCD%E8%A1%A8%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92%E6%95%B4%E5%82%99%E3%81%99%E3%82%8B&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FCCD%25E8%25A1%25A8%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?CCD%e8%a1%a8%e3%81%ae%e7%92%b0%e5%a2%83%e3%82%92%e6%95%b4%e5%82%99%e3%81%99%e3%82%8b%20%7c%20YuKB https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=CCD%E8%A1%A8%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92%E6%95%B4%E5%82%99%E3%81%99%E3%82%8B&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FCCD%25E8%25A1%25A8%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=CCD%E8%A1%A8%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92%E6%95%B4%E5%82%99%E3%81%99%E3%82%8B&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FCCD%25E8%25A1%25A8%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=CCD%E8%A1%A8%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92%E6%95%B4%E5%82%99%E3%81%99%E3%82%8B&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FCCD%25E8%25A1%25A8%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                
+                 <a class="m-entry__page-navigation-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/" itemprop="item" >
+                    
+                        べんきょう
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/" itemprop="item" >
+                    
+                        Projects
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/" itemprop="item" >
+                    
+                        201909_Qrep整備
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" itemprop="item" >
+                    
+                        CCD表の環境を整備する
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://pages.github.ibm.com/YUENDO/yuendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/">
+                    <span class="m-aside-widget__category-list-link-title" >201909_Qrep整備
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-1/">
+                        <span class="m-aside-widget__tags-list-item-link-name">dummy tag 1</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">dummy tag 2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

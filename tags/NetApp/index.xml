@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NetApp on YuKB</title>
+    <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/</link>
+    <description>Recent content in NetApp on YuKB</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Wed, 05 Aug 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NetApp ONTAPのEOS</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/ONTAP%E3%81%AEEOS/</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/ONTAP%E3%81%AEEOS/</guid>
+      <description>ONTAPのEOS ONTAPのサポートポリシー ONTAPのサポート期間はFull SupportとLimited SupportとSelf-se</description>
+    </item>
+    
+  </channel>
+</rss>

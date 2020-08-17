@@ -6,17 +6,62 @@
     <description>Recent content in Tags on YuKB</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Thu, 20 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://pages.github.ibm.com/YUENDO/yuendo/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>dummy tag 3</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-3/</link>
-      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+      <title>NetApp</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-3/</guid>
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/</link>
+      <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Db2</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MQ</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Qrep</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RHEL</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</guid>
       <description></description>
     </item>
     
