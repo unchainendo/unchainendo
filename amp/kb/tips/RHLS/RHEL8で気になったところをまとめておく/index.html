@@ -127,17 +127,17 @@ cronだと何分後、何日後といった書き方はできないのでatの�
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># echoでスケジュールしたいコマンドを文字列として出力してatコマンドにパイプで渡す</span>
-$ <span class="nb">echo</span> <span class="s2">&#34;date &gt;&gt; ./test.txt&#34;</span> <span class="p">|</span> at now +3min
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># echoでスケジュールしたいコマンドを文字列として出力してatコマンドにパイプで渡す
+$ echo &#34;date &gt;&gt; ./test.txt&#34; | at now +3min
 warning: commands will be executed using /bin/sh
-job <span class="m">1</span> at Thu Mar <span class="m">21</span> 12:30:00 <span class="m">2019</span>
+job 1 at Thu Mar 21 12:30:00 2019
 
-<span class="c1"># atq または at -l でジョブを確認</span>
+# atq または at -l でジョブを確認
 $ atq
-<span class="m">1</span> Thu Mar <span class="m">21</span> 12:30:00 <span class="m">2019</span> a student
+1 Thu Mar 21 12:30:00 2019 a student
 
-<span class="c1"># ジョブ番号1のユーザージョブを削除</span>
-$ atrm <span class="m">1</span>
+# ジョブ番号1のユーザージョブを削除
+$ atrm 1
 </code></pre></td></tr></table>
 </div>
 </div><p>少し逸れるが<code>watch</code>コマンドってのも初めて知った。
