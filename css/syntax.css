@@ -4,6 +4,9 @@
     background-color: #272822;
     max-height: 400px; /* Change to your desired max height */
     overflow-y: scroll;
+    word-wrap: normal;
+    white-space: pre;
+
 }
 /* Error */ .chroma .err { color: #960050; background-color: #1e0010 }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
