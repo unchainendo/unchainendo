@@ -2,66 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on YuKB</title>
-    <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/</link>
+    <link>https://unchainendo.github.io/unchainendo/tags/</link>
     <description>Recent content in Tags on YuKB</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <lastBuildDate>Wed, 05 Aug 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://pages.github.ibm.com/YUENDO/yuendo/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://unchainendo.github.io/unchainendo/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>NetApp</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/</link>
+      <link>https://unchainendo.github.io/unchainendo/tags/NetApp/</link>
       <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/tags/NetApp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RHEL</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</link>
+      <link>https://unchainendo.github.io/unchainendo/tags/RHEL/</link>
       <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/tags/RHEL/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/</link>
+      <link>https://unchainendo.github.io/unchainendo/tags/kubernetes/</link>
       <pubDate>Fri, 26 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Db2</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/</link>
+      <link>https://unchainendo.github.io/unchainendo/tags/Db2/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/tags/Db2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MQ</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/</link>
+      <link>https://unchainendo.github.io/unchainendo/tags/MQ/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/tags/MQ/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Qrep</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/</link>
+      <link>https://unchainendo.github.io/unchainendo/tags/Qrep/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/tags/Qrep/</guid>
       <description></description>
     </item>
     

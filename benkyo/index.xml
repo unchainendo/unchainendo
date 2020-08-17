@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>べんきょう on YuKB</title>
-    <link>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/</link>
+    <link>https://unchainendo.github.io/unchainendo/benkyo/</link>
     <description>Recent content in べんきょう on YuKB</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <lastBuildDate>Wed, 05 Aug 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://unchainendo.github.io/unchainendo/benkyo/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
