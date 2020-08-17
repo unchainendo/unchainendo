@@ -258,20 +258,7 @@ FederationServer用DBのパス(今回は/data/db2fed)にアクセス権がある
 以降の作業は全てDBサーバー上で実施する。</p>
 <h4 id="federationserver用インスタンスの作成">FederationServer用インスタンスの作成</h4>
 <p>ターゲットDBと同一インスタンスに構成しても良いが、今回はターゲットDBに極力影響しない範囲で実装するためインスタンスごと分ける。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># インスタンスオーナーにスイッチ</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># インスタンスオーナーにスイッチ</span>
 su - fedmin
 
 <span class="c1"># FederationServer用インスタンスの作成</span>
@@ -280,40 +267,18 @@ su - fedmin
 
 <span class="c1"># インスタンス確認</span>
 /opt/IBM/db2/V11.5/instance/db2ilist
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="db2ライセンス適用">Db2ライセンス適用</h4>
+</code></pre></div><h4 id="db2ライセンス適用">Db2ライセンス適用</h4>
 <p>Developer-Cライセンスを削除してStandard Editionライセンスを適用する。<br>
 手順は<a href="https://pages.github.ibm.com/YUENDO/yuendo/posts/q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">Qアプライ環境構築手順</a>参照。</p>
 <h4 id="federationserver用インスタンスの起動">FederationServer用インスタンスの起動</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">db2start
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="ターゲットdbソースdbのカタログ">ターゲットDB、ソースDBのカタログ</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">db2start
+</code></pre></div><h4 id="ターゲットdbソースdbのカタログ">ターゲットDB、ソースDBのカタログ</h4>
 <p>FederationServerとしてはソースDBしか見に行かないが、同じ環境からターゲットDBにも接続できた方が
 export→diffの操作が楽になるので両方ともカタログしておく。
 手順は<a href="https://pages.github.ibm.com/YUENDO/yuendo/posts/q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">Qアプライ環境構築手順</a>参照。</p>
 <h4 id="dbm構成パラメータの変更">DBM構成パラメータの変更</h4>
 <p>作成したインスタンスをFederationServerとして使うための設定。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># DBM構成パラメータの変更</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># DBM構成パラメータの変更</span>
 db2 update dbm cfg using FEDERATED YES
 
 <span class="c1"># インスタンス再起動(設定反映のため)</span>
@@ -322,57 +287,20 @@ db2start
 
 <span class="c1"># DBM構成パラメータの確認</span>
 db2 get dbm cfg <span class="p">|</span> grep FEDERATED
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="federationserver用dbの作成">FederationServer用DBの作成</h4>
+</code></pre></div><h4 id="federationserver用dbの作成">FederationServer用DBの作成</h4>
 <p>無駄な文字コード変換を避けるためターゲットDBと同じコードセットで作成する。(作成後は変更不可)
 ページサイズは32Kとする。order byしてexportする際に一時表スペースが溢れないようにするため。<br>
 以降、FederationServer用DBは「FEDDB」とする。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># FederationServer用DBの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># FederationServer用DBの作成</span>
 <span class="c1"># db2 create db &lt;DB名&gt; on &lt;データパス&gt; using codeset &lt;コードセット&gt; territory JP collate using identity pagesize 32K</span>
 db2 create db FEDDB on /data/db2fed using codeset IBM-943 territory JP collate using identity pagesize 32K
 
 <span class="c1"># DB一覧の確認</span>
 db2 list db directory
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="nickname定義用ユーザーへの管理者権限付与">NICKNAME定義用ユーザーへの管理者権限付与</h4>
+</code></pre></div><h4 id="nickname定義用ユーザーへの管理者権限付与">NICKNAME定義用ユーザーへの管理者権限付与</h4>
 <p>NICKNAME作成やFederationServer経由のexportはNICKNAME定義用ユーザーで行うため、
 FEDDBの管理者権限をNICKNAME定義用ユーザーへ付与する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># FEDDBへdb2connect</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># FEDDBへdb2connect</span>
 db2 connect to FEDDB
 
 <span class="c1"># NICKNAME定義用ユーザー(fedsys)にDBADM権限を付与</span>
@@ -391,35 +319,12 @@ su - fedsys
 <span class="c1">#     . /home/fedmin01/sqllib/db2profile</span>
 <span class="c1"># fi</span>
 vi ~/.bashrc
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="ラッパーサーバーユーザーマッピングの作成">ラッパー、サーバー、ユーザーマッピングの作成</h4>
+</code></pre></div><h4 id="ラッパーサーバーユーザーマッピングの作成">ラッパー、サーバー、ユーザーマッピングの作成</h4>
 <p>ホストのソースDBに接続するためのwrapper, server, user mappingを作成する。
 以降の作業はNICKNAME定義用ユーザー(fedsys)で行う。<br>
 serverはNICKNAME作成時に指定する。<br>
 これでFederationServerとしての環境設定は完了。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># wrapperの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># wrapperの作成</span>
 <span class="c1"># db2 create wrapper &lt;wrapper名&gt;</span>
 db2 create wrapper drda
 
@@ -436,9 +341,7 @@ db2 <span class="s2">&#34;select * from syscat.servers&#34;</span>
 <span class="c1"># user mappingの作成</span>
 <span class="c1"># create user mapping for USER server &lt;server名&gt; options(remote_authid &#39;&lt;ソースDB接続ユーザー名&gt;&#39;,remote_password &#39;&lt;パスワード&gt;&#39;)</span>
 create user mapping <span class="k">for</span> USER server HOST_SOURCE options<span class="o">(</span>remote_authid <span class="s1">&#39;qrep_source&#39;</span>,remote_password <span class="s1">&#39;xxxxxx&#39;</span><span class="o">)</span>
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
         </div>
         <div class="m-entry__footer">
             <div class="m-entry__footer-sns-buttons">

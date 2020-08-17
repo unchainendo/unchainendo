@@ -223,44 +223,7 @@
 <h4 id="metrics-serverの実装">Metrics Serverの実装</h4>
 <p>Metrix Serverを動かすにはGitからyamlファイル群を落としてきて<code>kubectl apply -f .</code>すればよい。
 以下は研修用のURLなので実際に使うときにはちゃんと調べないといけない。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
 Cloning into <span class="s1">&#39;kubernetes-metrics-server&#39;</span>...
 remote: Enumerating objects: 3, <span class="k">done</span>.
 remote: Counting objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, <span class="k">done</span>.
@@ -293,24 +256,9 @@ deployment.apps/metrics-server created
 service/metrics-server created
 clusterrole.rbac.authorization.k8s.io/system:metrics-server created
 clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="metrics-serverによる稼働状況の確認">Metrics Serverによる稼働状況の確認</h4>
+</code></pre></div><h4 id="metrics-serverによる稼働状況の確認">Metrics Serverによる稼働状況の確認</h4>
 <p>NodeやPodを引数にとってそれぞれのリソース使用率を確認できる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl top node
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl top node
 NAME     CPU<span class="o">(</span>cores<span class="o">)</span>   CPU%   MEMORY<span class="o">(</span>bytes<span class="o">)</span>   MEMORY%
 master   153m         7%     1203Mi          63%
 node01   1996m        99%    919Mi           23%
@@ -319,38 +267,11 @@ NAME       CPU<span class="o">(</span>cores<span class="o">)</span>   MEMORY<spa
 elephant   14m          50Mi
 lion       943m         1Mi
 rabbit     968m         1Mi
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="logging関連">Logging関連</h3>
+</code></pre></div><h3 id="logging関連">Logging関連</h3>
 <h4 id="podやcontainerのログを確認する">PodやContainerのログを確認する</h4>
 <p><code>kubectl logs &lt;Pod名&gt;</code>でログを出力できる。<code>-f</code>オプションで垂れ流し。
 Podに複数Containerが含まれる場合はこのままだとエラーが出てしまうので、Pod名の後ろにContainer名をつける。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp-1&#34;Podのログを確認</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp-1&#34;Podのログを確認</span>
 $ kubectl logs -f webapp-1
 <span class="o">[</span>2020-06-23 05:45:42,111<span class="o">]</span> INFO in event-simulator: USER2 is viewing page2
 <span class="o">[</span>2020-06-23 05:45:43,113<span class="o">]</span> INFO in event-simulator: USER4 is viewing page3
@@ -371,9 +292,7 @@ $ kubectl logs webapp-2 simple-webapp
 <span class="o">[</span>2020-06-23 05:47:41,747<span class="o">]</span> INFO in event-simulator: USER4 is viewing page3
 <span class="o">[</span>2020-06-23 05:47:42,749<span class="o">]</span> INFO in event-simulator: USER2 is viewing page1
 <span class="o">[</span>2020-06-23 05:47:43,750<span class="o">]</span> WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
-</code></pre></td></tr></table>
-</div>
-</div><p>非常にシンプルだけどCKAとしてはこれ以上踏み込まないようだ。
+</code></pre></div><p>非常にシンプルだけどCKAとしてはこれ以上踏み込まないようだ。
 MonitorとLoggingは情報量少ないなあ。まあCKAとしてはこんなもんなのかな。</p>
 
         </div>

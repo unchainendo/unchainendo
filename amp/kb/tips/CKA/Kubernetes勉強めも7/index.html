@@ -85,27 +85,7 @@ YAMLでは<code>spec.volumes</code>でVolumeの設定を行い、<code>spec.cont
 注意点としては、Podは稼働NodeのディレクトリをマウントするのでどのNodeでどのPodが稼働するかわからないような構成の場合は
 なんのデータがどのNodeにあるかわからなくなってしまうし、場合によっては複数Podが一つのディレクトリをマウントする可能性もあるので利用時はその特性を考慮しなければいけない。
 DaemonSetであれば各Nodeで均等にContainerが稼働するので各Containerのログ保管などで活用できるかもしれない。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">apiVersion: v1
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apiVersion: v1
 kind: Pod
 metadata:
   name: test-pd
@@ -121,38 +101,10 @@ spec:
     hostPath:
       path: /data
       type: Directory
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="persistentvolume">PersistentVolume</h4>
+</code></pre></div><h4 id="persistentvolume">PersistentVolume</h4>
 <p>予めVolumeを定義してPodから利用する場合は<code>PersistentVolume</code>を利用する。
 <code>local</code>とする場合は<code>spec.nodeAffinity</code>の設定(どのNodeのローカルストレージを利用するか)が必須。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolume<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>example-pv<span class="w">
@@ -174,34 +126,11 @@ spec:
 </span><span class="w">          </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
 </span><span class="w">          </span><span class="k">values</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span>- example-node<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="persistentvolumeclaim">PersistentVolumeClaim</h4>
+</span></code></pre></div><h4 id="persistentvolumeclaim">PersistentVolumeClaim</h4>
 <p>PersistentVolumeを利用するためにPersistentVolumeClaimを定義する。
 PersistentVolumeClaimにはどのようなVolumeが必要かってことを書いておいて、そこに適切なPersistentVolumeがアサインされる。
 PVはPVCの<code>spec.resources.requests.storage</code>を満たすだけでなく、<code>spec.accessModes</code>も合致していないといけない。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>myclaim<span class="w">
@@ -218,9 +147,7 @@ PVはPVCの<code>spec.resources.requests.storage</code>を満たすだけでな�
 </span><span class="w">      </span><span class="k">release</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;stable&#34;</span><span class="w">
 </span><span class="w">    </span><span class="k">matchExpressions</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span>- {<span class="k">key: environment, operator: In, values</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>dev<span class="p">]</span>}<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>PVCが作成されたときに、条件に合致するPVが存在していれば自動的にアサインされる。</p>
+</span></code></pre></div><p>PVCが作成されたときに、条件に合致するPVが存在していれば自動的にアサインされる。</p>
 
         </div>
     </article>

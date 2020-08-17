@@ -280,42 +280,14 @@ Qキャプチャー、Qアプライを稼働させる環境</li>
 <h4 id="qアプライ実行ユーザー環境設定">Qアプライ実行ユーザー環境設定</h4>
 <p>IDRサーバー上のQアプライ実行ユーザー(db2qrep)はCCD環境としても共用するが、ログやIPCファイル、パスワードファイルの格納場所は分けておきたいので、CCD環境専用のディレクトリを作成してそこをcapture_path、apply_pathとする。
 以降の作業は基本的にQアプライ実行ユーザー(db2qrep)で実施する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CCD用ディレクトリの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CCD用ディレクトリの作成</span>
 su - db2qrep
 mkdir /home/db2qrep/qrep_ccd
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="3-mq設定">3. MQ設定</h3>
+</code></pre></div><h3 id="3-mq設定">3. MQ設定</h3>
 <h4 id="mqオブジェクトの作成">MQオブジェクトの作成</h4>
 <p>CCD環境用のMQオブジェクトを作成する。
 CCD環境は同一サーバー内でQキャプチャーとQアプライが稼働するためチャネル接続用のオブジェクト(チャネルやリスナー)は不要。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQオブジェクト作成用スクリプトの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQオブジェクト作成用スクリプトの作成</span>
 <span class="nb">cd</span> /home/db2qrep/MQ
 cat &gt; ./create_ccd_mqobjects.txt <span class="s">&lt;&lt; EOF
 </span><span class="s">define qlocal(&lt;データキュー名&gt;) MAXDEPTH(1000000)
@@ -330,26 +302,10 @@ runmqsc QMG &lt; ./create_ccd_mqobjects.txt
 
 <span class="c1"># MQオブジェクトの確認</span>
 <span class="nb">echo</span> <span class="s2">&#34;display qstatus(*)&#34;</span> <span class="p">|</span> runmqsc QMG
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="4-qrep設定">4. Qrep設定</h3>
+</code></pre></div><h3 id="4-qrep設定">4. Qrep設定</h3>
 <h4 id="パスワードファイルの作成">パスワードファイルの作成</h4>
 <p>CCD環境用ディレクトリにパスワードファイルを生成してターゲットDBの認証情報を登録する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パスワードファイルの生成(カレントディレクトリに生成される)</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パスワードファイルの生成(カレントディレクトリに生成される)</span>
 <span class="nb">cd</span> /home/db2qrep/qrep
 asnpwd init encrypt password
 
@@ -359,63 +315,10 @@ asnpwd add <span class="nb">alias</span> TARGETDB id qrep_target password xxxxxx
 
 <span class="c1"># エントリ確認</span>
 asnpwd list
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="制御表作成">制御表作成</h4>
+</code></pre></div><h4 id="制御表作成">制御表作成</h4>
 <p>制御表作成用のスクリプトを作成してasnclpコマンドで実行する。
 キャプチャー制御表はモニター間隔、上限(MONITOR INTERVAL, MONITOR LIMIT)をパラメータとして与える。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義関連スクリプトの配置先ディレクトリを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義関連スクリプトの配置先ディレクトリを作成</span>
 <span class="nb">cd</span> /home/db2qrep/QREP/define
 
 <span class="c1"># キャプチャー制御表作成スクリプトを作成</span>
@@ -462,41 +365,11 @@ asnclp -f ./create_apply_ctltable.txt
 db2 connect to TARGETDB user qrep_ccd using xxxxxx
 db2 list tables <span class="k">for</span> schema qrep_ccd
 db2 list tables <span class="k">for</span> schema asn
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="qマップの作成">Qマップの作成</h4>
+</code></pre></div><h4 id="qマップの作成">Qマップの作成</h4>
 <p>Qマップも同じように作成用スクリプトを用意して実行する。
 ここではアプライエージェント数(NUM APPLY AGENTS)とハートビート間隔(HEARTBEAT INTERVAL)と最大メッセージサイズ(MAX MESSAGE SIZE)を指定。
 ※本来のQレプリケーションとは異なり、今回はCCD表なのでアプライエージェント数(NUM APPLY AGENTS)は1とする。CCD表への複数アプライエージェントによる差分適用は順序(整合性)が保たれないため。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qマップ作成スクリプトを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qマップ作成スクリプトを作成</span>
 cat &gt; ./create_ccd_qmap.txt <span class="s">&lt;&lt; EOF
 </span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
 </span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
@@ -520,9 +393,7 @@ asnclp -f ./create_ccd_qmap.txt
 
 <span class="c1"># Qマップが作成されたことを確認</span>
 db2 <span class="s2">&#34;select * from qrep_ccd.ibmqrep_recvqueues&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="制御表の変更">制御表の変更</h4>
+</code></pre></div><h4 id="制御表の変更">制御表の変更</h4>
 <p>設計したパラメータを制御表に入れ込んでいく。
 以下の4つのパラメータに対して入れ込むパラメータは基本的にもともとのQレプリケーション環境と一緒。</p>
 <ul>
@@ -584,54 +455,7 @@ Qsub起動時にフルリフレッシュを行わない。
 <li>CAPTURE LOAD W (デフォルト、指定なし)
 ソース表へのロード処理を検知したら警告を出す。(フルリフレッシュは行わない)</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qサブスクリプション作成用スクリプトの準備</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qサブスクリプション作成用スクリプトの準備</span>
 <span class="nb">cd</span> /home/db2qrep/QREP/define
 cat &gt; ./create_qsub_test_ccd.txt <span class="s">&lt;&lt; EOF
 </span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
@@ -674,53 +498,9 @@ db2 <span class="s2">&#34;select SUBNAME,STATE from qrep_ccd.ibmqrep_subs&#34;</
 <span class="c1"># CCD表の確認</span>
 db2 describe table &lt;ターゲット表スキーマ&gt;.&lt;ターゲット表名&gt;
 db2 <span class="s2">&#34;select * from &lt;ターゲット表スキーマ&gt;.&lt;ターゲット表名&gt;
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="qキャプチャーアプライの起動">Qキャプチャー・アプライの起動</h4>
+</span></code></pre></div><h4 id="qキャプチャーアプライの起動">Qキャプチャー・アプライの起動</h4>
 <p>Qキャプチャー起動、停止のシェルスクリプトを作成して起動・停止できることを確認する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qキャプチャー起動スクリプトの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qキャプチャー起動スクリプトの作成</span>
 cat /xxx/xxx/ccd_capturestart.sh <span class="s">&lt;&lt; EOF
 </span><span class="s">export DB2CODEPAGE=943
 </span><span class="s">export TMPDIR=/home/db2qrep/qrep
@@ -758,9 +538,7 @@ chown u+x /xxx/xxx/ccd_applystop.sh
 
 <span class="c1"># プロセスを確認</span>
 ps -ef <span class="p">|</span> grep asnqapp <span class="p">|</span> grep -v grep
-</code></pre></td></tr></table>
-</div>
-</div><p>あとはテスト用Qsubを起動してqrep_target以外のユーザーが対象テーブルを更新するとCCD表に変更履歴が格納されることを確認すればOK。</p>
+</code></pre></div><p>あとはテスト用Qsubを起動してqrep_target以外のユーザーが対象テーブルを更新するとCCD表に変更履歴が格納されることを確認すればOK。</p>
 
         </div>
         <div class="m-entry__footer">

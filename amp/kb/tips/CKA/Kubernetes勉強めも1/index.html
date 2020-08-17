@@ -79,31 +79,7 @@
 <p><code>kubectl get pods</code>で簡単に確認可能。
 オプション省略時は<code>default</code>のNamespace、指定する場合は<code>--namespace</code>を使う。
 オプションに値を指定するときは<code>=xxx</code>でも<code> xxx</code>でも良いみたい。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># default NamespaceのPod一覧を表示</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># default NamespaceのPod一覧を表示</span>
 $ kubectl get pods
 NAME    READY   STATUS    RESTARTS   AGE
 nginx   1/1     Running   <span class="m">0</span>          24s
@@ -123,9 +99,7 @@ kube-keepalived-vip-xktmr                 1/1     Running   <span class="m">0</s
 kube-proxy-7p46n                          1/1     Running   <span class="m">0</span>          14m
 kube-proxy-d22fh                          1/1     Running   <span class="m">0</span>          15m
 kube-scheduler-master                     1/1     Running   <span class="m">0</span>          15m
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="コマンドでpodを作成する">コマンドでPodを作成する</h4>
+</code></pre></div><h4 id="コマンドでpodを作成する">コマンドでPodを作成する</h4>
 <p><code>kubectl run xxx</code>とオプションフル活用でyamlなしでいろいろ作成できてしまう。
 一番シンプルで初歩的な使い方は以下のとおり。
 <code>--restart=Never</code>としているところは3つ選択肢があり、</p>
@@ -136,34 +110,12 @@ kube-scheduler-master                     1/1     Running   <span class="m">0</s
 と、作成されるものがかわってくるとのこと。
 <a href="https://qiita.com/oguogura/items/2d7df2b645063dc47804">kubernetesのrestartPolicyを理解する</a></li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl run nginx --image<span class="o">=</span>nginx --restart<span class="o">=</span>Never
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl run nginx --image<span class="o">=</span>nginx --restart<span class="o">=</span>Never
 pod/nginx created
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="yamlでpodを定義する">yamlでPodを定義する</h4>
+</code></pre></div><h4 id="yamlでpodを定義する">yamlでPodを定義する</h4>
 <p>ベースとなるテンプレートに必要な情報はこれだけ。
 <code>containers</code>のアレイに書き足していくことでPodを構成するコンテナを定義する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>myapp-pod<span class="w">
@@ -173,93 +125,11 @@ pod/nginx created
 </span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx-container<span class="w">
 </span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="podの詳細情報を確認する">Podの詳細情報を確認する</h4>
+</span></code></pre></div><h4 id="podの詳細情報を確認する">Podの詳細情報を確認する</h4>
 <p>詳細情報は<code>kubectl describe pods</code>。
 特定のPodの情報だけを確認したければ最後にPod名を指定する。
 descirbeするとどのNodeで稼働しているか、何のImageを使っているか、どんなContainerが動いているか、等々いろんなことがわかる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 全Podの詳細情報を表示</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 全Podの詳細情報を表示</span>
 $ kubectl describe pods
 Name:         newpods-8p4hg
 Namespace:    default
@@ -335,37 +205,17 @@ Events:
   Normal  Pulled     8m20s  kubelet, node01    Successfully pulled image <span class="s2">&#34;nginx&#34;</span>
   Normal  Created    8m18s  kubelet, node01    Created container nginx
   Normal  Started    8m18s  kubelet, node01    Started container nginx
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="podを削除する">Podを削除する</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp&#34;Podを削除</span>
+</code></pre></div><h4 id="podを削除する">Podを削除する</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp&#34;Podを削除</span>
 $ kubectl delete pod webapp
 pod <span class="s2">&#34;webapp&#34;</span> deleted
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="podの情報を編集する">Podの情報を編集する</h4>
+</code></pre></div><h4 id="podの情報を編集する">Podの情報を編集する</h4>
 <p>YAMLファイルを修正してApplyするか<code>kubectl edit pod</code>するかの2通りある。
 当然きちんとした手順は前者だけれども簡単に済ませたいとき、<code>kubectl run</code>で作ったPodを編集するときはeditが便利。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;radis&#34;Podの情報を編集</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;radis&#34;Podの情報を編集</span>
 $ kubectl edit pod radis
 <span class="o">(</span>viでyamlが開くので修正して保存<span class="p">&amp;</span>閉じる<span class="o">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="replicaset関連">ReplicaSet関連</h3>
+</code></pre></div><h3 id="replicaset関連">ReplicaSet関連</h3>
 <h4 id="replicationcontrollerとapiversion">ReplicationControllerとapiVersion</h4>
 <p>ReplicationControllerの定義の1行目は<code>apiVersion: v1</code>だがReplicaSetは<code>apiVersion: apps/v1</code>に変わっている。
 間違うと当然エラーになってしまうので注意が必要なところ。</p>
@@ -379,31 +229,7 @@ $ kubectl edit pod radis
 <code>matchExplessions</code>はoperator(<code>In</code>,<code>NotIn</code>,<code>Exists</code>,<code>DoesNotExists</code>)を使って柔軟に選択できる。</p>
 <p><code>template</code>ではReplicasetが生成するPodの情報を指定する。
 当然ながら、上の<code>selector</code>の条件に合ったものを定義しないときちんと生成されない。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ReplicaSet<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>frontend<span class="w">
@@ -423,52 +249,11 @@ $ kubectl edit pod radis
 </span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>php-redis<span class="w">
 </span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>gcr.io/google_samples/gb-frontend<span class="p">:</span>v3<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="replicasetの状態を確認する">ReplicaSetの状態を確認する</h4>
+</span></code></pre></div><h4 id="replicasetの状態を確認する">ReplicaSetの状態を確認する</h4>
 <p>Podと同様、<code>get</code>または<code>describe</code>で確認できる。
 <code>get</code>の方で表示される<code>DESIRED</code>は<code>replicas</code>で指定したレプリカ数、<code>CURRENT</code>は起動中のPod数、<code>READY</code>がエラーなく起動しているPod数。
 <code>replicaset</code>って毎回入力するのは大変なので略称の<code>rs</code>を使う。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ReplicaSet一覧を表示</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ReplicaSet一覧を表示</span>
 $ kubectl get rs
 NAME              DESIRED   CURRENT   READY   AGE
 new-replica-set   <span class="m">4</span>         <span class="m">4</span>         <span class="m">0</span>       15s
@@ -503,38 +288,13 @@ Events:
   Normal  SuccessfulCreate  59s   replicaset-controller  Created pod: new-replica-set-rvzrg
   Normal  SuccessfulCreate  59s   replicaset-controller  Created pod: new-replica-set-wp89m
   Normal  SuccessfulCreate  59s   replicaset-controller  Created pod: new-replica-set-bflp4
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="replicasetのスケール">ReplicaSetのスケール</h4>
+</code></pre></div><h4 id="replicasetのスケール">ReplicaSetのスケール</h4>
 <p>検証用途など簡単に作って試しているような環境では<code>kubectl scale</code>や<code>kubectl edit</code>でぱぱっとスケールできる。
 YAMLファイルで管理している場合は<code>replicas</code>の値を変更して<code>kubectl apply</code>でOK。簡単。</p>
 <h3 id="deployment関連">Deployment関連</h3>
 <h4 id="yamlでdeploymentを定義する">YAMLでDeploymentを定義する</h4>
 <p>基本的な設定項目はReplicaSetとほぼ同じ。というか<code>kind</code>以外全く一緒。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
@@ -553,32 +313,9 @@ YAMLファイルで管理している場合は<code>replicas</code>の値を変�
 </span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
 </span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>Deploymentを作成すると自動的にReplicaSetが作成され、その中にPodが作成される。
+</span></code></pre></div><p>Deploymentを作成すると自動的にReplicaSetが作成され、その中にPodが作成される。
 <code>kubectl get all</code>を使うと全リソースを表示させることができるけれど、こんなのいつ使うんだろう。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Deploymentの一覧を表示</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Deploymentの一覧を表示</span>
 $ kubectl get deploy
 NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
 frontend-deployment   0/4     <span class="m">4</span>            <span class="m">0</span>           12s
@@ -595,72 +332,29 @@ frontend-deployment-66687b8d77-4wp6w   0/1     ErrImagePull   <span class="m">0<
 frontend-deployment-66687b8d77-52vr4   0/1     ErrImagePull   <span class="m">0</span>          41s
 frontend-deployment-66687b8d77-729hx   0/1     ErrImagePull   <span class="m">0</span>          41s
 frontend-deployment-66687b8d77-qlwln   0/1     ErrImagePull   <span class="m">0</span>          41s
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="namespace関連">Namespace関連</h3>
+</code></pre></div><h3 id="namespace関連">Namespace関連</h3>
 <h4 id="kubernetesリソース作成時にnamespaceを指定する">Kubernetesリソース作成時にNamespaceを指定する</h4>
 <p>Namespaceを明示的に指定して<code>default</code>以外のNamespaceを利用するときは、<code>--namespace=&lt;Namespace名&gt;</code>オプションをつけるか、リソース定義のYAMLファイルのmetadataセクションに<code>namespace: &lt;Namespace名&gt;</code>を指定する。
 YAMLファイルをNamespace間で流用するなら前者、NamespaceごとにYAMLを分けるなら後者か。</p>
 <h4 id="namespaceを作成する">Namespaceを作成する</h4>
 <p>Namespaceを作成するときのYAMLの書き方は以下のとおり。
 Namespaceだから名前決めればOK。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Namespace<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>dev<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>Namespaceは設定も名前だけだし一回作って終わりだろうからコマンドだけで作ってしまっても良いかもしれない。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;dev&#34;Namespaceを作成</span>
+</span></code></pre></div><p>Namespaceは設定も名前だけだし一回作って終わりだろうからコマンドだけで作ってしまっても良いかもしれない。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;dev&#34;Namespaceを作成</span>
 $ kubectl create namespace dev
 namespace/dev created
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="現在のcontextにnamespaceをセットする">現在のContextにNamespaceをセットする</h4>
+</code></pre></div><h4 id="現在のcontextにnamespaceをセットする">現在のContextにNamespaceをセットする</h4>
 <p><code>default</code>以外のNamespaceを使う場合、毎回<code>--namespace=dev</code>と指定しなくて済むようにNamespaceを現在のContextにセットすることができる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 現在のContextに&#34;dev&#34;Namespaceをセット</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 現在のContextに&#34;dev&#34;Namespaceをセット</span>
 $ kubectl config set-context <span class="k">$(</span>kubectl config current context<span class="k">)</span> --namespace<span class="o">=</span>dev
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="resource-quotaを使ってnamespaceにアサイン可能なリソースを制限する">Resource Quotaを使ってNamespaceにアサイン可能なリソースを制限する</h4>
+</code></pre></div><h4 id="resource-quotaを使ってnamespaceにアサイン可能なリソースを制限する">Resource Quotaを使ってNamespaceにアサイン可能なリソースを制限する</h4>
 <p>Resource Quotaを使うとNamespaceごとにリソースの条件を設けることができる。
 テンプレートは以下のような感じで、metadataにNamespace名を指定することで個別に設定できる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ResourceQuota<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>object-quota-demo<span class="w">
@@ -670,27 +364,9 @@ $ kubectl config set-context <span class="k">$(</span>kubectl config current con
 </span><span class="w">    </span><span class="k">persistentvolumeclaims</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
 </span><span class="w">    </span><span class="k">services.loadbalancers</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
 </span><span class="w">    </span><span class="k">services.nodeports</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="namespace一覧を確認する">Namespace一覧を確認する</h4>
+</span></code></pre></div><h4 id="namespace一覧を確認する">Namespace一覧を確認する</h4>
 <p>Namespaceの略称は<code>ns</code>で、ちなみに<code>--namespace</code>オプションは<code>-n</code>でもOKとのこと。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get ns
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get ns
 NAME              STATUS   AGE
 default           Active   57m
 dev               Active   21s
@@ -702,9 +378,7 @@ manufacturing     Active   21s
 marketing         Active   21s
 prod              Active   21s
 research          Active   21s
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="service関連">Service関連</h3>
+</code></pre></div><h3 id="service関連">Service関連</h3>
 <h4 id="seriviceの種類">Seriviceの種類</h4>
 <p>Serviceはざっくりと以下の3つに分類される。</p>
 <ul>
@@ -720,24 +394,7 @@ NodePortは30000~32767のレンジの中で割り当てなければいけない�
 例) Node1の30008番ポートをその内部で稼働するPod1の80番ポートに紐付ける
 → http://&lt;Node1のIPアドレス&gt;:30008 でPod1のWebサービスにアクセスできるようになる。</p>
 <p>NodePortのYAMLマニフェストは以下のとおり。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-service<span class="w">
@@ -750,9 +407,7 @@ NodePortは30000~32767のレンジの中で割り当てなければいけない�
 </span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>myapp<span class="w">
 </span><span class="w">    </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>front-end<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p><code>targetPort</code>がPodのポート、つまり公開しているアプリケーションへの接続ポート。
+</span></code></pre></div><p><code>targetPort</code>がPodのポート、つまり公開しているアプリケーションへの接続ポート。
 指定しないと次の<code>port</code>と同じものが割り当てられる。
 <code>port</code>がServiceオブジェクトそのものにアクセスするときのポート。
 <code>nodePort</code>は外部に公開するノードのポート。
@@ -768,21 +423,7 @@ selectorに合致するPodが複数あれば、Serviceがランダムに振り�
 <p>クラスタ内でVIPを生成する。
 当然ながら、クラスタ外からはアクセスできないので、主にクラスタ内のService間の通信で使われる。
 YAMLはNodePortとほとんど一緒。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-service<span class="w">
@@ -792,41 +433,21 @@ YAMLはNodePortとほとんど一緒。</p>
 </span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- <span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
 </span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="deploymentを公開するためのserviceを作成する">Deploymentを公開するためのServiceを作成する</h4>
+</span></code></pre></div><h4 id="deploymentを公開するためのserviceを作成する">Deploymentを公開するためのServiceを作成する</h4>
 <p>Deploymentが存在する場合は<code>expose deployment</code>してYAMLファイルを生成するとselectorに適切な情報が入る。
 deploymentのところをPodにすればPodもexposeできる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl expose deployment simple-weball-deployment --type<span class="o">=</span>NodePort --target-port<span class="o">=</span><span class="m">8080</span> --port<span class="o">=</span><span class="m">8080</span> --name<span class="o">=</span>webapp-service --dry-run -o yaml &gt; svc.yaml
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="kubectl関連">kubectl関連</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl expose deployment simple-weball-deployment --type<span class="o">=</span>NodePort --target-port<span class="o">=</span><span class="m">8080</span> --port<span class="o">=</span><span class="m">8080</span> --name<span class="o">=</span>webapp-service --dry-run -o yaml &gt; svc.yaml
+</code></pre></div><h3 id="kubectl関連">kubectl関連</h3>
 <h4 id="各リソースのyamlを生成する">各リソースのYAMLを生成する</h4>
 <p>リソース作成コマンドに<code>-o yaml</code>と<code>--dry-run</code>オプションをつければYAMLの雛形が出力される。
 あとはファイルにリダイレクトするだけ。
 <code>creationTimestamp</code>などのゴミもはいっちゃうので消してから使うこと。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># PodのYAMLマニフェスト</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># PodのYAMLマニフェスト</span>
 $ kubectl run &lt;Pod名&gt; --image<span class="o">=</span>&lt;Image名&gt; --restart<span class="o">=</span>Never --dry-run -o yaml &gt; pod.yaml
 
 <span class="c1"># DeploymentのYAMLマニフェスト</span>
 $ kubectl run &lt;Deployment名&gt; ‐-image<span class="o">=</span>&lt;Image名&gt; --dry-run -o yaml &gt; deployment.yaml
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
         </div>
     </article>
 

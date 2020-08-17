@@ -271,24 +271,7 @@ Qアプライを稼働させる環境</li>
 <h4 id="mqserverインストール">MQServerインストール</h4>
 <p>mqmユーザー、グループはインストール時に自動的に作成される。
 UID、GIDを指定したい場合は事前に作成しておくこと。(※mqmユーザーのホームディレクトリは<code>/var/mqm</code>にすること。)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQインストールモジュールの解凍</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQインストールモジュールの解凍</span>
 tar -zxvf ./IBM_MQ_9.1.1_LINUX_X86-64.tar.gz
 
 <span class="c1"># ライセンス同意</span>
@@ -301,36 +284,12 @@ rpm -ivh ./MQSeries*.rpm
 <span class="c1"># rpmインストール時にカーネルパラメータ(nofile)の警告が表示された場合はQアプライ実行ユーザー(MQ実行ユーザー)の</span>
 カーネルパラメータを変更する。
 vi /etc/security/limits.conf
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="qアプライ実行ユーザーの所属グループ追加">Qアプライ実行ユーザーの所属グループ追加</h4>
+</code></pre></div><h4 id="qアプライ実行ユーザーの所属グループ追加">Qアプライ実行ユーザーの所属グループ追加</h4>
 <p>Qアプライ実行ユーザーをmqmグループに追加する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">usermod -aG mqm db2qrep
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="db2インストール">Db2インストール</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">usermod -aG mqm db2qrep
+</code></pre></div><h4 id="db2インストール">Db2インストール</h4>
 <p>db2precheckをしてからインストーラを実行する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Db2インストールモジュールの解凍</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Db2インストールモジュールの解凍</span>
 tar -zxvf ./DB2_Svr_11.5_Linux_x86-64.tar.gz
 
 <span class="c1"># db2precheck実行</span>
@@ -341,50 +300,19 @@ tar -zxvf ./DB2_Svr_11.5_Linux_x86-64.tar.gz
 <span class="c1"># インストール実行</span>
 <span class="c1"># インストール先ディレクトリをデフォルトから変更する場合はインストール中に指定</span>
 ./db2_install
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="3-db2設定">3. Db2設定</h3>
+</code></pre></div><h3 id="3-db2設定">3. Db2設定</h3>
 <h4 id="db2インスタンスの作成">Db2インスタンスの作成</h4>
 <p>インスタンス作成ログは<code>/tmp/db2icrt.log</code>に出力される。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ用インスタンスの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ用インスタンスの作成</span>
 <span class="c1"># db2icrt -u &lt;インスタンスオーナー&gt; &lt;インスタンス名&gt;</span>
 /opt/ibm/db2/V11.5/instance/db2icrt -u db2qrep db2qrep
 
 <span class="c1"># インスタンスが作成されたことを確認</span>
 /opt/ibm/db2/V11.5/instance/db2ilist
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="qアプライ実行ユーザー環境設定">Qアプライ実行ユーザー環境設定</h4>
+</code></pre></div><h4 id="qアプライ実行ユーザー環境設定">Qアプライ実行ユーザー環境設定</h4>
 <p>Qアプライ用ディレクトリの作成とDb2Connect用ライセンスファイルの配置と環境変数(CLASSPATH)の設定を行う。
 Db2Connect用ライセンスファイルはIDRサーバーからホストにdb2connectする際に必要になる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ用ディレクトリの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ用ディレクトリの作成</span>
 su - db2qrep
 mkdir /home/db2qrep/qapp
 <span class="nb">exit</span>
@@ -397,38 +325,12 @@ chown db2qrep:xxx /home/db2qrep/qapp/db2jcc_license_cisuz.jar
 <span class="c1"># 以下の1行を追記</span>
 <span class="c1"># export CLASSPATH=$CLASSPATH:$HOME/qapp/db2jcc_license_cisuz.jar</span>
 vi /home/db2qrep/.bashrc
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="db2ライセンス適用">Db2ライセンス適用</h4>
+</code></pre></div><h4 id="db2ライセンス適用">Db2ライセンス適用</h4>
 <p>Db2のStandardライセンスとIDRのライセンスを適用する。
 IDRのライセンスが適用されていないとQアプライ起動処理が失敗する。
 Db2はインストール時にDeveloper-Cライセンスが適用されているので外しておく。<br>
 <a href="https://www.ibm.com/support/pages/db2-db2-v115-server-%E3%82%A8%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%A8-developer-c-%E3%81%8C%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%95%E3%82%8C%E3%82%8B">Db2 v11.5 Server エディションをインストールすると Developer-C がインストールされる</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ライセンスファイルの配置・オーナー変更(あらかじめ/tmpに配置してある前提)</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ライセンスファイルの配置・オーナー変更(あらかじめ/tmpに配置してある前提)</span>
 cp -p /tmp/xxx/xxx/db2std_vpc.lic /home/db2qrep/qapp/
 cp -p /tmp/xxx/xxx/idr4a.lic /home/db2qrep/qapp/
 chown db2qrep /home/db2qrep/qapp/db2std_vpc.lic
@@ -448,31 +350,11 @@ db2-licm -a /ibmwork/idr4a.lic
 
 <span class="c1"># 適用済みライセンスの確認</span>
 db2licm -l
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="db2文字コードの設定">Db2文字コードの設定</h4>
+</code></pre></div><h4 id="db2文字コードの設定">Db2文字コードの設定</h4>
 <p>今回はレジストリ変数と環境変数でDb2のコードセットをSJIS(943)に変更する。
 IDRサーバーのコードセットはターゲットDBのコードセットに合わせる。
 設定しなければOSの文字コード(RHELならUTF-8)が使用される。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># レジストリ変数の設定</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># レジストリ変数の設定</span>
 db2set <span class="nv">DB2CODEPAGE</span><span class="o">=</span><span class="m">943</span>
 
 <span class="c1"># レジストリ変数の確認</span>
@@ -486,45 +368,9 @@ vi /home/db2qrep/.bashrc
 <span class="c1"># 環境変数の読み込み、確認</span>
 . /home/db2qrep/.bashrc
 <span class="nb">echo</span> <span class="nv">$DB2CODEPAGE</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="ソースdbターゲットdbのカタログ">ソースDB、ターゲットDBのカタログ</h4>
+</code></pre></div><h4 id="ソースdbターゲットdbのカタログ">ソースDB、ターゲットDBのカタログ</h4>
 <p>IDRサーバーからソースDBとターゲットDBをカタログする。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ノードのカタログ</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ノードのカタログ</span>
 <span class="c1"># db2 catalog tcpip node &lt;ノード名&gt; remote &lt;ホスト名&gt; server &lt;ポート&gt;</span>
 <span class="c1"># データベースのカタログ</span>
 <span class="c1"># db2 catalog db &lt;DB名&gt; at node &lt;ノード名&gt;</span>
@@ -554,28 +400,8 @@ db2 connect to TARGETDB user qrep_target using xxxxxx
 
 <span class="c1"># ターゲットDBへの接続確認</span>
 db2 connect to SOURCEDB user qrep_source using xxxxxx
-</code></pre></td></tr></table>
-</div>
-</div><p>同様にDBサーバーからもソースDBをカタログする。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ホストノードのカタログ</span>
+</code></pre></div><p>同様にDBサーバーからもソースDBをカタログする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ホストノードのカタログ</span>
 db2 catalog tcpip node HOST remote host server <span class="m">7070</span>
 
 <span class="c1"># ターゲットDBのカタログ</span>
@@ -589,26 +415,9 @@ db2 list db directory
 
 <span class="c1"># ターゲットDBへの接続確認</span>
 db2 connect to SOURCEDB user qrep_source using xxxxxx
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="パスワードファイルの作成">パスワードファイルの作成</h4>
+</code></pre></div><h4 id="パスワードファイルの作成">パスワードファイルの作成</h4>
 <p>Qアプライ用ディレクトリにパスワードファイルを生成してソースDB、ターゲットDBの認証情報を登録する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パスワードファイルの生成(カレントディレクトリに生成される)</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パスワードファイルの生成(カレントディレクトリに生成される)</span>
 <span class="nb">cd</span> /home/db2qrep/qapp
 asnpwd init encrypt password
 
@@ -619,27 +428,11 @@ asnpwd add <span class="nb">alias</span> TARGETDB id qrep_target password xxxxxx
 
 <span class="c1"># エントリ確認</span>
 asnpwd list
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="4-mq設定">4. MQ設定</h3>
+</code></pre></div><h3 id="4-mq設定">4. MQ設定</h3>
 <h4 id="キューマネージャーの作成起動">キュー・マネージャーの作成、起動</h4>
 <p>キュー・マネージャーを作成して起動する。
 データパス、ログパス、ログファイルサイズ、ログファイル数等は作成時に設定する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># キュー・マネージャーの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># キュー・マネージャーの作成</span>
 <span class="c1"># crtmqm -lf &lt;ログファイルサイズ&gt; -lp &lt;1次ログファイル数&gt; -ls &lt;2次ログファイル数&gt; -x &lt;MAXUMSGS&gt; -ld &lt;ログパス&gt; -md &lt;データパス&gt; &lt;キュー・マネージャー名&gt;</span>
 crtmqm -lf <span class="m">40960</span> -lp <span class="m">20</span> -ls <span class="m">2</span> -x <span class="m">50000</span> -ld /var/mqm/log -md /var/mqm/qmgrs QMG
 
@@ -649,35 +442,9 @@ dspmq
 <span class="c1"># キュー・マネージャーの起動</span>
 <span class="c1"># strmqm &lt;キュー・マネージャー名&gt;</span>
 strmqm QMG
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="mqオブジェクトの作成">MQオブジェクトの作成</h4>
+</code></pre></div><h4 id="mqオブジェクトの作成">MQオブジェクトの作成</h4>
 <p>再利用できるようにMQオブジェクト作成用のスクリプトを作成しそれを使ってオブジェクトを作成する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQオブジェクト作成用スクリプトの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQオブジェクト作成用スクリプトの作成</span>
 mkdir /home/db2qrep/MQ
 <span class="nb">cd</span> /home/db2qrep/MQ
 cat &gt; ./create_apply_mqobjects.txt <span class="s">&lt;&lt; EOF
@@ -697,81 +464,33 @@ runmqsc QMG &lt; ./create_apply_mqobjects.txt
 <span class="nb">echo</span> <span class="s2">&#34;display channel(&lt;受信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc QMG
 <span class="nb">echo</span> <span class="s2">&#34;display channel(&lt;送信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc QMG
 <span class="nb">echo</span> <span class="s2">&#34;display qstatus(*)&#34;</span> <span class="p">|</span> runmqsc QMG
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="キューマネージャーの設定変更">キュー・マネージャーの設定変更</h4>
+</code></pre></div><h4 id="キューマネージャーの設定変更">キュー・マネージャーの設定変更</h4>
 <p>chlauthがデフォルトで有効になっているので無効化する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># chlauthの無効化</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># chlauthの無効化</span>
 <span class="nb">echo</span> <span class="s2">&#34;alter qmgr chlauth(disabled)&#34;</span> <span class="p">|</span> runmqsc QMG
 
 <span class="c1"># chlauthの確認</span>
 <span class="nb">echo</span> <span class="s2">&#34;display qmgr&#34;</span> <span class="p">|</span> runmqsc QMG
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="リスナー起動">リスナー起動</h4>
+</code></pre></div><h4 id="リスナー起動">リスナー起動</h4>
 <p>今回はリスナーとキュー・マネージャーは独立して起動・停止するように構築しているので個別に起動する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># リスナー起動</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># リスナー起動</span>
 <span class="c1"># nohup runmqlsr -m &lt;キュー・マネージャー名&gt; -t TCP -p &lt;ポート&gt; &amp;</span>
 nohup runmqlsr -m QMG -t TCP -p <span class="m">1414</span> <span class="p">&amp;</span>
 
 <span class="c1"># リスナープロセスの確認</span>
 ps -ef <span class="p">|</span> grep runmqlsr <span class="p">|</span> grep -v grep
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="チャネル起動">チャネル起動</h4>
+</code></pre></div><h4 id="チャネル起動">チャネル起動</h4>
 <p>送信チャネルを起動する。
 受信チャネルはホスト側の送信チャネルの状態に追従するためホスト側で起動する必要がある。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 送信チャネルの起動</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 送信チャネルの起動</span>
 <span class="nb">echo</span> <span class="s2">&#34;start channel(&lt;送信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc &lt;キュー・マネージャー名&gt;
 
 <span class="c1"># 送信チャネルの状態確認</span>
 <span class="nb">echo</span> <span class="s2">&#34;display chstatus(&lt;送信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc &lt;キュー・マネージャー名&gt;
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="5-qrep設定">5. Qrep設定</h3>
+</code></pre></div><h3 id="5-qrep設定">5. Qrep設定</h3>
 <h4 id="ソースdbのバインド">ソースDBのバインド</h4>
 <p>IDRサーバーからソースDB(ホスト)へのDb2接続のバインド設定を行う。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ソースDBへ接続</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ソースDBへ接続</span>
 db2 connect to SOURCEDB user qrep_source using xxxxxx
 
 <span class="c1"># ソースDB接続のバインド設定</span>
@@ -779,9 +498,7 @@ db2 <span class="nb">bind</span> <span class="nv">$HOME</span>/sqllib/bnd/@ddcmv
 
 <span class="c1"># DB接続の切断</span>
 db2 terminate
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="アプライ制御表作成">アプライ制御表作成</h4>
+</code></pre></div><h4 id="アプライ制御表作成">アプライ制御表作成</h4>
 <p>アプライ制御表作成用のスクリプトを作成してasnclpコマンドで実行する。
 以降のアプライ関連の定義操作もスクリプトを作成して実行する形式を取る。
 asnclpコマンドを実行すると即座に制御表が作成される(<code>SET RUN SCRIPT NOW STOP ON SQL ERROR ON</code>)が、
@@ -790,40 +507,7 @@ asnclpコマンドを実行すると即座に制御表が作成される(<code>S
 CREATE CONTROL TABLES文にアプライ制御表(ibmqrep_applyparms表)のパラメータを渡すことができるため、
 ここでいくつか渡してしまう。残りは制御表を手動で書き換える。
 今回はモニター間隔・モニターログ量(MONITOR INTERVAL, MONITOR LIMIT)を指定。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義関連スクリプトの配置先ディレクトリを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義関連スクリプトの配置先ディレクトリを作成</span>
 mkdir -p /home/db2qrep/QREP/define
 <span class="nb">cd</span> /home/db2qrep/QREP/define
 
@@ -852,40 +536,10 @@ asnclp -f ./create_apply_ctltable.txt
 db2 connect to TARGETDB user qrep_target using xxxxxx
 db2 list tables <span class="k">for</span> schema qrep_target
 db2 list tables <span class="k">for</span> schema asn
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="qマップの作成">Qマップの作成</h4>
+</code></pre></div><h4 id="qマップの作成">Qマップの作成</h4>
 <p>Qマップも同じように作成用スクリプトを用意して実行する。
 ここではアプライエージェント数(NUM APPLY AGENTS)とハートビート間隔(HEARTBEAT INTERVAL)と最大メッセージサイズ(MAX MESSAGE SIZE)を指定。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qマップ作成スクリプトを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qマップ作成スクリプトを作成</span>
 cat &gt; ./create_qmap.txt <span class="s">&lt;&lt; EOF
 </span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
 </span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
@@ -909,9 +563,7 @@ asnclp -f ./create_qmap.txt
 
 <span class="c1"># Qマップが作成されたことを確認</span>
 db2 <span class="s2">&#34;select * from qrep_target.ibmqrep_recvqueues&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="制御表の変更">制御表の変更</h4>
+</code></pre></div><h4 id="制御表の変更">制御表の変更</h4>
 <p>設計したパラメータを制御表に入れ込んでいく。
 主に変更する制御表は以下の4つ。</p>
 <ul>
@@ -935,39 +587,7 @@ db2 <span class="s2">&#34;select * from qrep_target.ibmqrep_recvqueues&#34;</spa
 ここまでできれば後はQサブスクリプションを作成するだけなので最低限の環境構築は完了。
 それぞれのスクリプトの中で<code>TMPDIR</code>環境変数を指定することを忘れずに。(Tips参照)
 appyl_pathはアプライログが出力されるディレクトリ。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ起動スクリプトの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ起動スクリプトの作成</span>
 cat /xxx/xxx/applystart.sh <span class="s">&lt;&lt; EOF
 </span><span class="s">export DB2CODEPAGE=943
 </span><span class="s">export TMPDIR=/home/db2qrep/qapp
@@ -995,9 +615,7 @@ cat /home/db2qrep/qapp/db2qrep.&lt;ターゲットDB名&gt;.&lt;制御表スキ�
 
 <span class="c1"># プロセスが消えたことを確認</span>
 ps -ef <span class="p">|</span> grep asnqapp <span class="p">|</span> grep -v grep
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
         </div>
         <div class="m-entry__footer">
             <div class="m-entry__footer-sns-buttons">

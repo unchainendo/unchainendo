@@ -239,19 +239,10 @@ TMPDIRはデフォルトで/tmpとなっているため、IPCファイルは/tmp
 <a href="https://www.ibm.com/support/knowledgecenter/ja/SSEPGG_9.7.0/com.ibm.swg.im.iis.repl.qrepl.doc/topics/iiyrqenvtempdir.html">TMPDIR 環境変数の設定 (Linux、UNIX)</a></p>
 <h3 id="対応">対応</h3>
 <p>Qキャプチャー、アプライを実行するユーザーのTMPDIR環境変数を<code>~/.bash_profile</code>等で設定するか、起動・停止のシェルを作成しasnpacmd, asnqccmdコマンドの前にTMPDIRをexportする。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 起動シェル例</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 起動シェル例</span>
 <span class="nb">export</span> <span class="nv">TMPDIR</span><span class="o">=</span>/hoge
 nohup asnqapp <span class="nv">apply_server</span><span class="o">=</span>HOGE <span class="nv">apply_schema</span><span class="o">=</span>HOGE_SCHEMA ... <span class="p">&amp;</span>
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
         </div>
         <div class="m-entry__footer">
             <div class="m-entry__footer-sns-buttons">

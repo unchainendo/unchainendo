@@ -237,86 +237,7 @@ Pod数が10個で<code>maxUnavailable</code>を30%とすると、ReplicaSetは�
 <code>kubectl apply -f &lt;YAMLマニフェスト&gt;</code>か<code>kubectl edit deploy &lt;deployment名&gt;</code>か。
 2つ目はコマンドで直接バージョンアップする方法。
 <code>kubectl set image deploy/&lt;Deployment名&gt; &lt;Container名&gt;=&lt;Image名&gt;:&lt;Version&gt;</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義ファイルでUpdateするパターン</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義ファイルでUpdateするパターン</span>
 $ kubectl get deploy frontend -o yaml &gt; deploy.yaml
 $ vi deploy.yaml
 $ cat deploy.yaml
@@ -391,52 +312,10 @@ $ kubectl get rs
 NAME                  DESIRED   CURRENT   READY   AGE
 frontend-6bb4f9cdc8   <span class="m">0</span>         <span class="m">0</span>         <span class="m">0</span>       21m
 frontend-b84595c9     <span class="m">0</span>         <span class="m">0</span>         <span class="m">0</span>       16m
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="アップデートをロールバックする">アップデートをロールバックする</h4>
+</code></pre></div><h4 id="アップデートをロールバックする">アップデートをロールバックする</h4>
 <p>アップデートしたものを戻すときは<code>kubectl rollout undo</code>を使う。
 アップデートのステータス、履歴確認はそれぞれ<code>kubectl rollout status</code>と<code>kubectl rollout history</code>を使う。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ステータス確認</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ステータス確認</span>
 $ kubectl rollout status deploy/frontend
 deployment <span class="s2">&#34;frontend&#34;</span> successfully rolled out
 
@@ -472,9 +351,7 @@ REVISION  CHANGE-CAUSE
 <span class="m">3</span>         &lt;none&gt;
 $ kubectl describe deploy frontend <span class="p">|</span> grep -i image
     Image:        kodekloud/webapp-color:v1
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="commandarg関連">Command/Arg関連</h3>
+</code></pre></div><h3 id="commandarg関連">Command/Arg関連</h3>
 <h4 id="まずはdockerイメージのコマンドと引数の話">まずはDockerイメージのコマンドと引数の話</h4>
 <p>例えばデフォルトで5秒間Sleepし、引数を数字で与えたときは5秒ではなく与えられた秒数だけSleepするような挙動をさせたいとする。
 Dockerイメージには<code>ENTRYPOINT</code>と<code>CMD</code>という設定があり、<code>ENTRYPOINT</code>には実行可能なコマンド等を指定する必要がある。
@@ -484,20 +361,7 @@ Dockerイメージには<code>ENTRYPOINT</code>と<code>CMD</code>という設�
 <p>上記の例で取り上げた&quot;デフォルトで5秒Sleepする&quot;イメージを使ってPodを作成するとする。
 Dockerのように引数を与えて10秒Sleepさせたい場合はPodマニフェストの中で<code>spec.containers[*].args</code>にJSON形式で引数を指定する。
 <code>spec.containers[*].args</code>はDockerイメージの<code>CMD</code>を上書きする。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper-pod<span class="w">
@@ -506,26 +370,10 @@ Dockerのように引数を与えて10秒Sleepさせたい場合はPodマニフ�
 </span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper<span class="w">
 </span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper<span class="w">
 </span><span class="w">      </span><span class="k">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;10&#34;</span><span class="p">]</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>ではSleepコマンドそのもの(=<code>ENTRYPOINT</code>)を上書きしたい場合はどうか。
+</span></code></pre></div><p>ではSleepコマンドそのもの(=<code>ENTRYPOINT</code>)を上書きしたい場合はどうか。
 Dockerでは<code>--entrypoint</code>オプションで書いたものが<code>ENTRYPOINT</code>を上書きする。
 Kubernetesの場合、<code>spec.containers[*].command</code>にJSON形式で指定したものが<code>ENTRYPOINT</code>を上書いてくれる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper-pod<span class="w">
@@ -535,9 +383,7 @@ Kubernetesの場合、<code>spec.containers[*].command</code>にJSON形式で指
 </span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper<span class="w">
 </span><span class="w">      </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;sleep-new&#34;</span><span class="p">]</span><span class="w">
 </span><span class="w">      </span><span class="k">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;10&#34;</span><span class="p">]</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>つまり<code>ENTRYPOINT</code>が<code>command</code>に、<code>CMD</code>が<code>args</code>に対応する。
+</span></code></pre></div><p>つまり<code>ENTRYPOINT</code>が<code>command</code>に、<code>CMD</code>が<code>args</code>に対応する。
 <code>CMD</code>と<code>command</code>が対応するわけではないからヤヤコシイ。</p>
 <h3 id="env関連">ENV関連</h3>
 <h4 id="configmap">ConfigMap</h4>
@@ -547,35 +393,7 @@ Kubernetesの場合、<code>spec.containers[*].command</code>にJSON形式で指
 <h4 id="configmapの確認">ConfigMapの確認</h4>
 <p>他のリソースと同じく<code>get</code>と<code>describe</code>を使う。
 <code>describe</code>の方は登録されているKey-Valueを全て確認できる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ConfigMap一覧を表示</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ConfigMap一覧を表示</span>
 $ kubectl get cm
 NAME        DATA   AGE
 db-config   <span class="m">3</span>      13s
@@ -599,68 +417,27 @@ DB_NAME:
 ----
 SQL01
 Events:  &lt;none&gt;
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="configmapを作成する">ConfigMapを作成する</h4>
+</code></pre></div><h4 id="configmapを作成する">ConfigMapを作成する</h4>
 <p>こちらも他のリソースと同様にコマンドで作るかマニフェストファイルで作るかの2択。
 コマンド版は以下のとおり。
 <code>--from-literal=&lt;Key&gt;=&lt;Value&gt;</code>で環境変数を登録する。複数登録したい場合はこのオプションのセットを複数書けばOK。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp-config-map&#34;ConfigMapを作成しAPP_COLOR:darkblueを登録</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp-config-map&#34;ConfigMapを作成しAPP_COLOR:darkblueを登録</span>
 $ kubectl create cm webapp-config-map --from-literal<span class="o">=</span><span class="nv">APP_COLOR</span><span class="o">=</span>darkblue
 configmap/webapp-config-map created
-</code></pre></td></tr></table>
-</div>
-</div><p>YAML版は以下のとおり。
+</code></pre></div><p>YAML版は以下のとおり。
 他のリソースと異なり、<code>spec</code>が<code>data</code>になっていることに注意。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>test<span class="w">
 </span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
 </span><span class="w"></span><span class="k">data</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">test-key</span><span class="p">:</span><span class="w"> </span>test-value<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="configmapをpodから使用する">ConfigMapをPodから使用する</h4>
+</span></code></pre></div><h4 id="configmapをpodから使用する">ConfigMapをPodから使用する</h4>
 <p>Podのマニフェストにて<code>spec.conteiners[*].envFrom[*].configMapRef</code>でConfigMapを指定する。
 ConfigMapだけを指定すれば登録されている全Key−ValueがENVとして登録される。
 特定Keyのみ選択したい場合は<code>key: &lt;Key&gt;</code>を追加。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>dapi-test-pod<span class="w">
@@ -673,9 +450,7 @@ ConfigMapだけを指定すれば登録されている全Key−ValueがENVとし
 </span><span class="w">      </span>- <span class="k">configMapRef</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>special-config<span class="w">
 </span><span class="w">  </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>Never<span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h3 id="secrets">Secrets</h3>
+</span></code></pre></div><h3 id="secrets">Secrets</h3>
 <p>センシティブな情報はConfigMapではなくSecretを利用する。
 情報確認や作り方はほとんど同じだが、Valueを指定するときは<code>base64</code>で取得したハッシュ値を使う。
 結局誰にでもdecodeできるのであまり意味はないと思うがそういうお作法らしい。</p>
@@ -684,26 +459,7 @@ ConfigMapだけを指定すれば登録されている全Key−ValueがENVとし
 <p>initContainerはPod作成後最初に処理を実行するためだけに用意されたContainer。
 Podのマニフェストに<code>spec.initContainers</code>を追記すれば良い。
 複数指定すれば順番に実行され、実行待ちのConitanerは&quot;Waiting&quot;状態になる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>myapp-pod<span class="w">
@@ -718,9 +474,7 @@ Podのマニフェストに<code>spec.initContainers</code>を追記すれば良
 </span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>init-myservice<span class="w">
 </span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="p">:</span><span class="m">1.28</span><span class="w">
 </span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done&#34;</span><span class="p">]</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div>
+</span></code></pre></div>
         </div>
         <div class="m-entry__footer">
             <div class="m-entry__footer-sns-buttons">

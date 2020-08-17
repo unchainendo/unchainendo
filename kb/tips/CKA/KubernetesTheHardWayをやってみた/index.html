@@ -235,168 +235,7 @@ GCP登録時に付与される$300で学習しきれば実質無料。
 <p>Google Cloud SDKをインストールする。<br>
 リンク先からOSに合ったモジュールを選択してダウンロードし、あとは以下の流れでインストールする。
 参照: <a href="https://cloud.google.com/sdk/">Google Cloud SDK</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># tarアーカイブの展開</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># tarアーカイブの展開</span>
 $ tar -zxvf google-cloud-sdk-280.0.0-darwin-x86_64.tar.gz
 x google-cloud-sdk/
 x google-cloud-sdk/properties
@@ -553,23 +392,8 @@ Some things to try next:
 
 * Run <span class="sb">`</span>gcloud --help<span class="sb">`</span> to see the Cloud Platform services you can interact with. And run <span class="sb">`</span>gcloud <span class="nb">help</span> COMMAND<span class="sb">`</span> to get <span class="nb">help</span> on any gcloud command.
 * Run <span class="sb">`</span>gcloud topic --help<span class="sb">`</span> to learn about advanced features of the SDK like arg files and output formatting
-</code></pre></td></tr></table>
-</div>
-</div><p>最後にGoogle Cloud SDKのバージョンが<code>262.0.0</code>より高いことを確認する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gcloud version
+</code></pre></div><p>最後にGoogle Cloud SDKのバージョンが<code>262.0.0</code>より高いことを確認する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gcloud version
 Google Cloud SDK 280.0.0
 bq 2.0.53
 core 2020.02.07
@@ -578,28 +402,14 @@ Updates are available <span class="k">for</span> some Cloud SDK components.  To 
 please run:
   $ gcloud components update
 
-</code></pre></td></tr></table>
-</div>
-</div><p>次にCompute RegionとZoneを設定する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Regionの設定</span>
+</code></pre></div><p>次にCompute RegionとZoneを設定する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Regionの設定</span>
 $ gcloud config <span class="nb">set</span> compute/region us-west1
 Updated property <span class="o">[</span>compute/region<span class="o">]</span>.
 <span class="c1"># Zoneの設定</span>
 $ gcloud config <span class="nb">set</span> compute/zone us-west1-c
 Updated property <span class="o">[</span>compute/zone<span class="o">]</span>.
-</code></pre></td></tr></table>
-</div>
-</div><p>最後にtmuxを使うと便利だよという章がある。<br>
+</code></pre></div><p>最後にtmuxを使うと便利だよという章がある。<br>
 試験でも使えるので慣れておくことにした。</p>
 <h4 id="installing-the-client-tools">Installing the Client Tools</h4>
 <p>必要なコマンドラインツールを導入する。<br>
@@ -607,44 +417,7 @@ Updated property <span class="o">[</span>compute/zone<span class="o">]</span>.
 <code>cfssl</code>はjsonで書いた定義を読み込んで秘密鍵、CSRをjson形式で吐き出してくれる。
 <code>cfssljson</code>はjson形式で出力されたものから秘密鍵とCSRを生成してくれる。
 TLS証明書まわりの運用を自動化する際にもよく使われている模様。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># curlでモジュールをダウンロード</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># curlでモジュールをダウンロード</span>
 $ curl -o cfssl https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/darwin/cfssl
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 Dload  Upload   Total   Spent    Left  Speed
@@ -677,35 +450,9 @@ $ cfssljson --version
 Version: 1.3.4
 Revision: dev
 Runtime: go1.13
-</code></pre></td></tr></table>
-</div>
-</div><p>次にkubectlをインストールする。<br>
+</code></pre></div><p>次にkubectlをインストールする。<br>
 これがないと始まらないね。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># curlでモジュールをダウンロード</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># curlでモジュールをダウンロード</span>
 $ curl -o kubectl https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/darwin/amd64/kubectl
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 Dload  Upload   Total   Spent    Left  Speed
@@ -725,9 +472,7 @@ $ ls -l /usr/local/bin/kubectl
 <span class="c1"># バージョン確認</span>
 $ kubectl version --client
 Client Version: version.Info<span class="o">{</span>Major:<span class="s2">&#34;1&#34;</span>, Minor:<span class="s2">&#34;15&#34;</span>, GitVersion:<span class="s2">&#34;v1.15.3&#34;</span>, GitCommit:<span class="s2">&#34;2d3c76f9091b6bec110a5e63777c332469e0cba2&#34;</span>, GitTreeState:<span class="s2">&#34;clean&#34;</span>, BuildDate:<span class="s2">&#34;2019-08-19T11:13:54Z&#34;</span>, GoVersion:<span class="s2">&#34;go1.12.9&#34;</span>, Compiler:<span class="s2">&#34;gc&#34;</span>, Platform:<span class="s2">&#34;darwin/amd64&#34;</span><span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="privisioning-compute-resources">Privisioning Compute Resources</h4>
+</code></pre></div><h4 id="privisioning-compute-resources">Privisioning Compute Resources</h4>
 <p>Kubernetesクラスタを稼働させるために必要なコンピュートリソースをプロビジョニングする。</p>
 <p>まずはネットワーク環境の整備ということで、Virtual Private Cloud(VPC)ネットワークをセットアップする。
 VPCネットワーク名は<code>kubernetes-the-hard-way</code>とする。
@@ -735,37 +480,7 @@ VPCネットワークを作成したら、そこにKubernetesクラスタ用の�
 各ノードのIPアドレスをアサインできるだけの十分なアドレスレンジを確保しておく。
 今回はサブネットマスク24bitとした。
 VPCネットワーク作成時にfirewallの設定例のコマンドまで教えてくれてとても丁寧。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># VPCネットワークの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># VPCネットワークの作成</span>
 $ gcloud compute networks create kubernetes-the-hard-way --subnet-mode custom
 Created <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/rising-capsule-272923/global/networks/kubernetes-the-hard-way<span class="o">]</span>.
 NAME                     SUBNET_MODE  BGP_ROUTING_MODE  IPV4_RANGE  GATEWAY_IPV4
@@ -791,45 +506,11 @@ $ gcloud compute networks subnets create kubernetes <span class="se">\
 Created <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/rising-capsule-272923/regions/us-west1/subnetworks/kubernetes<span class="o">]</span>.
 NAME        REGION    NETWORK                  RANGE
 kubernetes  us-west1  kubernetes-the-hard-way  10.240.0.0/24
-</code></pre></td></tr></table>
-</div>
-</div><p>次にファイアウォールの設定。
+</code></pre></div><p>次にファイアウォールの設定。
 内部のネットワークは全プロトコルを許可、外からはSSH、ICMP、HTTPSを許可する。
 Kubernetes API Serverが使用するHTTPSポートは6443。
 内部で<code>10.200.0.0/16</code>からの通信を許可しているのはなぜだろう。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 内部通信用のfirewall設定</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 内部通信用のfirewall設定</span>
 $ gcloud compute firewall-rules create kubernetes-the-hard-way-allow-internal <span class="se">\
 </span><span class="se"></span>&gt; --allow tcp,udp,icmp <span class="se">\
 </span><span class="se"></span>&gt; --network kubernetes-the-hard-way <span class="se">\
@@ -857,27 +538,8 @@ kubernetes-the-hard-way-allow-internal  kubernetes-the-hard-way  INGRESS    <spa
 
 To show all fields of the firewall, please show in JSON format: --format<span class="o">=</span>json
 To show all fields in table format, please see the examples in --help.
-</code></pre></td></tr></table>
-</div>
-</div><p>次に、Kubernetes API Serverの前段のexternal load balancerにIPアドレスを付与する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># IPアドレスを付与する</span>
+</code></pre></div><p>次に、Kubernetes API Serverの前段のexternal load balancerにIPアドレスを付与する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># IPアドレスを付与する</span>
 $ gcloud compute addresses create kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt; --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span>
 Created <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/rising-capsule-272923/regions/us-west1/addresses/kubernetes-the-hard-way<span class="o">]</span>.
@@ -890,9 +552,7 @@ us-west1
 $ gcloud compute addresses list --filter<span class="o">=</span><span class="s2">&#34;name=(&#39;kubernetes-the-hard-way&#39;)&#34;</span>
 NAME                     ADDRESS/RANGE  TYPE      PURPOSE  NETWORK  REGION    SUBNET  STATUS
 kubernetes-the-hard-way  34.82.55.89    EXTERNAL                    us-west1          RESERVED
-</code></pre></td></tr></table>
-</div>
-</div><p>ネットワークまわりが終わったので次はCompute Instance(サーバー)のプロビジョニング。
+</code></pre></div><p>ネットワークまわりが終わったので次はCompute Instance(サーバー)のプロビジョニング。
 コントローラーノードは<code>controller-0</code>、<code>controller-1</code>、<code>controller-2</code>の3台。
 ワーカーノードは<code>worker-0</code>、<code>worker-1</code>、<code>worker-2</code>の3台。
 OSは<code>Ubuntu 18.04</code>。せっかくなので各オプションを調べてみた。</p>
@@ -933,75 +593,7 @@ IP転送を有効化する。<br>
 タグを指定する。<br>
 ここでは<code>kubernetes-the-hard-way</code>と<code>controller</code>または<code>worker</code>を指定する。</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># コンピュートノードの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># コンピュートノードの作成</span>
 $ <span class="k">for</span> i in <span class="m">0</span> <span class="m">1</span> 2<span class="p">;</span> <span class="k">do</span>
 &gt; gcloud compute instances create controller-<span class="si">${</span><span class="nv">i</span><span class="si">}</span> <span class="se">\
 </span><span class="se"></span>&gt;   --async <span class="se">\
@@ -1065,109 +657,12 @@ controller-2  us-west1-c  n1-standard-1               10.240.0.12  34.82.94.111 
 worker-0      us-west1-c  n1-standard-1               10.240.0.20  35.233.216.214  RUNNING
 worker-1      us-west1-c  n1-standard-1               10.240.0.21  35.197.40.89    RUNNING
 worker-2      us-west1-c  n1-standard-1               10.240.0.22  34.82.6.170     RUNNING
-</code></pre></td></tr></table>
-</div>
-</div><p>次に作成したインスタンスに対してSSH接続設定をしていく。<br>
+</code></pre></div><p>次に作成したインスタンスに対してSSH接続設定をしていく。<br>
 <code>gcloud compute ssh &lt;インスタンス名&gt;</code>で簡単に公開鍵接続してくれるし、鍵は自動生成してローカルに保管してくれる。
 GLBに振ったGIPとか全く意識しないでいいんだね。sshコマンドすら必要ないと。
 きっとこれくらい当たり前なのだろうが、Cloudすごい。
 そして改めて、この便利さがわかるくらいにはオンプレ経験積んでいてよかったと思った。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span><span class="lnt">86
-</span><span class="lnt">87
-</span><span class="lnt">88
-</span><span class="lnt">89
-</span><span class="lnt">90
-</span><span class="lnt">91
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># controller-0インスタンスにSSH接続する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># controller-0インスタンスにSSH接続する</span>
 $ gcloud compute ssh controller-0
 WARNING: The public SSH key file <span class="k">for</span> gcloud does not exist.
 WARNING: The private SSH key file <span class="k">for</span> gcloud does not exist.
@@ -1258,68 +753,12 @@ applicable law.
 yuendo@controller-1:~$ <span class="nb">exit</span>
 <span class="nb">logout</span>
 Connection to 34.82.53.165 closed.
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="provisioning-a-ca-and-generating-tls-certificates">Provisioning a CA and Generating TLS Certificates</h4>
+</code></pre></div><h4 id="provisioning-a-ca-and-generating-tls-certificates">Provisioning a CA and Generating TLS Certificates</h4>
 <p><code>cfssl</code>を使用してPKIを構築し、TLS証明書を作成してetcdやkube-apiserver、kube-cntroller-manager、kube-scheduler、kubelet、kube-proxyで利用する。
 簡単にKubernetesクラスタを使えてしまう環境だとこのあたりは意識しない部分なので触れるのは良い。</p>
 <p>まずはTLS証明書を生成するためのCA(認証局)を作成する。
 <code>cfssl</code>のお作法も押さえておきたいけどこれはまた別の機会に勉強することにする。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CA作成用の定義ファイル(json)を作成する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CA作成用の定義ファイル(json)を作成する</span>
 $ cat &gt; ca-config.json <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; {
 </span><span class="s">&gt;   &#34;signing&#34;: {
@@ -1369,50 +808,8 @@ total <span class="m">40</span>
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">1675</span>  <span class="m">4</span>  <span class="m">6</span> 09:29 ca-key.pem
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1005</span>  <span class="m">4</span>  <span class="m">6</span> 09:29 ca.csr
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1318</span>  <span class="m">4</span>  <span class="m">6</span> 09:29 ca.pem
-</code></pre></td></tr></table>
-</div>
-</div><p>次に、Kubernetes各コンポーネントのサーバーとクライアントが<code>admin</code>ユーザーで認証するための証明書、秘密鍵を生成する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
+</code></pre></div><p>次に、Kubernetes各コンポーネントのサーバーとクライアントが<code>admin</code>ユーザーで認証するための証明書、秘密鍵を生成する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
 $ cat &gt; admin-csr.json <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; {
 </span><span class="s">&gt;   &#34;CN&#34;: &#34;admin&#34;,
@@ -1448,83 +845,12 @@ $ cfssl gencert <span class="se">\
 websites. For more information see the Baseline Requirements <span class="k">for</span> the Issuance and Management
 of Publicly-Trusted Certificates, v.1.1.6, from the CA/Browser Forum <span class="o">(</span>https://cabforum.org<span class="o">)</span><span class="p">;</span>
 specifically, section 10.2.3 <span class="o">(</span><span class="s2">&#34;Information Requirements&#34;</span><span class="o">)</span>.
-</code></pre></td></tr></table>
-</div>
-</div><p>次に<code>Node Authorizer</code>のための証明書を準備していく。<br>
+</code></pre></div><p>次に<code>Node Authorizer</code>のための証明書を準備していく。<br>
 <code>Node Authorizer</code>とは各ノードの<code>kubelet</code>によるAPIリクエストの権限管理を行う仕組み。
 <code>kubelet</code>が<code>Node Authorizer</code>を利用するためには<code>system:nodes</code>グループ、<code>system:node:&lt;nodeName&gt;</code>ユーザーとしての認証情報を使用する必要がある。
 そこで各ワーカーノード用に<code>Node Authorizer</code>の要件を満たす証明書、秘密鍵を作成する。<br>
 <a href="https://kubernetes.io/docs/reference/access-authn-authz/node/">Using Node Authorization</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各インスタンスの証明書と鍵を生成する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各インスタンスの証明書と鍵を生成する</span>
 $ <span class="k">for</span> instance in worker-0 worker-1 worker-2<span class="p">;</span> <span class="k">do</span>
 &gt; cat &gt; <span class="si">${</span><span class="nv">instance</span><span class="si">}</span>-csr.json <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; {
@@ -1589,59 +915,10 @@ kubernetes-the-hard-way $ ls -l <span class="p">|</span> grep worker
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">1679</span>  <span class="m">4</span>  <span class="m">6</span> 11:11 worker-2-key.pem
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1119</span>  <span class="m">4</span>  <span class="m">6</span> 11:11 worker-2.csr
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1493</span>  <span class="m">4</span>  <span class="m">6</span> 11:11 worker-2.pem
-</code></pre></td></tr></table>
-</div>
-</div><p>次に<code>kube-controller-manager</code>用の証明書、秘密鍵を生成する。<br>
+</code></pre></div><p>次に<code>kube-controller-manager</code>用の証明書、秘密鍵を生成する。<br>
 <code>kube-controller-manager</code>はKubernetesの各オブジェクト(<code>deployment</code>とか<code>replicaset</code>とか)を処理する
 コントローラーを実行、管理するコンポーネント。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
 $ cat &gt; kube-controller-manager-csr.json <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; {
 </span><span class="s">&gt;   &#34;CN&#34;: &#34;system:kube-controller-manager&#34;,
@@ -1684,57 +961,8 @@ $ ls -l <span class="p">|</span> grep kube-controller
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">1675</span>  <span class="m">4</span>  <span class="m">6</span> 11:46 kube-controller-manager-key.pem
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1090</span>  <span class="m">4</span>  <span class="m">6</span> 11:46 kube-controller-manager.csr
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1484</span>  <span class="m">4</span>  <span class="m">6</span> 11:46 kube-controller-manager.pem
-</code></pre></td></tr></table>
-</div>
-</div><p>同様に<code>kube-proxy</code>用の証明書、秘密鍵を生成する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
+</code></pre></div><p>同様に<code>kube-proxy</code>用の証明書、秘密鍵を生成する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
 $ cat &gt; kube-proxy-csr.json <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; {
 </span><span class="s">&gt;   &#34;CN&#34;: &#34;system:kube-proxy&#34;,
@@ -1777,57 +1005,8 @@ $ ls -l <span class="p">|</span> grep kube-proxy
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">1679</span>  <span class="m">4</span>  <span class="m">7</span> 01:31 kube-proxy-key.pem
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1058</span>  <span class="m">4</span>  <span class="m">7</span> 01:31 kube-proxy.csr
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1452</span>  <span class="m">4</span>  <span class="m">7</span> 01:31 kube-proxy.pem
-</code></pre></td></tr></table>
-</div>
-</div><p><code>kube-scheduler</code>用の証明書、秘密鍵を生成する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
+</code></pre></div><p><code>kube-scheduler</code>用の証明書、秘密鍵を生成する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
 $ cat &gt; kube-scheduler-csr.json <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; {
 </span><span class="s">&gt;   &#34;CN&#34;: &#34;system:kube-scheduler&#34;,
@@ -1870,66 +1049,14 @@ $ ls -l <span class="p">|</span> grep scheduler
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">1675</span>  <span class="m">4</span>  <span class="m">7</span> 10:09 kube-scheduler-key.pem
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1066</span>  <span class="m">4</span>  <span class="m">7</span> 10:09 kube-scheduler.csr
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1460</span>  <span class="m">4</span>  <span class="m">7</span> 10:09 kube-scheduler.pem
-</code></pre></td></tr></table>
-</div>
-</div><p><code>kubernetes API server</code>用の証明書、秘密鍵を生成する。<br>
+</code></pre></div><p><code>kubernetes API server</code>用の証明書、秘密鍵を生成する。<br>
 この証明書には<code>kubernetes-the-hard-way</code>のスタティックIPやホスト名を含める必要があるとのこと。
 複数のホスト名、IPに対応した証明書を生成するため、なのだろう。
 <code>gcloud</code>でのグローバルIP(スタティックIP)の確認方法も覚えておこう。<br>
 <code>gcloud compute addresses describe &lt;NAME&gt; --region &lt;REGION&gt; --format 'value(address)'</code><br>
 公式のチュートリアルとかもそうだけど、環境依存の値を手順に埋め込むための工夫をしている部分はだいたい便利で良く使うコマンドだから
 一緒に覚えておいたほうがお得ですね。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># スタティックIPをホスト名を変数に格納する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># スタティックIPをホスト名を変数に格納する</span>
 $ <span class="nv">KUBERNETES_PUBLIC_ADDRESS</span><span class="o">=</span><span class="k">$(</span>gcloud compute addresses describe kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span> <span class="se">\
 </span><span class="se"></span>&gt;   --format <span class="s1">&#39;value(address)&#39;</span><span class="k">)</span>
@@ -1975,58 +1102,9 @@ $ ls -l <span class="p">|</span> grep kubernetes
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">1679</span>  <span class="m">4</span>  <span class="m">7</span> 10:42 kubernetes-key.pem
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1289</span>  <span class="m">4</span>  <span class="m">7</span> 10:42 kubernetes.csr
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1663</span>  <span class="m">4</span>  <span class="m">7</span> 10:42 kubernetes.pem
-</code></pre></td></tr></table>
-</div>
-</div><p>Kubernetes Controller Managerがサービスアカウント用のアクセストークンを発行するときに使用する<code>service-account</code>用の証明書、秘密鍵を生成する。
+</code></pre></div><p>Kubernetes Controller Managerがサービスアカウント用のアクセストークンを発行するときに使用する<code>service-account</code>用の証明書、秘密鍵を生成する。
 キーペア生成多い。。。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
 $ cat &gt; service-account-csr.json <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; {
 </span><span class="s">&gt;   &#34;CN&#34;: &#34;service-accounts&#34;,
@@ -2069,70 +1147,12 @@ $ ls -l <span class="p">|</span> grep service-account
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">1679</span>  <span class="m">4</span>  <span class="m">7</span> 11:28 service-account-key.pem
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1041</span>  <span class="m">4</span>  <span class="m">7</span> 11:28 service-account.csr
 -rw-r--r--  <span class="m">1</span> yuendo  staff  <span class="m">1440</span>  <span class="m">4</span>  <span class="m">7</span> 11:28 service-account.pem
-</code></pre></td></tr></table>
-</div>
-</div><p>最後に生成したキーペアを各ノードに配布する。
+</code></pre></div><p>最後に生成したキーペアを各ノードに配布する。
 ワーカーノードには各インスタンス用のものを、コントローラーノードには他のもろもろを配置する。
 コントローラーノードに配布した<code>kube-proxy</code>、<code>kube-controller-manager</code>、<code>kube-scheduler</code>、<code>kubelet</code>の証明書は
 次項のクライアント認証設定ファイルを作成するタイミングで使用するとのこと。
 <code>gcloud compute scp</code>でインスタンスにscpできる、と。sshが簡単だからscpももちろん簡単。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ワーカーノードに配布</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ワーカーノードに配布</span>
 $ <span class="k">for</span> instance in worker-0 worker-1 worker-2<span class="p">;</span> <span class="k">do</span>
 &gt; gcloud compute scp ca.pem <span class="si">${</span><span class="nv">instance</span><span class="si">}</span>-key.pem <span class="si">${</span><span class="nv">instance</span><span class="si">}</span>.pem <span class="si">${</span><span class="nv">instance</span><span class="si">}</span>:~/
 &gt; <span class="k">done</span>
@@ -2184,9 +1204,7 @@ kubernetes-key.pem          100% <span class="m">1679</span>    17.0KB/s   00:00
 kubernetes.pem              100% <span class="m">1663</span>    17.5KB/s   00:00
 service-account-key.pem     100% <span class="m">1679</span>    15.9KB/s   00:00
 service-account.pem         100% <span class="m">1440</span>    15.2KB/s   00:00
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="generating-kubernetes-configuration-files-for-authentication">Generating Kubernetes Configuration FIles for Authentication</h4>
+</code></pre></div><h4 id="generating-kubernetes-configuration-files-for-authentication">Generating Kubernetes Configuration FIles for Authentication</h4>
 <p>kubeconfig(Kubernetesの接続設定ファイル)を<code>controller manager</code>、<code>kubelet</code>、<code>kube-proxy</code>、<code>scheduler</code>と<code>admin</code>ユーザーに対して生成する。
 kubeconfigはKubernetesの各クライアントがKubernetes API Serverに接続するために必要とのこと。
 kubeconfigで行う設定は主に<code>clusters</code>と<code>users</code>と<code>contexts</code>の3種類。
@@ -2210,68 +1228,15 @@ kubeconfigに<code>contexts</code>のエントリを登録する。<br>
 このコマンドを実行することで生成したkubeconfigの<code>current-context</code>に指定したコンテキスト名が入る。
 kubeconfファイルを生成する前に<code>kubernetes-the-hard-way</code>のスタティックIPを変数に格納する。(証明書生成のセクションでもやった)</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubernetes-the-hard-wayのスタティックIPを変数に格納する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubernetes-the-hard-wayのスタティックIPを変数に格納する</span>
 $ <span class="nv">KUBERNETES_PUBLIC_ADDRESS</span><span class="o">=</span><span class="k">$(</span>gcloud compute addresses describe kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span> <span class="se">\
 </span><span class="se"></span>&gt;   --format <span class="s1">&#39;value(address)&#39;</span><span class="k">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><code>kubelet</code>のkubeconfファイルを生成する。<br>
+</code></pre></div><p><code>kubelet</code>のkubeconfファイルを生成する。<br>
 このとき使用するクライアントの証明書は各Kubeletノード名と一致している必要がある。
 これによって<code>kubelet</code>が<code>Node Authorizer</code>で認証されるようになる。
 Kubernetesクラスタにワーカーノードが追加される、と考えるとイメージしやすい。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各ワーカーノード用にkubeletのkubeconfファイルを生成する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各ワーカーノード用にkubeletのkubeconfファイルを生成する</span>
 $ <span class="k">for</span> instance in worker-0 worker-1 worker-2<span class="p">;</span> <span class="k">do</span>
 &gt; kubectl config set-cluster kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --certificate-authority<span class="o">=</span>ca.pem <span class="se">\
@@ -2310,39 +1275,9 @@ $ ls -l <span class="p">|</span> grep worker-..kubeconfig
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">6385</span>  <span class="m">4</span>  <span class="m">7</span> 13:58 worker-0.kubeconfig
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">6385</span>  <span class="m">4</span>  <span class="m">7</span> 13:58 worker-1.kubeconfig
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">6385</span>  <span class="m">4</span>  <span class="m">7</span> 13:59 worker-2.kubeconfig
-</code></pre></td></tr></table>
-</div>
-</div><p><code>kube-proxy</code>のkubeconfファイルを生成する。<br>
+</code></pre></div><p><code>kube-proxy</code>のkubeconfファイルを生成する。<br>
 ユーザー名は<code>system:kube-proxy</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-proxyのkubeconfファイルを生成する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-proxyのkubeconfファイルを生成する</span>
 kubernetes-the-hard-way $ kubectl config set-cluster kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --certificate-authority<span class="o">=</span>ca.pem <span class="se">\
 </span><span class="se"></span>&gt;   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\
@@ -2366,40 +1301,10 @@ Switched to context <span class="s2">&#34;default&#34;</span>.
 <span class="c1"># kubeconfigファイルが生成されたことを確認</span>
 $ ls -l <span class="p">|</span> grep kube-proxy.kubeconfig
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">6312</span>  <span class="m">4</span>  <span class="m">7</span> 15:13 kube-proxy.kubeconfig
-</code></pre></td></tr></table>
-</div>
-</div><p><code>kube-controller-manager</code>のkubeconfファイルを生成する。<br>
+</code></pre></div><p><code>kube-controller-manager</code>のkubeconfファイルを生成する。<br>
 ユーザー名は<code>system:kube-controller-manager</code>
 serverで指定するIPアドレスが<code>127.0.0.1</code>になっているのは<code>kube-controller-manager</code>がコントローラーノード上で動くからですね。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-controller-managerのkubeconfファイルを生成する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-controller-managerのkubeconfファイルを生成する</span>
 $ kubectl config set-cluster kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --certificate-authority<span class="o">=</span>ca.pem <span class="se">\
 </span><span class="se"></span>&gt;   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\
@@ -2423,39 +1328,9 @@ Switched to context <span class="s2">&#34;default&#34;</span>.
 <span class="c1"># kubeconfigファイルが生成されたことを確認</span>
 $ ls -l <span class="p">|</span> grep kube-controller-manager.kubeconfig
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">6387</span>  <span class="m">4</span>  <span class="m">7</span> 16:11 kube-controller-manager.kubeconfig
-</code></pre></td></tr></table>
-</div>
-</div><p><code>kube-scheduler</code>のkubeconfファイルを生成する。<br>
+</code></pre></div><p><code>kube-scheduler</code>のkubeconfファイルを生成する。<br>
 ユーザー名は<code>system:kube-scheduler</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-schedulerのkubeconfファイルを生成する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-schedulerのkubeconfファイルを生成する</span>
 $ kubectl config set-cluster kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --certificate-authority<span class="o">=</span>ca.pem <span class="se">\
 </span><span class="se"></span>&gt;   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\
@@ -2479,39 +1354,9 @@ Switched to context <span class="s2">&#34;default&#34;</span>.
 <span class="c1"># kubeconfigファイルが生成されたことを確認</span>
 $ ls -l <span class="p">|</span> grep kube-scheduler.kubeconfig
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">6337</span>  <span class="m">4</span>  <span class="m">7</span> 16:46 kube-scheduler.kubeconfig
-</code></pre></td></tr></table>
-</div>
-</div><p>最後に<code>admin</code>ユーザーのkubeconfファイルを生成する。<br>
+</code></pre></div><p>最後に<code>admin</code>ユーザーのkubeconfファイルを生成する。<br>
 これまではKubernetesのコンポーネント用のkubeconfだったがこれはユーザー認証用。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># adminユーザーのkubeconfファイルを生成する</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># adminユーザーのkubeconfファイルを生成する</span>
 $ kubectl config set-cluster kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --certificate-authority<span class="o">=</span>ca.pem <span class="se">\
 </span><span class="se"></span>&gt;   --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\
@@ -2535,52 +1380,10 @@ Switched to context <span class="s2">&#34;default&#34;</span>.
 <span class="c1"># kubeconfigファイルが生成されたことを確認</span>
 $ ls -l <span class="p">|</span> grep admin.kubeconfig
 -rw-------  <span class="m">1</span> yuendo  staff  <span class="m">6265</span>  <span class="m">4</span>  <span class="m">7</span> 17:52 admin.kubeconfig
-</code></pre></td></tr></table>
-</div>
-</div><p>生成したkubeconfファイルを各ノードに配布する。
+</code></pre></div><p>生成したkubeconfファイルを各ノードに配布する。
 <code>kubelet</code>用、<code>kube-proxy</code>用kubeconfははワーカーノードに、
 <code>kube-controller-manager</code>用、<code>kube-scheduler</code>用、<code>admin</code>ユーザー用のkubeconfはコントローラーノードに配布する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ワーカーノードにファイル配布</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ワーカーノードにファイル配布</span>
 $ <span class="k">for</span> instance in worker-0 worker-1 worker-2<span class="p">;</span> <span class="k">do</span>
 &gt;   gcloud compute scp <span class="si">${</span><span class="nv">instance</span><span class="si">}</span>.kubeconfig kube-proxy.kubeconfig <span class="si">${</span><span class="nv">instance</span><span class="si">}</span>:~/
 &gt; <span class="k">done</span>
@@ -2616,54 +1419,14 @@ bash: warning: setlocale: LC_ALL: cannot change locale <span class="o">(</span>j
 admin.kubeconfig                     100% <span class="m">6265</span>    62.8KB/s   00:00
 kube-controller-manager.kubeconfig   100% <span class="m">6387</span>    66.5KB/s   00:00
 kube-scheduler.kubeconfig            100% <span class="m">6337</span>    66.1KB/s   00:00
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="generating-the-data-encryption-config-and-key">Generating the Data Encryption Config and Key</h4>
+</code></pre></div><h4 id="generating-the-data-encryption-config-and-key">Generating the Data Encryption Config and Key</h4>
 <p>続いてはKubernetesにおけるクラスタ関連の保存データの暗号化について。
 このセクションではKubernetes Secretsを暗号化するための暗号鍵と暗号化設定を生成していく。</p>
 <p>まずは暗号鍵をランダム文字列で作成する。<br>
 使ったことなかったけど、ランダム文字列の生成は<code>/dev/urandom</code>を<code>base64</code>にかける方法がメジャーらしい。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nv">ENCRYPTION_KEY</span><span class="o">=</span><span class="k">$(</span>head -c <span class="m">32</span> /dev/urandom <span class="p">|</span> base64<span class="k">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>次に設定ファイルを作成してコントローラーノードに配置したらこの章は終わり。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nv">ENCRYPTION_KEY</span><span class="o">=</span><span class="k">$(</span>head -c <span class="m">32</span> /dev/urandom <span class="p">|</span> base64<span class="k">)</span>
+</code></pre></div><p>次に設定ファイルを作成してコントローラーノードに配置したらこの章は終わり。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 設定ファイルを作成</span>
 $ cat &gt; encryption-config.yaml <span class="s">&lt;&lt; EOF
 </span><span class="s">&gt; kind: EncryptionConfig
 </span><span class="s">&gt; apiVersion: v1
@@ -2690,9 +1453,7 @@ encryption-config.yaml                                                          
 Enter passphrase <span class="k">for</span> key <span class="s1">&#39;/Users/yuendo/.ssh/google_compute_engine&#39;</span>:
 bash: warning: setlocale: LC_ALL: cannot change locale <span class="o">(</span>ja_JP.UTF-8<span class="o">)</span>
 encryption-config.yaml                                                                                                                          100%  <span class="m">180</span>     1.9KB/s   00:00
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="bootstrapping-the-etcd-cluster">Bootstrapping the etcd Cluster</h4>
+</code></pre></div><h4 id="bootstrapping-the-etcd-cluster">Bootstrapping the etcd Cluster</h4>
 <p>Kubernetesのコンポーネントはステートレスで、Kubernetesクラスタの情報は全て<code>etcd</code>に保管されている。</p>
 <p>The Hard Wayではtmuxを使って複数のコントローラーノードに同時に同じコマンドを実行することをおすすめしている。
 tmuxで複数Paneを開いて<code>prefix</code>からの<code>:set synchronize-panes on</code>で有効化、<code>:set synchronize-panes off</code>で無効化。
@@ -2701,96 +1462,7 @@ tmuxで複数Paneを開いて<code>prefix</code>からの<code>:set synchronize-
 <p>最後に<code>etcdctl</code>コマンドでetcdクラスタのメンバーを表示して確認しているが、頭に付けている<code>ETCDCTL_API=3</code>はetcdctlのAPIバージョンを明示的に指定するために使用されている。
 <code>etcdctl</code>にはv2とv3があり、コマンドの引数が異なるため明示的に環境変数で指定しているのだそう。
 Kubernetesではv3を使用するのでここでは<code>ETCDCTL_API=3</code>としている。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># etcdをwgetしてtarを展開</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># etcdをwgetしてtarを展開</span>
 yuendo@controller-0:~$ wget -q --show-progress --https-only --timestamping <span class="se">\
 </span><span class="se"></span>&gt; <span class="s2">&#34;https://github.com/etcd-io/etcd/releases/download/v3.4.0/etcd-v3.4.0-linux-amd64.tar.gz&#34;</span>
 etcd-v3.4.0-linux-amd64.tar.gz               100%<span class="o">[============================================================================================</span>&gt;<span class="o">]</span>  16.45M  21.4MB/s    in 0.8s
@@ -2875,9 +1547,7 @@ yuendo@controller-0:~$ sudo <span class="nv">ETCDCTL_API</span><span class="o">=
 3a57933972cb5131, started, controller-2, https://10.240.0.12:2380, https://10.240.0.12:2379, <span class="nb">false</span>
 f98dc20bce6225a0, started, controller-0, https://10.240.0.10:2380, https://10.240.0.10:2379, <span class="nb">false</span>
 ffed16798470cab5, started, controller-1, https://10.240.0.11:2380, https://10.240.0.11:2379, <span class="nb">false</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><code>etcd</code>について少し調べたことを書き残しておく。<br>
+</code></pre></div><p><code>etcd</code>について少し調べたことを書き残しておく。<br>
 まず、etcdはクラスタ内でレプリケーションを実現している。
 その実装にあたっては<code>Raft</code>という考え方が使われている。
 各ノードに役割を持たせて<code>Leader</code>と<code>Follower</code>が存在する仕組みのようで、<code>Raft</code>の制約上etcdクラスタは最低3台必要になる。
@@ -2890,118 +1560,7 @@ ffed16798470cab5, started, controller-1, https://10.240.0.11:2380, https://10.24
 <h4 id="bootstrapping-the-kubernetes-control-plane">Bootstrapping the Kubernetes Control Plane</h4>
 <p>いよいよKubernetesのControl Planeを作っていく。<br>
 ここも例によってコントローラーノード3台それぞれにログインして同時に同じコマンドを入力していく。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Kubernetes Controller用のバイナリ群をダウンロード</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Kubernetes Controller用のバイナリ群をダウンロード</span>
 $ wget -q --show-progress --https-only --timestamping <span class="se">\
 </span><span class="se"></span>&gt; <span class="s2">&#34;https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/linux/amd64/kube-apiserver&#34;</span> <span class="se">\
 </span><span class="se"></span>&gt; <span class="s2">&#34;https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/linux/amd64/kube-controller-manager&#34;</span> <span class="se">\
@@ -3108,66 +1667,8 @@ $ cat <span class="s">&lt;&lt; EOF | sudo tee /etc/systemd/system/kube-apiserver
 
 <span class="o">[</span>Install<span class="o">]</span>
 <span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
-</div>
-</div><p>次に kube-controller-managerの設定をしていく。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-controller-managerのkubeconfigファイルを /var/lib/kubernetes/ に移動</span>
+</code></pre></div><p>次に kube-controller-managerの設定をしていく。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-controller-managerのkubeconfigファイルを /var/lib/kubernetes/ に移動</span>
 $ sudo mv kube-controller-manager.kubeconfig /var/lib/kubernetes/
 
 <span class="c1"># kube-controller-manager のsystemd unitファイルを作成</span>
@@ -3219,60 +1720,8 @@ $ cat <span class="s">&lt;&lt; EOF | sudo tee /etc/systemd/system/kube-controlle
 
 <span class="o">[</span>Install<span class="o">]</span>
 <span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
-</div>
-</div><p>続いてkube-schedulerの設定。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-schedulerのkubeconfファイルを /ver/lib/kubernetes/ に配置</span>
+</code></pre></div><p>続いてkube-schedulerの設定。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kube-schedulerのkubeconfファイルを /ver/lib/kubernetes/ に配置</span>
 $ sudo mv kube-scheduler.kubeconfig /var/lib/kubernetes/
 
 <span class="c1"># kube-schedulerの設定ファイルを作成</span>
@@ -3318,208 +1767,19 @@ $ cat <span class="s">&lt;&lt; EOF | sudo tee /etc/systemd/system/kube-scheduler
 
 <span class="o">[</span>Install<span class="o">]</span>
 <span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
-</div>
-</div><p>作成したunitファイルを使ってコントローラーノードのサービスを起動する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># systemd unitファイルのリロード、コントローラーサービスの有効化・起動</span>
+</code></pre></div><p>作成したunitファイルを使ってコントローラーノードのサービスを起動する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># systemd unitファイルのリロード、コントローラーサービスの有効化・起動</span>
 $ sudo systemctl daemon-reload
 $ sudo systemctl <span class="nb">enable</span> kube-apiserver kube-controller-manager kube-scheduler
 Created symlink /etc/systemd/system/multi-user.target.wants/kube-apiserver.service → /etc/systemd/system/kube-apiserver.service.
 Created symlink /etc/systemd/system/multi-user.target.wants/kube-controller-manager.service → /etc/systemd/system/kube-controller-manager.service.
 Created symlink /etc/systemd/system/multi-user.target.wants/kube-scheduler.service → /etc/systemd/system/kube-scheduler.service.
 $ sudo systemctl start kube-apiserver kube-controller-manager kube-scheduler
-</code></pre></td></tr></table>
-</div>
-</div><p>サービスが起動したのでヘルスチェックしてみる。<br>
+</code></pre></div><p>サービスが起動したのでヘルスチェックしてみる。<br>
 Google Network Load Balancerを経由したHTTPSエンドポイントに対するヘルスチェックはできないとのことで、
 nginxを導入、設定して80番へのHTTPヘルスチェックをAPIサーバーの6443番にプロキシする仕組みを作っていく。<br>
 完全に本筋からずれている感あるけれどHard Wayだから仕方ない。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span><span class="lnt">163
-</span><span class="lnt">164
-</span><span class="lnt">165
-</span><span class="lnt">166
-</span><span class="lnt">167
-</span><span class="lnt">168
-</span><span class="lnt">169
-</span><span class="lnt">170
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># nginxをインストール</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># nginxをインストール</span>
 $ sudo apt-get update
 Hit:1 http://us-west1.gce.archive.ubuntu.com/ubuntu bionic InRelease
 Get:2 http://us-west1.gce.archive.ubuntu.com/ubuntu bionic-updates InRelease <span class="o">[</span>88.7 kB<span class="o">]</span>
@@ -3689,9 +1949,7 @@ Connection: keep-alive
 X-Content-Type-Options: nosniff
 
 ok
-</code></pre></td></tr></table>
-</div>
-</div><p>続いて、Kubernetes API Serverが各ワーカーノードのKubelet APIにアクセスするためのRBAC設定を行っていく。
+</code></pre></div><p>続いて、Kubernetes API Serverが各ワーカーノードのKubelet APIにアクセスするためのRBAC設定を行っていく。
 Kubelet側では<code>--authorization-mode</code>を<code>webhook</code>にしている前提とのこと。認証方法は他にもいろいろある。
 <a href="https://kubernetes.io/docs/reference/access-authn-authz/authorization/#using-flags-for-your-authorization-module">Using Flags for Your Authorization Module</a></p>
 <p>ここから先の手順はコントローラーノード1台で実行すればクラスタ全体で反映されるようなので、
@@ -3701,52 +1959,7 @@ Kubelet側では<code>--authorization-mode</code>を<code>webhook</code>にし�
 <li>Kubelet APIへのアクセス権を持つClusterRoleとして<code>system:kube-apiserver-to-kubelet</code>を作成する。</li>
 <li><code>system:kube-apiserver-to-kubelet</code>と<code>kubernetes</code>ユーザーを紐付けるClusterRoleBindingを作成する。</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;system:kube-apiserver-to-kubelet&#34; Roleを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;system:kube-apiserver-to-kubelet&#34; Roleを作成</span>
 $ cat <span class="s">&lt;&lt;EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
 </span><span class="s">&gt; apiVersion: rbac.authorization.k8s.io/v1beta1
 </span><span class="s">&gt; kind: ClusterRole
@@ -3787,64 +2000,8 @@ $ cat <span class="s">&lt;&lt;EOF | kubectl apply --kubeconfig admin.kubeconfig 
 </span><span class="s">&gt;     name: kubernetes
 </span><span class="s">&gt; EOF</span>
 clusterrolebinding.rbac.authorization.k8s.io/system:kube-apiserver created
-</code></pre></td></tr></table>
-</div>
-</div><p>最後にLoad Balancerを作成する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パブリックIPアドレスを変数に格納</span>
+</code></pre></div><p>最後にLoad Balancerを作成する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パブリックIPアドレスを変数に格納</span>
 $ <span class="nv">KUBERNETES_PUBLIC_ADDRESS</span><span class="o">=</span><span class="k">$(</span>gcloud compute addresses describe kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;     --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span> <span class="se">\
 </span><span class="se"></span>&gt;     --format <span class="s1">&#39;value(address)&#39;</span><span class="k">)</span>
@@ -3894,32 +2051,8 @@ $ gcloud compute forwarding-rules create kubernetes-forwarding-rule <span class=
 </span><span class="se"></span>&gt;    --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span> <span class="se">\
 </span><span class="se"></span>&gt;    --target-pool kubernetes-target-pool&gt;     --target-pool kubernetes-target-pool
 Created <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/rising-capsule-272923/regions/us-west1/forwardingRules/kubernetes-forwarding-rule<span class="o">]</span>.
-</code></pre></td></tr></table>
-</div>
-</div><p>作成したLoad Balancerが機能していることを確認する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パブリックIPを変数に格納</span>
+</code></pre></div><p>作成したLoad Balancerが機能していることを確認する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パブリックIPを変数に格納</span>
 $ <span class="nv">KUBERNETES_PUBLIC_ADDRESS</span><span class="o">=</span><span class="k">$(</span>gcloud compute addresses describe kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;    --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span> <span class="se">\
 </span><span class="se"></span>&gt;    --format <span class="s1">&#39;value(address)&#39;</span><span class="k">)</span>
@@ -3937,9 +2070,7 @@ $ curl --cacert ca.pem https://<span class="si">${</span><span class="nv">KUBERN
   <span class="s2">&#34;compiler&#34;</span>: <span class="s2">&#34;gc&#34;</span>,
   <span class="s2">&#34;platform&#34;</span>: <span class="s2">&#34;linux/amd64&#34;</span>
 <span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="bootstrapping-the-kubernetes-worker-plane">Bootstrapping the Kubernetes Worker Plane</h4>
+</code></pre></div><h4 id="bootstrapping-the-kubernetes-worker-plane">Bootstrapping the Kubernetes Worker Plane</h4>
 <p>KubernetesのControl PlaneができたのでWorker Planeを作成する。<br>
 Worker noteの3台に以下のコンポーネントをインストールする。<br>
 <code>runc</code>, <code>container networking plugins</code>, <code>containerd</code>, <code>kubelet</code>, <code>kube-proxy</code></p>
@@ -3947,57 +2078,7 @@ Worker noteの3台に以下のコンポーネントをインストールする�
 <p>まずOSに必要なパッケージ群をインストールする。
 <code>socat</code>をインストールすることで<code>kubectl port-forward</code>が使えるようになるとのこと。
 使ったことないけど<code>socat</code>はプロキシ的な使い方ができるみたい。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 必要なパッケージをインストール</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 必要なパッケージをインストール</span>
 yuendo@worker-0:~$ sudo apt-get update
 Hit:1 http://us-west1.gce.archive.ubuntu.com/ubuntu bionic InRelease
 Hit:2 http://us-west1.gce.archive.ubuntu.com/ubuntu bionic-updates InRelease
@@ -4043,87 +2124,14 @@ Setting up libipset3:amd64 <span class="o">(</span>6.34-1<span class="o">)</span
 Setting up ipset <span class="o">(</span>6.34-1<span class="o">)</span> ...
 Processing triggers <span class="k">for</span> libc-bin <span class="o">(</span>2.27-3ubuntu1<span class="o">)</span> ...
 Processing triggers <span class="k">for</span> man-db <span class="o">(</span>2.8.3-2ubuntu0.1<span class="o">)</span> ...
-</code></pre></td></tr></table>
-</div>
-</div><p>次にSwapを無効化する。<br>
+</code></pre></div><p>次にSwapを無効化する。<br>
 Swapを有効化していると<code>kubelet</code>が正常に起動できないとのことらしい。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># swapを無効化</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># swapを無効化</span>
 yuendo@worker-0:~$ sudo swapon --show
 yuendo@worker-0:~$ sudo swapoff -a
 yuendo@worker-0:~$ sudo swapon --show
-</code></pre></td></tr></table>
-</div>
-</div><p>Worker用のバイナリをダウンロードし、それぞれディレクトリを作成した上でインストールしていく。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Worker Plane用のバイナリ群をダウンロード</span>
+</code></pre></div><p>Worker用のバイナリをダウンロードし、それぞれディレクトリを作成した上でインストールしていく。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Worker Plane用のバイナリ群をダウンロード</span>
 yuendo@worker-0:~$ wget -q --show-progress --https-only --timestamping <span class="se">\
 </span><span class="se"></span>&gt;   https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.15.0/crictl-v1.15.0-linux-amd64.tar.gz <span class="se">\
 </span><span class="se"></span>&gt;   https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.amd64 <span class="se">\
@@ -4180,68 +2188,11 @@ yuendo@worker-0:~$ sudo mv runc.amd64 runc
 yuendo@worker-0:~$ chmod +x crictl kubectl kube-proxy kubelet runc
 yuendo@worker-0:~$ sudo mv crictl kubectl kube-proxy kubelet runc /usr/local/bin/
 yuendo@worker-0:~$ sudo mv containerd/bin/* /bin/
-</code></pre></td></tr></table>
-</div>
-</div><p>次にCNIネットワークの設定を行う。<br>
+</code></pre></div><p>次にCNIネットワークの設定を行う。<br>
 CNIとは<code>Container Network Interface</code>のこと。
 「Linuxコンテナが作成された際のネットワーク接続性の確保とコンテナが削除された際のリソース開放を行う」とのこと。
 bridgeを作ったりと、OpenStackとかとおんなじようなイメージですかね。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各ノードのIPアドレスを変数に格納</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各ノードのIPアドレスを変数に格納</span>
 yuendo@worker-0:~$ <span class="nv">POD_CIDR</span><span class="o">=</span><span class="k">$(</span>curl -s -H <span class="s2">&#34;Metadata-Flavor: Google&#34;</span> <span class="se">\
 </span><span class="se"></span>&gt;   http://metadata.google.internal/computeMetadata/v1/instance/attributes/pod-cidr<span class="k">)</span>
 
@@ -4292,75 +2243,10 @@ yuendo@worker-0:~$ cat <span class="s">&lt;&lt;EOF | sudo tee /etc/cni/net.d/99-
     <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;lo&#34;</span>,
     <span class="s2">&#34;type&#34;</span>: <span class="s2">&#34;loopback&#34;</span>
 <span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>続いてContainerdの設定をしていく。<br>
+</code></pre></div><p>続いてContainerdの設定をしていく。<br>
 Containerdはコンテナランタイムで、Dockerから派生したOSS。
 Dockerの内部でも利用されていて、実質コンテナの標準ランタイム。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># containerdの設定ファイル、systemd unitファイルを作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># containerdの設定ファイル、systemd unitファイルを作成</span>
 yuendo@worker-0:~$ sudo mkdir -p /etc/containerd/
 yuendo@worker-0:~$ cat <span class="s">&lt;&lt; EOF | sudo tee /etc/containerd/config.toml
 </span><span class="s">&gt; [plugins]
@@ -4419,119 +2305,8 @@ yuendo@worker-0:~$ cat <span class="s">&lt;&lt;EOF | sudo tee /etc/systemd/syste
 
 <span class="o">[</span>Install<span class="o">]</span>
 <span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
-</div>
-</div><p>Kubeletも同様に設定ファイルを作成していく。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># キーペア、kubeconfigファイルをディレクトリに配置</span>
+</code></pre></div><p>Kubeletも同様に設定ファイルを作成していく。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># キーペア、kubeconfigファイルをディレクトリに配置</span>
 yuendo@worker-0:~$ sudo mv <span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>-key.pem <span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>.pem /var/lib/kubelet/
 yuendo@worker-0:~$ sudo mv <span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span>.kubeconfig /var/lib/kubelet/kubeconfig
 yuendo@worker-0:~$ sudo mv ca.pem /var/lib/kubernetes/
@@ -4636,40 +2411,8 @@ clientConnection:
   kubeconfig: <span class="s2">&#34;/var/lib/kube-proxy/kubeconfig&#34;</span>
 mode: <span class="s2">&#34;iptables&#34;</span>
 clusterCIDR: <span class="s2">&#34;10.200.0.0/16&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>Kubernetes proxyについても設定ファイルを作成していく。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">yuendo@worker-0:~$ cat <span class="s">&lt;&lt;EOF | sudo tee /etc/systemd/system/kube-proxy.service
+</code></pre></div><p>Kubernetes proxyについても設定ファイルを作成していく。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">yuendo@worker-0:~$ cat <span class="s">&lt;&lt;EOF | sudo tee /etc/systemd/system/kube-proxy.service
 </span><span class="s">&gt; [Unit]
 </span><span class="s">&gt; Description=Kubernetes Kube Proxy
 </span><span class="s">&gt; Documentation=https://github.com/kubernetes/kubernetes
@@ -4695,41 +2438,15 @@ clusterCIDR: <span class="s2">&#34;10.200.0.0/16&#34;</span>
 
 <span class="o">[</span>Install<span class="o">]</span>
 <span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-</code></pre></td></tr></table>
-</div>
-</div><p>設定ファイルが揃ったのでWorker Serviceを起動する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">yuendo@worker-0:~$ sudo systemctl daemon-reload
+</code></pre></div><p>設定ファイルが揃ったのでWorker Serviceを起動する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">yuendo@worker-0:~$ sudo systemctl daemon-reload
 yuendo@worker-0:~$ sudo systemctl <span class="nb">enable</span> containerd kubelet kube-proxy
 Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /etc/systemd/system/containerd.service.
 Created symlink /etc/systemd/system/multi-user.target.wants/kubelet.service → /etc/systemd/system/kubelet.service.
 Created symlink /etc/systemd/system/multi-user.target.wants/kube-proxy.service → /etc/systemd/system/kube-proxy.service.
 yuendo@worker-0:~$ sudo systemctl start containerd kubelet kube-proxy
-</code></pre></td></tr></table>
-</div>
-</div><p>コントローラー経由でkubectlコマンドを実行し、worker nodeの情報が表示されればOK。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gcloud compute ssh controller-0 <span class="se">\
+</code></pre></div><p>コントローラー経由でkubectlコマンドを実行し、worker nodeの情報が表示されればOK。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ gcloud compute ssh controller-0 <span class="se">\
 </span><span class="se"></span>&gt; --command <span class="s2">&#34;kubectl get nodes --kubeconfig admin.kubeconfig&#34;</span>
 Enter passphrase <span class="k">for</span> key <span class="s1">&#39;/Users/yuendo/.ssh/google_compute_engine&#39;</span>:
 bash: warning: setlocale: LC_ALL: cannot change locale <span class="o">(</span>ja_JP.UTF-8<span class="o">)</span>
@@ -4737,45 +2454,12 @@ NAME       STATUS   ROLES    AGE    VERSION
 worker-0   Ready    &lt;none&gt;   112s   v1.15.3
 worker-1   Ready    &lt;none&gt;   112s   v1.15.3
 worker-2   Ready    &lt;none&gt;   112s   v1.15.3
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="configuring-kubectl-for-remote-access">Configuring kubectl for Remote Access</h4>
+</code></pre></div><h4 id="configuring-kubectl-for-remote-access">Configuring kubectl for Remote Access</h4>
 <p>このセクションではadminユーザーでkubectlコマンドを使用するためのkubeconfigファイルを作成していく。</p>
 <p>kubeconfigはKubernetes API Serverにアクセスする必要がある。
 Kubernetes API Serverにアクセスする際は(高可用性実現のため)前段にある外部向けLBのIPアドレスが利用される。</p>
 <p>では早速Kubeconfigを作っていく。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># external Load BalancerのIPアドレスを取得</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># external Load BalancerのIPアドレスを取得</span>
 $ <span class="nv">KUBERNETES_PUBLIC_ADDRESS</span><span class="o">=</span><span class="k">$(</span>gcloud compute addresses describe kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt;   --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span> <span class="se">\
 </span><span class="se"></span>&gt;   --format <span class="s1">&#39;value(address)&#39;</span><span class="k">)</span>
@@ -4802,30 +2486,9 @@ Context <span class="s2">&#34;kubernetes-the-hard-way&#34;</span> created.
 <span class="c1"># コンテキストを作成した&#34;kubernetes-the-hard-way&#34;に変更</span>
 $ kubectl config use-context kubernetes-the-hard-way
 Switched to context <span class="s2">&#34;kubernetes-the-hard-way&#34;</span>.
-</code></pre></td></tr></table>
-</div>
-</div><p>作成したkubeconfigの動作確認。<br>
+</code></pre></div><p>作成したkubeconfigの動作確認。<br>
 これでようやく自PCからKubernetesクラスタに自由にkubectlできるようになった。やった。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各コンポーネントのステータス確認</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 各コンポーネントのステータス確認</span>
 $ kubectl get componentstatuses
 NAME                 STATUS    MESSAGE             ERROR
 scheduler            Healthy   ok
@@ -4840,9 +2503,7 @@ NAME       STATUS   ROLES    AGE   VERSION
 worker-0   Ready    &lt;none&gt;   11h   v1.15.3
 worker-1   Ready    &lt;none&gt;   11h   v1.15.3
 worker-2   Ready    &lt;none&gt;   11h   v1.15.3
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="provisioning-pod-network-routes">Provisioning Pod Network Routes</h4>
+</code></pre></div><h4 id="provisioning-pod-network-routes">Provisioning Pod Network Routes</h4>
 <p>Podには稼働nodeに割り当てられたPod CIDR Rangeの中からIPアドレスが付与される。
 そのためルーティングが実装されていないと他のnode上のPodと通信できない。</p>
 <p>このセクションでは各Worker nodeに対してPod CIDR RangeがnodeのIPアドレスにマッピングされるような経路を設定する。
@@ -4851,57 +2512,15 @@ worker-2   Ready    &lt;none&gt;   11h   v1.15.3
 必要な情報というのは各Worker nodeのinternal IPアドレスとPod CIDR Rangeで、取得するコマンドは以下のとおり。
 gcloudコマンドで抽出しているのは各nodeのIPアドレスとmetadataの1つ目。
 Worker nodeを作るときにmedatadaとしてPod CIDRを指定しているのでそれが参照される。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="k">for</span> instance in worker-0 worker-1 worker-2<span class="p">;</span> <span class="k">do</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="k">for</span> instance in worker-0 worker-1 worker-2<span class="p">;</span> <span class="k">do</span>
 &gt;   gcloud compute instances describe <span class="si">${</span><span class="nv">instance</span><span class="si">}</span> <span class="se">\
 </span><span class="se"></span>&gt;     --format <span class="s1">&#39;value[separator=&#34; &#34;](networkInterfaces[0].networkIP,metadata.items[0].value)&#39;</span>
 &gt; <span class="k">done</span>
 10.240.0.20 10.200.0.0/24
 10.240.0.21 10.200.1.0/24
 10.240.0.22 10.200.2.0/24
-</code></pre></td></tr></table>
-</div>
-</div><p>確認した情報をもとにルーティングを設定していく。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ルーティング定義作成</span>
+</code></pre></div><p>確認した情報をもとにルーティングを設定していく。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ルーティング定義作成</span>
 $ <span class="k">for</span> i in <span class="m">0</span> <span class="m">1</span> 2<span class="p">;</span> <span class="k">do</span>
 &gt;   gcloud compute routes create kubernetes-route-10-200-<span class="si">${</span><span class="nv">i</span><span class="si">}</span>-0-24 <span class="se">\
 </span><span class="se"></span>&gt;     --network kubernetes-the-hard-way <span class="se">\
@@ -4926,32 +2545,11 @@ default-route-f3bff7647d191b86  kubernetes-the-hard-way  0.0.0.0/0      default-
 kubernetes-route-10-200-0-0-24  kubernetes-the-hard-way  10.200.0.0/24  10.240.0.20               <span class="m">1000</span>
 kubernetes-route-10-200-1-0-24  kubernetes-the-hard-way  10.200.1.0/24  10.240.0.21               <span class="m">1000</span>
 kubernetes-route-10-200-2-0-24  kubernetes-the-hard-way  10.200.2.0/24  10.240.0.22               <span class="m">1000</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="deploying-the-dns-cluster-add-on">Deploying the DNS Cluster Add-on</h4>
+</code></pre></div><h4 id="deploying-the-dns-cluster-add-on">Deploying the DNS Cluster Add-on</h4>
 <p>次に、Kubernetesクラスタ上で稼働するアプリケーションに対してDNSベースのサービスディスカバリ機能を提供するためのDNS Add-onを実装していく。
 <code>CoreDNS</code>というものを使用するとのこと。関連コンポーネントがどんどん増えていって大変。</p>
 <p>まずは<code>coredns</code>クラスタアドオンをデプロイ。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># corednsのデプロイ</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># corednsのデプロイ</span>
 $ kubectl apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
 serviceaccount/coredns created
 clusterrole.rbac.authorization.k8s.io/system:coredns created
@@ -4966,34 +2564,10 @@ $ kubectl get pods -l k8s-app<span class="o">=</span>kube-dns -n kube-system
 NAME                     READY   STATUS    RESTARTS   AGE
 coredns-5fb99965-llsk5   0/1     Running   <span class="m">0</span>          36s
 coredns-5fb99965-rnc2m   0/1     Running   <span class="m">0</span>          36s
-</code></pre></td></tr></table>
-</div>
-</div><p>corednsの稼働確認として、<code>busybox</code>deploymentを作成して、その中のPodの中で名前解決してみる。
+</code></pre></div><p>corednsの稼働確認として、<code>busybox</code>deploymentを作成して、その中のPodの中で名前解決してみる。
 が、そもそもcorednsがREADYにならないので名前解決できない。
 調べてみるとcorednsがうまく起動しないのはメジャーな症状のようだが、細かく調べていく時間がないので仕方なくスキップする。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># busybox deploymentの作成</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># busybox deploymentの作成</span>
 $ kubectl run --generator<span class="o">=</span>run-pod/v1 busybox --image<span class="o">=</span>busybox:1.28 --command -- sleep <span class="m">3600</span>
 pod/busybox created
 
@@ -5011,48 +2585,11 @@ Address 1: 10.32.0.10
 nslookup: can<span class="s1">&#39;t resolve &#39;</span>kubernetes<span class="err">&#39;</span>
 <span class="nb">command</span> terminated with <span class="nb">exit</span> code <span class="m">1</span>
 <span class="c1"># 解決できない！！</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="smoke-test">Smoke Test</h4>
+</code></pre></div><h4 id="smoke-test">Smoke Test</h4>
 <p>この章では作成したKubernetesクラスタが正しく動作することを確認する。
 いよいよ大詰めといった感じ。</p>
 <p>まずは「データの暗号化」ができることを確認する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># generic secretの作成(dataをスペルミスしちゃった)</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># generic secretの作成(dataをスペルミスしちゃった)</span>
 $ kubectl create secret generic kubernetes-the-hard-way <span class="se">\
 </span><span class="se"></span>&gt; --from-literal<span class="o">=</span><span class="s2">&#34;mykey=mydate&#34;</span>
 secret/kubernetes-the-hard-way created
@@ -5083,22 +2620,8 @@ bash: warning: setlocale: LC_ALL: cannot change locale <span class="o">(</span>j
 </span><span class="s2">000000d0  3f 60 7a 6d 1d f3 7e c1  ed eb df cd 9c e4 5f b3  |?`zm..~......._.|
 </span><span class="s2">000000e0  5c ed 89 61 54 10 a7 32  18 0a                    |\..aT..2..|
 </span><span class="s2">000000ea
-</span></code></pre></td></tr></table>
-</div>
-</div><p>次はDeploymentsの確認。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># nginxのdeploymentを作成</span>
+</span></code></pre></div><p>次はDeploymentsの確認。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># nginxのdeploymentを作成</span>
 $ kubectl create deployment nginx --image<span class="o">=</span>nginx
 deployment.apps/nginx created
 
@@ -5106,34 +2629,8 @@ deployment.apps/nginx created
 $ kubectl get pods -l <span class="nv">app</span><span class="o">=</span>nginx
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-554b9c67f9-bl7p4   1/1     Running   <span class="m">0</span>          18s
-</code></pre></td></tr></table>
-</div>
-</div><p>次はPort Forwardingの確認。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># nginxのpodのフルネーム確認</span>
+</code></pre></div><p>次はPort Forwardingの確認。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># nginxのpodのフルネーム確認</span>
 $ <span class="nv">POD_NAME</span><span class="o">=</span><span class="k">$(</span>kubectl get pods -l <span class="nv">app</span><span class="o">=</span>nginx -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.items[0].metadata.name}&#34;</span><span class="k">)</span>
 
 <span class="c1"># podの80番ポートをローカルの8080番に紐付け</span>
@@ -5153,63 +2650,16 @@ Last-Modified: Tue, <span class="m">14</span> Apr <span class="m">2020</span> 14
 Connection: keep-alive
 ETag: <span class="s2">&#34;5e95c66e-264&#34;</span>
 Accept-Ranges: bytes
-</code></pre></td></tr></table>
-</div>
-</div><p>次にログ確認。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># podのログを表示</span>
+</code></pre></div><p>次にログ確認。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># podのログを表示</span>
 $ kubectl logs <span class="nv">$POD_NAME</span>
 127.0.0.1 - - <span class="o">[</span>15/May/2020:17:58:26 +0000<span class="o">]</span> <span class="s2">&#34;HEAD / HTTP/1.1&#34;</span> <span class="m">200</span> <span class="m">0</span> <span class="s2">&#34;-&#34;</span> <span class="s2">&#34;curl/7.54.0&#34;</span> <span class="s2">&#34;-&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>次はコンテナ上でコマンド実行できることを確認する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># pod上で&#34;nginx -v&#34;を実行</span>
+</code></pre></div><p>次はコンテナ上でコマンド実行できることを確認する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># pod上で&#34;nginx -v&#34;を実行</span>
 $ kubectl <span class="nb">exec</span> -ti <span class="nv">$POD_NAME</span> -- nginx -v
 nginx version: nginx/1.17.10
-</code></pre></td></tr></table>
-</div>
-</div><p>最後にサービス機能を使ってアプリケーションを外部に公開してみる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 公開設定</span>
+</code></pre></div><p>最後にサービス機能を使ってアプリケーションを外部に公開してみる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 公開設定</span>
 $ kubectl expose deployment nginx --port <span class="m">80</span> --type NodePort
 service/nginx exposed
 kubernetes-the-hard-way $ <span class="nv">NODE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get svc nginx <span class="se">\
@@ -5232,9 +2682,7 @@ $ <span class="nv">EXTERNAL_IP</span><span class="o">=</span><span class="k">$(<
 <span class="c1"># → だめだ、つながらない。どこだろう。もういいや</span>
 $ curl -I http://<span class="si">${</span><span class="nv">EXTERNAL_IP</span><span class="si">}</span>:<span class="si">${</span><span class="nv">NODE_PORT</span><span class="si">}</span>
 curl: <span class="o">(</span>7<span class="o">)</span> Failed to connect to 35.247.6.238 port 31766: Connection refused
-</code></pre></td></tr></table>
-</div>
-</div><p>最後の最後がうまく接続できなかった、、、dnsがうまく上がっていないところと関係しているのかもしれない。
+</code></pre></div><p>最後の最後がうまく接続できなかった、、、dnsがうまく上がっていないところと関係しているのかもしれない。
 もしくはexposeがうまく機能していないのか。。
 いずれにしてもここからさきはCKA的な操作を理解していないとPDができないので、
 一旦このチュートリアルは引き上げていきたいと思う。</p>
@@ -5242,26 +2690,7 @@ curl: <span class="o">(</span>7<span class="o">)</span> Failed to connect to 35.
 <h4 id="cleaning-up">Cleaning Up</h4>
 <p>ここまでのチュートリアルで作成してきたリソース群を削除していく。</p>
 <p>コンピュートリソースの削除。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># controller-0,1,2とworker-0,1,2を削除</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># controller-0,1,2とworker-0,1,2を削除</span>
 $ gcloud -q compute instances delete <span class="se">\
 </span><span class="se"></span>&gt; controller-0 controller-1 controller-2 <span class="se">\
 </span><span class="se"></span>&gt; worker-0 worker-1 worker-2 <span class="se">\
@@ -5276,56 +2705,8 @@ Deleted <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/r
 Updates are available <span class="k">for</span> some Cloud SDK components.  To install them,
 please run:
   $ gcloud components update
-</code></pre></td></tr></table>
-</div>
-</div><p>外部用のLBの削除。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ポートフォワーディングのルール削除</span>
+</code></pre></div><p>外部用のLBの削除。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ポートフォワーディングのルール削除</span>
 $ gcloud -q compute forwarding-rules delete kubernetes-forwarding-rule <span class="se">\
 </span><span class="se"></span>&gt; --region <span class="k">$(</span>gcloud config get-value compute/region<span class="k">)</span>
 Deleted <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/rising-capsule-272923/regions/us-west1/forwardingRules/kubernetes-forwarding-rule<span class="o">]</span>.
@@ -5367,9 +2748,7 @@ $ gcloud -q compute networks subnets delete kubernetes
 Deleted <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/rising-capsule-272923/regions/us-west1/subnetworks/kubernetes<span class="o">]</span>.
 $ gcloud -q compute networks delete kubernetes-the-hard-way
 Deleted <span class="o">[</span>https://www.googleapis.com/compute/v1/projects/rising-capsule-272923/global/networks/kubernetes-the-hard-way<span class="o">]</span>.
-</code></pre></td></tr></table>
-</div>
-</div><p>おわり。</p>
+</code></pre></div><p>おわり。</p>
 <p>HardWayをやってみた感想は後日書くこととする。ひとまずおしまい。</p>
 
         </div>

@@ -225,36 +225,7 @@ Node上でReplicaSetの「一部ではない」単体のPodが稼働している
 それとは別に、どのケースも<code>--ignore-darmonsets</code>が必要。</p>
 <p>また、Node上で稼働中のPodには手を付けずに、新規Scheduleだけを拒否するコマンドは<code>kubectl cordon</code>。
 いずれも<code>kubectl uncordon</code>で解除。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># node01を停止可能な状態にする(node01上ではPodは稼働していない)</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># node01を停止可能な状態にする(node01上ではPodは稼働していない)</span>
 $ kubectl drain node01 --ignore-daemonsets
 node/node01 already cordoned
 WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-flannel-ds-amd64-cj7c9, kube-system/kube-keepalived-vip-s2zts, kube-system/kube-proxy-h5687
@@ -279,9 +250,7 @@ node/node02 evicted
 <span class="c1"># もとに戻す</span>
 $ kubectl uncordon node01
 node/node01 uncordoned
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
         </div>
         <div class="m-entry__footer">
             <div class="m-entry__footer-sns-buttons">

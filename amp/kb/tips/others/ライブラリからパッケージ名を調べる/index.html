@@ -76,25 +76,7 @@
         <div class="m-entry__content">
             <p>「依存性の欠如」等のエラーでライブラリの不足を指摘された場合、不足しているライブラリから対応するパッケージ名を確認したくなる。
 そんなときは<code>yum whatprovides</code>で確認することができる。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">yum whatprovides libpam.so*
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">yum whatprovides libpam.so*
 読み込んだプラグイン:product-id, search-disabled-repos, subscription-manager
 This system is not registered with an entitlement server. You can use subscription-manager to register.
 pam-1.1.8-22.el7.i686 : An extensible library which provides authentication <span class="k">for</span> applications
@@ -108,9 +90,7 @@ Provides    : libpam.so.0<span class="o">(</span>LIBPAM_1.0<span class="o">)</sp
 Provides    : libpam.so.0<span class="o">(</span>LIBPAM_MODUTIL_1.1.3<span class="o">)</span>
 Provides    : libpam.so.0<span class="o">(</span>LIBPAM_EXTENSION_1.0<span class="o">)</span>
 Provides    : libpam.so.0<span class="o">(</span>LIBPAM_EXTENSION_1.1.1<span class="o">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>参考: <a href="https://www.geek.sc/archives/620">RPM依存ライブラリ不足の問題はYUMに聞こう！</a></p>
+</code></pre></div><p>参考: <a href="https://www.geek.sc/archives/620">RPM依存ライブラリ不足の問題はYUMに聞こう！</a></p>
 
         </div>
     </article>

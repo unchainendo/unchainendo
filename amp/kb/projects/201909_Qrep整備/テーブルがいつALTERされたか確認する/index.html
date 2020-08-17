@@ -79,21 +79,7 @@
 エラーの原因となる変更操作がターゲット表に対して行われた可能性があるかどうかを確認する。</p>
 <h3 id="対応">対応</h3>
 <p>スキーマ名(TABSCHEMA)、テーブル名(TABNAME)、最後にALTERした日時(ALTER_TIME)を出力する。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ db2 <span class="s2">&#34;select substr(tabschema, 1, 10) as tabschema, substr(tabname, 1, 15) as tabname, alter_time from syscat.tables where tabschema=&#39;&lt;schema_name&gt;&#39; order by 3&#34;</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ db2 <span class="s2">&#34;select substr(tabschema, 1, 10) as tabschema, substr(tabname, 1, 15) as tabname, alter_time from syscat.tables where tabschema=&#39;&lt;schema_name&gt;&#39; order by 3&#34;</span>
 
 TABSCHEMA  TABNAME         ALTER_TIME
 ---------- --------------- --------------------------
@@ -103,9 +89,7 @@ QREP01     TEST1           2020-01-01-00.00.00.000000
 ...
   xxxx record<span class="o">(</span>s<span class="o">)</span> selected.
 
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre></div>
         </div>
     </article>
 
