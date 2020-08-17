@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://unchainendo.github.io/unchainendo/" />
+        <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://unchainendo.github.io/unchainendo/amp/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/">
+        <title> 
+            Kubernetes勉強めも6 | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="Certicicate関連 各種Certificateの確認 kubeadm環境なら/etc/kubernetes/manifests/配下のP" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="Kubernetes勉強めも6 | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="Certicicate関連 各種Certificateの確認 kubeadm環境なら/etc/kubernetes/manifests/配下のP" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://unchainendo.github.io/unchainendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/kb">KB</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" itemprop="item" >
+                    
+                        Kubernetes勉強めも6
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://unchainendo.github.io/unchainendo/kb/">
+                                CKA
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">kubernetes</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも6</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/25</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="certicicate関連">Certicicate関連</h3>
+<h4 id="各種certificateの確認">各種Certificateの確認</h4>
+<p>kubeadm環境なら<code>/etc/kubernetes/manifests/</code>配下のPodマニフェストファイルに、
+手組みHardWay環境ならsystemdサービス定義ファイルに、それぞれCertificate関連のオプションとともにファイル名が指定されている。
+トラブルが起きているとすればこのあたりのどれかが間違ったファイルを指定してしまっているか、
+またはCertificateそのものの情報が間違っている可能性がある。
+Certificateの情報は以下のコマンドで確認できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ openssl x509  -noout -text -in ./server.crt
+</code></pre></div><p>特にapiserverがetcdに接続するためのCertificateファイル群は別パスに置かれていることがあるので注意が必要。</p>
+<h4 id="certificaterequestの作成と承認">CertificateRequestの作成と承認</h4>
+<p>以下のYAMLを作ってCertificateRequestを作成する。
+前提として未署名のキーペアが用意されていること。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>certificates.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CertificateSigningRequest<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>akshay<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">groups</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- system<span class="p">:</span>authenticated<span class="w">
+</span><span class="w">  </span><span class="k">request</span><span class="p">:</span><span class="w"> </span>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXpmQ01EZnRBTVcvT3JXSElJTEEvRVQrNGNEbThXY1dsOG9TdmJTd1pvb2dtCjVuUVB4UmErMTFRZjV3eEh5WnpUU1EvVnJzMlVVTXdZZ2N0aHY4SE5jcnVaYWQvTTVFWkhVU0l5SEM0dDk2KzYKcmJHd2ZNWUYxWnQzYWp5L2xoVkZsOUNiTXJXaitqL09YY3Fyay93MmF3ZXN2Z01rSkZyTUZCYUJQdllGcnpJaQpQNnZyK2kzczM3b1d3bVlaSzRUaGVxaHFQUzhFU09YR3laWS9JY1Q2YkRrSmk1ZFAyMEJpaUhIVjNhWFhEUWNVCmxYUmxzSDFnTjdIamJnMmRWRnBSK0VLRThYMXFsaHNiZERWcm1CK2dEOElJci9nN1d5YmZaTnlPSnlEMnd6YlUKWGJ0NE95ekM1Z0Y2TWpTbDhPR015Q0d3NU54aVlIOFBIRjlILzNTWnZRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBS0VxaDZ1azVsbjJIai9oZGFLV1cxYXdaZ3RtamtmMEZWQ2hvbGdtY2NLTXJjdXR5K1pYCit1Z0N4eHYzWUtZTlhuS1A4RVBaUnE5NTNsUGNZbmNpRlZPN0dLblNoY1NwNzViZXcrOXZrYzF4a1MxMVoxVlcKakg1aTVkREdLTFl0ZlRRTkhNeGlTQnlWMStBQVBXUmJkd2EzWmFEQ3lBOUVXUTFXVmVmMWIwa0U4U0JoQ3RkOApjbUdGdHRoVFkxbmY3ZStGbjlpT2ZyaE9Lc2paWVFHVTM1UzJabmIvN2ZqYlJpejY4U3dhSm9WVERFNnEvYlFCCnh5WlFubEFqUEhiTXNNL1ZsT053RkdQYXVVN3RHaWtIT2pmZ0gwYlNGWUkrNUpRSWFod3VBV1ZkbzRvTTlwNUMKc0ZqNm1SUlFYMjRldmRVOGlYUitDM1BIa1R3NTc3UVdvQ0E9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=<span class="w">
+</span><span class="w">  </span><span class="k">usages</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- digital<span class="w"> </span>signature<span class="w">
+</span><span class="w">  </span>- key<span class="w"> </span>encipherment<span class="w">
+</span><span class="w">  </span>- server<span class="w"> </span>auth<span class="w">
+</span></code></pre></div><p>requestにはCSRをbase64でハッシュ化したものを貼り付ける。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ cat akshay.csr <span class="p">|</span> base64 <span class="p">|</span> tr -d <span class="s1">&#39;\n&#39;</span>
+<span class="nv">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXpmQ01EZnRBTVcvT3JXSElJTEEvRVQrNGNEbThXY1dsOG9TdmJTd1pvb2dtCjVuUVB4UmErMTFRZjV3eEh5WnpUU1EvVnJzMlVVTXdZZ2N0aHY4SE5jcnVaYWQvTTVFWkhVU0l5SEM0dDk2KzYKcmJHd2ZNWUYxWnQzYWp5L2xoVkZsOUNiTXJXaitqL09YY3Fyay93MmF3ZXN2Z01rSkZyTUZCYUJQdllGcnpJaQpQNnZyK2kzczM3b1d3bVlaSzRUaGVxaHFQUzhFU09YR3laWS9JY1Q2YkRrSmk1ZFAyMEJpaUhIVjNhWFhEUWNVCmxYUmxzSDFnTjdIamJnMmRWRnBSK0VLRThYMXFsaHNiZERWcm1CK2dEOElJci9nN1d5YmZaTnlPSnlEMnd6YlUKWGJ0NE95ekM1Z0Y2TWpTbDhPR015Q0d3NU54aVlIOFBIRjlILzNTWnZRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBS0VxaDZ1azVsbjJIai9oZGFLV1cxYXdaZ3RtamtmMEZWQ2hvbGdtY2NLTXJjdXR5K1pYCit1Z0N4eHYzWUtZTlhuS1A4RVBaUnE5NTNsUGNZbmNpRlZPN0dLblNoY1NwNzViZXcrOXZrYzF4a1MxMVoxVlcKakg1aTVkREdLTFl0ZlRRTkhNeGlTQnlWMStBQVBXUmJkd2EzWmFEQ3lBOUVXUTFXVmVmMWIwa0U4U0JoQ3RkOApjbUdGdHRoVFkxbmY3ZStGbjlpT2ZyaE9Lc2paWVFHVTM1UzJabmIvN2ZqYlJpejY4U3dhSm9WVERFNnEvYlFCCnh5WlFubEFqUEhiTXNNL1ZsT053RkdQYXVVN3RHaWtIT2pmZ0gwYlNGWUkrNUpRSWFod3VBV1ZkbzRvTTlwNUMKc0ZqNm1SUlFYMjRldmRVOGlYUitDM1BIa1R3NTc3UVdvQ0E9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo</span><span class="o">=</span>
+</code></pre></div><p>Requestの作成と確認はappy&amp;get&amp;describeの組み合わせでOK。
+リソース名は略称の<code>csr</code>が楽。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get csr
+NAME          AGE     REQUESTOR          CONDITION
+agent-smith   3m54s   agent-x            Denied
+akshay        9m52s   kubernetes-admin   Approved,Issued
+</code></pre></div><h4 id="certificaterequestの承認と却下">CertificateRequestの承認と却下</h4>
+<p>承認は<code>kubectl certificate approbe &lt;CSR名&gt;</code>
+却下は<code>kubectl certificate deny &lt;CSR名&gt;</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;akshay&#34;を承認</span>
+$ kubectl certificate approve akshay
+certificatesigningrequest.certificates.k8s.io/akshay approved
+
+<span class="c1"># &#34;agent-smith&#34;を却下</span>
+$ kubectl certificate deny agent-smith
+certificatesigningrequest.certificates.k8s.io/agent-smith approved
+</code></pre></div><h4 id="kubeconfigの設定">kubeconfigの設定</h4>
+<p>kubeconfigは以下のフォーマットで設定する。
+複数Cluster、複数User、その組み合わせからなる複数のContextを定義する。
+<code>current-context</code>が現在設定されているContext。
+kubeconfigは必ず<code>~/.kube/config</code>として配置すること。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Config<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">clusters</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>production<span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>development<span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kubernetes-on-aws<span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-cluster<span class="m">-1</span><span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">contexts</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-user@development<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>development<span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>test-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>aws-user@kubernetes-on-aws<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>kubernetes-on-aws<span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>aws-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-user@production<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>production<span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>test-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>research<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>test-cluster<span class="m">-1</span><span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>dev-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">users</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-user<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">client-certificate</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/test-user/test-user.crt<span class="w">
+</span><span class="w">    </span><span class="k">client-key</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/test-user/test-user.key<span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>dev-user<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">client-certificate</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/dev-user/developer-user.crt<span class="w">
+</span><span class="w">    </span><span class="k">client-key</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/dev-user/dev-user.key<span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>aws-user<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">client-certificate</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/aws-user/aws-user.crt<span class="w">
+</span><span class="w">    </span><span class="k">client-key</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/aws-user/aws-user.key<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">current-context</span><span class="p">:</span><span class="w"> </span>test-user@development<span class="w">
+</span></code></pre></div><h4 id="contextの確認変更">contextの確認・変更</h4>
+<p>context関連の操作は<code>kubectl config</code>を使用する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeconfigに設定されているcontextと現在セットされているcontextを確認</span>
+$ kubectl config get-contexts
+CURRENT   NAME                         CLUSTER             AUTHINFO    NAMESPACE
+          aws-user@kubernetes-on-aws   kubernetes-on-aws   aws-user
+*         research                     test-cluster-1      dev-user
+          test-user@development        development         test-user
+          test-user@production         production          test-user
+
+<span class="c1"># contextを変更(kubeconfigファイルも書き換えられる)</span>
+$ kubectl config use-context research
+Switched to context <span class="s2">&#34;research&#34;</span>.
+</code></pre></div><h3 id="rbac">RBAC</h3>
+<h4 id="roleとrolebinding">RoleとRolebinding</h4>
+<p>Roleで「どのリソースにどのような操作ができるか」を設定する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Role<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>pod-reader<span class="w">
+</span><span class="w"></span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;pods&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div><p>RolebindingではRoleとUserやGroupを紐付けることで権限を付与する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>RoleBinding<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>read-pods<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
+</span><span class="w"></span><span class="k">subjects</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">kind</span><span class="p">:</span><span class="w"> </span>User<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>jane<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span><span class="w"></span><span class="k">roleRef</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Role<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>pod-reader<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span></code></pre></div><h4 id="clusterroleとclusterrolebindings">ClusterRoleとClusterRoleBindings</h4>
+<p>Roleに似た概念としてClusterRoleというものがある。
+Roleは各Namespace内のリソースに対する操作権限を扱いのに対して、ClusterRoleは一段外側のCluster全体の操作に対する権限を扱う。
+具体的にはSecretだったりNodeだったり。あとはPodについても<code>--all-namespaces</code>として扱う場合はこちらで設定する必要がある。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>secret-reader<span class="w">
+</span><span class="w"></span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;secrets&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div><p>作成したClusterRoleはClusterRoleBindingsで割り当てる。これもRolebindingsと似ている。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRoleBinding<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>read-secrets-global<span class="w">
+</span><span class="w"></span><span class="k">subjects</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">kind</span><span class="p">:</span><span class="w"> </span>Group<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>manager<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span><span class="w"></span><span class="k">roleRef</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>secret-reader<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span></code></pre></div>
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25826%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25826%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25826%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25826%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?Kubernetes%e5%8b%89%e5%bc%b7%e3%82%81%e3%82%826%20%7c%20YuKB https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25826%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25826%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25826%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/">&lt; prev</a> 
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%825/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" itemprop="item" >
+                    
+                        Kubernetes勉強めも6
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://unchainendo.github.io/unchainendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

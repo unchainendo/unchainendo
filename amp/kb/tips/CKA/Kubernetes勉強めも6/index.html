@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html ⚡ lang="ja">
+    <head>
+        
+
+        <meta charset="utf-8" />
+        <script async src="https://cdn.ampproject.org/v0.js"></script>
+        <title>Kubernetes勉強めも6 | YuKB</title>
+        
+            <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" />
+        
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+        
+        
+
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "NewsArticle",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https:\/\/unchainendo.github.io\/unchainendo\/kb\/tips\/CKA\/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826\/"
+                },
+                "headline": "Kubernetes勉強めも6",
+                
+                "datePublished": "2020-06-25T00:00:00"},
+                "author": {
+                    "@type": "Person",
+                    "name": "unchainendo"
+                },
+                "publisher": {
+                    "name": "YuKB",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": ""
+                }
+            }
+        </script>
+        <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+        
+        
+        
+        <style amp-custom>;@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:100}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:200}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:300}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:400}@font-face{font-family:yu gothic;src:local("Yu Gothic Bold");font-weight:700}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:100}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:200}@font-face{font-family:myyugothicm;font-weight:100;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:200;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:300;src:local("YuGothic-Regular"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:400;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:500;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:600;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:700;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:800;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:900;src:local("YuGothic-Bold"),local("Yu Gothic")}body{font-family:-apple-system,BlinkMacSystemFont,helvetica neue,biz udpゴシック,BIZ-UDPGothic,ud digi kyokasho n-r,hiragino kaku gothic pron,noto sans jp,MyYuGothicM,Verdana,Meiryo,"m+ 1p",sans-serif;font-feature-settings:"palt" 1}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-logo__link,.a-breadcrumbs__list-item-link{text-decoration:none}.chroma{color:#f8f8f2;background-color:#272822}.chroma .err{color:#960050;background-color:#1e0010}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .ln{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .k{color:#66d9ef}.chroma .kc{color:#66d9ef}.chroma .kd{color:#66d9ef}.chroma .kn{color:#f92672}.chroma .kp{color:#66d9ef}.chroma .kr{color:#66d9ef}.chroma .kt{color:#66d9ef}.chroma .na{color:#a6e22e}.chroma .nc{color:#a6e22e}.chroma .no{color:#66d9ef}.chroma .nd{color:#a6e22e}.chroma .ne{color:#a6e22e}.chroma .nf{color:#a6e22e}.chroma .nx{color:#a6e22e}.chroma .nt{color:#f92672}.chroma .l{color:#ae81ff}.chroma .ld{color:#e6db74}.chroma .s{color:#e6db74}.chroma .sa{color:#e6db74}.chroma .sb{color:#e6db74}.chroma .sc{color:#e6db74}.chroma .dl{color:#e6db74}.chroma .sd{color:#e6db74}.chroma .s2{color:#e6db74}.chroma .se{color:#ae81ff}.chroma .sh{color:#e6db74}.chroma .si{color:#e6db74}.chroma .sx{color:#e6db74}.chroma .sr{color:#e6db74}.chroma .s1{color:#e6db74}.chroma .ss{color:#e6db74}.chroma .m{color:#ae81ff}.chroma .mb{color:#ae81ff}.chroma .mf{color:#ae81ff}.chroma .mh{color:#ae81ff}.chroma .mi{color:#ae81ff}.chroma .il{color:#ae81ff}.chroma .mo{color:#ae81ff}.chroma .o{color:#f92672}.chroma .ow{color:#f92672}.chroma .c{color:#75715e}.chroma .ch{color:#75715e}.chroma .cm{color:#75715e}.chroma .c1{color:#75715e}.chroma .cs{color:#75715e}.chroma .cp{color:#75715e}.chroma .cpf{color:#75715e}.chroma .gd{color:#f92672}.chroma .ge{font-style:italic}.chroma .gi{color:#a6e22e}.chroma .gs{font-weight:700}.chroma .gu{color:#75715e}.a-copy-right{display:block;padding:2rem}.a-breadcrumbs__list{flex-wrap:wrap;list-style:none;margin:0;padding:0}.a-breadcrumbs__list-item{display:inline-block;white-space:nowrap}.a-breadcrumbs__list-item-link{font-size:.875rem}.a-breadcrumbs__list-item-link,.a-breadcrumbs__list-item-link:active,.a-breadcrumbs__list-item-link:hover,.a-breadcrumbs__list-item-link:visited{color:#212529}.a-breadcrumbs__list-item-link:hover{color:#0056b3;text-decoration:underline}.a-breadcrumbs__list-item-link-gt{padding-left:.5rem;padding-right:.5rem}.m-logo{padding:2rem}.m-logo__link{font-size:2rem}.m-logo__link,.m-logo__link:active,.m-logo__link:hover,.m-logo__link:visited{color:#212529}.m-global-menu{display:flex}.m-global-menu__navigation{display:flex}.m-global-menu__navigation-list{display:flex;align-items:baseline;padding:0;margin:0;list-style:none}.m-global-menu__navigation-list-item{display:flex;align-items:baseline;margin:0;padding:1rem}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active{display:block;font-weight:400}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link:active,.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link:visited{text-decoration:none;color:#212529}.m-global-menu__navigation-list-item-link--active{font-weight:700}.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link--active:active,.m-global-menu__navigation-list-item-link--active:hover,.m-global-menu__navigation-list-item-link--active:visited{text-decoration:none;border-bottom:2px solid #212529}.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link--active:hover{color:#0056b3}.m-body{display:block;width:100%}.m-global-header{display:flex;align-items:baseline;max-width:1260px;margin-left:auto;margin-right:auto;height:100px}@media screen and (max-width:1024px){.m-global-header{flex-direction:column;align-items:center;height:auto}}.m-main{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-main-container{display:flex}@media screen and (max-width:1024px){.m-main-container{flex-direction:column}}.m-content-container{width:auto}.m-aside-container{flex-shrink:0;width:400px}@media screen and (max-width:1024px){.m-aside-container{width:auto}}.m-global-footer{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-entry{padding:2rem}.m-entry__breadcrumbs{padding-bottom:2rem}.m-entry__header{padding-bottom:2rem}.m-entry__header-taxonomies{display:flex}.m-entry__header-taxonomies-category{padding-right:1rem}.m-entry__header-taxonomies-category-title-link,.m-entry__header-taxonomies-category-title-link:active,.m-entry__header-taxonomies-category-title-link:hover,.m-entry__header-taxonomies-category-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-category-title-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-category-title-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-taxonomies-tags-list{display:flex;list-style:none;padding:0}.m-entry__header-taxonomies-tags-list-item{padding-right:1rem}.m-entry__header-taxonomies-tags-list-item-link,.m-entry__header-taxonomies-tags-list-item-link:active,.m-entry__header-taxonomies-tags-list-item-link:hover,.m-entry__header-taxonomies-tags-list-item-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-title-link,.m-entry__header-title-link:active,.m-entry__header-title-link:hover,.m-entry__header-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-title-link-text{font-size:2rem;padding-top:1rem;padding-bottom:1rem}.m-entry__header-eyecache{padding-top:1rem}.m-entry__header-eyecache-img{width:100%}.m-entry__footer{padding:1rem}.m-entry__footer-sns-buttons{display:flex;justify-content:center;width:100%;padding-bottom:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu{display:block;padding-right:1rem;font-size:1.5rem;line-height:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu,.m-entry__footer-sns-buttons-icon:active,.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon:visited{text-decoration:none;color:#212529}.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon-hatebu:hover{color:#0056b3}.m-entry__footer-sns-buttons-icon-hatebu{position:relative;top:4px;font-family:Verdana;font-weight:700}.m-entry__page-navigation{display:flex;justify-content:center;padding-bottom:2rem}.m-entry__page-navigation-link{padding-right:1rem}.m-entry__page-navigation-link,.m-entry__page-navigation-link:active,.m-entry__page-navigation-link:hover,.m-entry__page-navigation-link:visited{text-decoration:none;color:#212529}.m-entry__page-navigation-link:hover{color:#0056b3}.m-entry__content{line-height:170%}.m-entry__content h2{padding-top:2rem;padding-bottom:1rem}.m-entry__content h3{padding-top:1rem;padding-bottom:1rem}.m-entry__content img{width:100%}.m-entry__content code{background-color:#eee;padding-left:8px;padding-right:8px;font-weight:400;border-radius:4px}.m-entry__content pre{padding:1rem}.m-entry__content .highlight pre code{padding:0;background-color:transparent}.m-entry__content table{margin:1rem;width:100%;border-collapse:collapse}.m-entry__content table tr th{padding:.5rem;border:1px solid #ccc;background-color:#ccc}.m-entry__content table tr td{padding:.5rem;border:1px solid #ccc}.m-entry__content blockquote{padding:1rem;margin:2rem;border-left:3px solid #ccc}.m-entry__content a[target=_blank]::after{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;margin-left:5px;margin-right:3px;display:inline-block}.m-list__breadcrumbs{padding-top:2rem;padding-left:2rem;padding-right:2rem}.m-paginator{padding-left:2rem;padding-right:2rem}.m-paginator__list{display:flex;justify-content:center;list-style:none;margin:0;padding:0}.m-paginator__list-item{display:block;padding:.5rem}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-paginator__list-item-link:active,.m-paginator__list-item-link:hover,.m-paginator__list-item-link:visited{color:#212529}.m-paginator__list-item-link:hover,.m-paginator__list-item-link--current:hover{color:#0056b3}.m-paginator__list-item-link--current{font-weight:700}.m-paginator__list-item-link--current,.m-paginator__list-item-link--current:active,.m-paginator__list-item-link--current:hover,.m-paginator__list-item-link--current:visited{text-decoration:none;border-bottom:2px solid #212529}.m-aside-container{padding:1rem}.m-aside-widget,.m-aside-widget__tags,.m-aside-widget__category,.m-aside-widget__profile{padding:1rem}.m-aside-widget__profile-avatar{text-align:center}.m-aside-widget__profile-avatar-img{border-radius:30rem}.m-aside-widget__profile-author{padding:1rem;text-align:center}.m-aside-widget__category-list{list-style:none}.m-aside-widget__category-list-item{padding-bottom:.5rem}.m-aside-widget__category-list-item-link,.m-aside-widget__category-list-item-link:active,.m-aside-widget__category-list-item-link:hover,.m-aside-widget__category-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__category-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__category-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__category>.m-aside-widget__category-list{padding:0}.m-aside-widget__tags-list{list-style:none}.m-aside-widget__tags-list-item{padding-bottom:.5rem}.m-aside-widget__tags-list-item-link,.m-aside-widget__tags-list-item-link:active,.m-aside-widget__tags-list-item-link:hover,.m-aside-widget__tags-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__tags>.m-aside-widget__tags-list{padding:0}</style>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    </head>
+    <body>
+        <header class="m-global-header">
+            <div class="m-logo">
+                <a class="m-logo__link" href="/" >YuKB</a>
+            </div>
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry" >
+        <div class="m-entry__header">
+            <div class="m-entry__header-category">
+                <span class="m-entry__header-category-title">
+                    CKA
+                </span>
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/amp/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも6</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/25</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="certicicate関連">Certicicate関連</h3>
+<h4 id="各種certificateの確認">各種Certificateの確認</h4>
+<p>kubeadm環境なら<code>/etc/kubernetes/manifests/</code>配下のPodマニフェストファイルに、
+手組みHardWay環境ならsystemdサービス定義ファイルに、それぞれCertificate関連のオプションとともにファイル名が指定されている。
+トラブルが起きているとすればこのあたりのどれかが間違ったファイルを指定してしまっているか、
+またはCertificateそのものの情報が間違っている可能性がある。
+Certificateの情報は以下のコマンドで確認できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ openssl x509  -noout -text -in ./server.crt
+</code></pre></div><p>特にapiserverがetcdに接続するためのCertificateファイル群は別パスに置かれていることがあるので注意が必要。</p>
+<h4 id="certificaterequestの作成と承認">CertificateRequestの作成と承認</h4>
+<p>以下のYAMLを作ってCertificateRequestを作成する。
+前提として未署名のキーペアが用意されていること。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>certificates.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CertificateSigningRequest<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>akshay<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">groups</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- system<span class="p">:</span>authenticated<span class="w">
+</span><span class="w">  </span><span class="k">request</span><span class="p">:</span><span class="w"> </span>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXpmQ01EZnRBTVcvT3JXSElJTEEvRVQrNGNEbThXY1dsOG9TdmJTd1pvb2dtCjVuUVB4UmErMTFRZjV3eEh5WnpUU1EvVnJzMlVVTXdZZ2N0aHY4SE5jcnVaYWQvTTVFWkhVU0l5SEM0dDk2KzYKcmJHd2ZNWUYxWnQzYWp5L2xoVkZsOUNiTXJXaitqL09YY3Fyay93MmF3ZXN2Z01rSkZyTUZCYUJQdllGcnpJaQpQNnZyK2kzczM3b1d3bVlaSzRUaGVxaHFQUzhFU09YR3laWS9JY1Q2YkRrSmk1ZFAyMEJpaUhIVjNhWFhEUWNVCmxYUmxzSDFnTjdIamJnMmRWRnBSK0VLRThYMXFsaHNiZERWcm1CK2dEOElJci9nN1d5YmZaTnlPSnlEMnd6YlUKWGJ0NE95ekM1Z0Y2TWpTbDhPR015Q0d3NU54aVlIOFBIRjlILzNTWnZRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBS0VxaDZ1azVsbjJIai9oZGFLV1cxYXdaZ3RtamtmMEZWQ2hvbGdtY2NLTXJjdXR5K1pYCit1Z0N4eHYzWUtZTlhuS1A4RVBaUnE5NTNsUGNZbmNpRlZPN0dLblNoY1NwNzViZXcrOXZrYzF4a1MxMVoxVlcKakg1aTVkREdLTFl0ZlRRTkhNeGlTQnlWMStBQVBXUmJkd2EzWmFEQ3lBOUVXUTFXVmVmMWIwa0U4U0JoQ3RkOApjbUdGdHRoVFkxbmY3ZStGbjlpT2ZyaE9Lc2paWVFHVTM1UzJabmIvN2ZqYlJpejY4U3dhSm9WVERFNnEvYlFCCnh5WlFubEFqUEhiTXNNL1ZsT053RkdQYXVVN3RHaWtIT2pmZ0gwYlNGWUkrNUpRSWFod3VBV1ZkbzRvTTlwNUMKc0ZqNm1SUlFYMjRldmRVOGlYUitDM1BIa1R3NTc3UVdvQ0E9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=<span class="w">
+</span><span class="w">  </span><span class="k">usages</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- digital<span class="w"> </span>signature<span class="w">
+</span><span class="w">  </span>- key<span class="w"> </span>encipherment<span class="w">
+</span><span class="w">  </span>- server<span class="w"> </span>auth<span class="w">
+</span></code></pre></div><p>requestにはCSRをbase64でハッシュ化したものを貼り付ける。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ cat akshay.csr <span class="p">|</span> base64 <span class="p">|</span> tr -d <span class="s1">&#39;\n&#39;</span>
+<span class="nv">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXpmQ01EZnRBTVcvT3JXSElJTEEvRVQrNGNEbThXY1dsOG9TdmJTd1pvb2dtCjVuUVB4UmErMTFRZjV3eEh5WnpUU1EvVnJzMlVVTXdZZ2N0aHY4SE5jcnVaYWQvTTVFWkhVU0l5SEM0dDk2KzYKcmJHd2ZNWUYxWnQzYWp5L2xoVkZsOUNiTXJXaitqL09YY3Fyay93MmF3ZXN2Z01rSkZyTUZCYUJQdllGcnpJaQpQNnZyK2kzczM3b1d3bVlaSzRUaGVxaHFQUzhFU09YR3laWS9JY1Q2YkRrSmk1ZFAyMEJpaUhIVjNhWFhEUWNVCmxYUmxzSDFnTjdIamJnMmRWRnBSK0VLRThYMXFsaHNiZERWcm1CK2dEOElJci9nN1d5YmZaTnlPSnlEMnd6YlUKWGJ0NE95ekM1Z0Y2TWpTbDhPR015Q0d3NU54aVlIOFBIRjlILzNTWnZRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBS0VxaDZ1azVsbjJIai9oZGFLV1cxYXdaZ3RtamtmMEZWQ2hvbGdtY2NLTXJjdXR5K1pYCit1Z0N4eHYzWUtZTlhuS1A4RVBaUnE5NTNsUGNZbmNpRlZPN0dLblNoY1NwNzViZXcrOXZrYzF4a1MxMVoxVlcKakg1aTVkREdLTFl0ZlRRTkhNeGlTQnlWMStBQVBXUmJkd2EzWmFEQ3lBOUVXUTFXVmVmMWIwa0U4U0JoQ3RkOApjbUdGdHRoVFkxbmY3ZStGbjlpT2ZyaE9Lc2paWVFHVTM1UzJabmIvN2ZqYlJpejY4U3dhSm9WVERFNnEvYlFCCnh5WlFubEFqUEhiTXNNL1ZsT053RkdQYXVVN3RHaWtIT2pmZ0gwYlNGWUkrNUpRSWFod3VBV1ZkbzRvTTlwNUMKc0ZqNm1SUlFYMjRldmRVOGlYUitDM1BIa1R3NTc3UVdvQ0E9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo</span><span class="o">=</span>
+</code></pre></div><p>Requestの作成と確認はappy&amp;get&amp;describeの組み合わせでOK。
+リソース名は略称の<code>csr</code>が楽。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get csr
+NAME          AGE     REQUESTOR          CONDITION
+agent-smith   3m54s   agent-x            Denied
+akshay        9m52s   kubernetes-admin   Approved,Issued
+</code></pre></div><h4 id="certificaterequestの承認と却下">CertificateRequestの承認と却下</h4>
+<p>承認は<code>kubectl certificate approbe &lt;CSR名&gt;</code>
+却下は<code>kubectl certificate deny &lt;CSR名&gt;</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;akshay&#34;を承認</span>
+$ kubectl certificate approve akshay
+certificatesigningrequest.certificates.k8s.io/akshay approved
+
+<span class="c1"># &#34;agent-smith&#34;を却下</span>
+$ kubectl certificate deny agent-smith
+certificatesigningrequest.certificates.k8s.io/agent-smith approved
+</code></pre></div><h4 id="kubeconfigの設定">kubeconfigの設定</h4>
+<p>kubeconfigは以下のフォーマットで設定する。
+複数Cluster、複数User、その組み合わせからなる複数のContextを定義する。
+<code>current-context</code>が現在設定されているContext。
+kubeconfigは必ず<code>~/.kube/config</code>として配置すること。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Config<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">clusters</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>production<span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>development<span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kubernetes-on-aws<span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-cluster<span class="m">-1</span><span class="w">
+</span><span class="w">  </span><span class="k">cluster</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">certificate-authority</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/ca.crt<span class="w">
+</span><span class="w">    </span><span class="k">server</span><span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//<span class="m">172.17.0.15</span><span class="p">:</span><span class="m">6443</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">contexts</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-user@development<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>development<span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>test-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>aws-user@kubernetes-on-aws<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>kubernetes-on-aws<span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>aws-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-user@production<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>production<span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>test-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>research<span class="w">
+</span><span class="w">  </span><span class="k">context</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">cluster</span><span class="p">:</span><span class="w"> </span>test-cluster<span class="m">-1</span><span class="w">
+</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>dev-user<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">users</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-user<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">client-certificate</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/test-user/test-user.crt<span class="w">
+</span><span class="w">    </span><span class="k">client-key</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/test-user/test-user.key<span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>dev-user<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">client-certificate</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/dev-user/developer-user.crt<span class="w">
+</span><span class="w">    </span><span class="k">client-key</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/dev-user/dev-user.key<span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>aws-user<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">client-certificate</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/aws-user/aws-user.crt<span class="w">
+</span><span class="w">    </span><span class="k">client-key</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/aws-user/aws-user.key<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">current-context</span><span class="p">:</span><span class="w"> </span>test-user@development<span class="w">
+</span></code></pre></div><h4 id="contextの確認変更">contextの確認・変更</h4>
+<p>context関連の操作は<code>kubectl config</code>を使用する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeconfigに設定されているcontextと現在セットされているcontextを確認</span>
+$ kubectl config get-contexts
+CURRENT   NAME                         CLUSTER             AUTHINFO    NAMESPACE
+          aws-user@kubernetes-on-aws   kubernetes-on-aws   aws-user
+*         research                     test-cluster-1      dev-user
+          test-user@development        development         test-user
+          test-user@production         production          test-user
+
+<span class="c1"># contextを変更(kubeconfigファイルも書き換えられる)</span>
+$ kubectl config use-context research
+Switched to context <span class="s2">&#34;research&#34;</span>.
+</code></pre></div><h3 id="rbac">RBAC</h3>
+<h4 id="roleとrolebinding">RoleとRolebinding</h4>
+<p>Roleで「どのリソースにどのような操作ができるか」を設定する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Role<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>pod-reader<span class="w">
+</span><span class="w"></span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;pods&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div><p>RolebindingではRoleとUserやGroupを紐付けることで権限を付与する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>RoleBinding<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>read-pods<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
+</span><span class="w"></span><span class="k">subjects</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">kind</span><span class="p">:</span><span class="w"> </span>User<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>jane<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span><span class="w"></span><span class="k">roleRef</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Role<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>pod-reader<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span></code></pre></div><h4 id="clusterroleとclusterrolebindings">ClusterRoleとClusterRoleBindings</h4>
+<p>Roleに似た概念としてClusterRoleというものがある。
+Roleは各Namespace内のリソースに対する操作権限を扱いのに対して、ClusterRoleは一段外側のCluster全体の操作に対する権限を扱う。
+具体的にはSecretだったりNodeだったり。あとはPodについても<code>--all-namespaces</code>として扱う場合はこちらで設定する必要がある。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>secret-reader<span class="w">
+</span><span class="w"></span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;secrets&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div><p>作成したClusterRoleはClusterRoleBindingsで割り当てる。これもRolebindingsと似ている。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRoleBinding<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>read-secrets-global<span class="w">
+</span><span class="w"></span><span class="k">subjects</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">kind</span><span class="p">:</span><span class="w"> </span>Group<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>manager<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span><span class="w"></span><span class="k">roleRef</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>secret-reader<span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span></code></pre></div>
+        </div>
+    </article>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

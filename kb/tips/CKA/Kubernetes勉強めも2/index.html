@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://unchainendo.github.io/unchainendo/" />
+        <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://unchainendo.github.io/unchainendo/amp/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/">
+        <title> 
+            Kubernetes勉強めも2 | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="手動でスケジューリング PodがPending状態のままのとき kube-schedulerが動いていないからかもしれない。 kube-syste" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="Kubernetes勉強めも2 | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="手動でスケジューリング PodがPending状態のままのとき kube-schedulerが動いていないからかもしれない。 kube-syste" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://unchainendo.github.io/unchainendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/kb">KB</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" itemprop="item" >
+                    
+                        Kubernetes勉強めも2
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://unchainendo.github.io/unchainendo/kb/">
+                                CKA
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">kubernetes</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも2</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/21</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="手動でスケジューリング">手動でスケジューリング</h3>
+<h4 id="podがpending状態のままのとき">PodがPending状態のままのとき</h4>
+<p><code>kube-scheduler</code>が動いていないからかもしれない。
+<code>kube-system</code>NamespaceでPodを確認してみる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get po -n kube-system
+NAME                                      READY   STATUS    RESTARTS   AGE
+coredns-66bff467f8-59x22                  1/1     Running   <span class="m">0</span>          3m45s
+coredns-66bff467f8-5nwnt                  1/1     Running   <span class="m">0</span>          3m45s
+etcd-master                               1/1     Running   <span class="m">0</span>          3m52s
+katacoda-cloud-provider-58f89f7d9-sndp7   1/1     Running   <span class="m">1</span>          3m43s
+kube-apiserver-master                     1/1     Running   <span class="m">0</span>          3m52s
+kube-controller-manager-master            1/1     Running   <span class="m">0</span>          3m52s
+kube-flannel-ds-amd64-4p5dr               1/1     Running   <span class="m">0</span>          3m44s
+kube-flannel-ds-amd64-p2lrp               1/1     Running   <span class="m">1</span>          3m34s
+kube-keepalived-vip-tr856                 1/1     Running   <span class="m">0</span>          3m12s
+kube-proxy-c9xqc                          1/1     Running   <span class="m">0</span>          3m45s
+kube-proxy-q9gcx                          1/1     Running   <span class="m">0</span>          3m34s
+</code></pre></div><h4 id="podの稼働nodeを指定して起動する">Podの稼働Nodeを指定して起動する</h4>
+<p>PodのYAMLマニフェストの中で<code>spec.nodeName</code>に稼働Node名を指定できる。
+ただし、稼働中のPodに<code>kubectl apply</code>してNodeを変更することはできないので削除＆再作成が必要。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">nodeName</span><span class="p">:</span><span class="w"> </span>node01<span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span></code></pre></div><h3 id="labelとselector">LabelとSelector</h3>
+<h4 id="selectorを使って指定したlabelのオブジェクトのみ表示する">selectorを使って指定したLabelのオブジェクトのみ表示する</h4>
+<p>kubectlコマンドに<code>--selector</code>オプションをつけることでLabelでフィルターできる。
+複数のLabelでフィルターするときは<code>,</code>で区切って指定するがスペース入れるとエラーになるので注意。
+<code>--selector</code>は<code>-l</code>でもOK。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Labelが&#34;env=dev&#34;のPodだけを表示</span>
+$ kubectl get pod --selector <span class="nv">env</span><span class="o">=</span>dev
+NAME          READY   STATUS    RESTARTS   AGE
+app-1-7tjv9   1/1     Running   <span class="m">0</span>          3m39s
+app-1-gl7xv   1/1     Running   <span class="m">0</span>          3m39s
+app-1-xm8bf   1/1     Running   <span class="m">0</span>          3m39s
+db-1-9qjnx    1/1     Running   <span class="m">0</span>          3m38s
+db-1-hh9q4    1/1     Running   <span class="m">0</span>          3m38s
+db-1-mr5hv    1/1     Running   <span class="m">0</span>          3m38s
+db-1-nmhnd    1/1     Running   <span class="m">0</span>          3m38s
+
+<span class="c1"># Labelが&#34;env=prod&#34;かつ&#34;bu=finance&#34;かつ&#34;tier=frontend&#34;のPodのみ表示</span>
+$ kubectl get po --selector <span class="nv">env</span><span class="o">=</span>prod,bu<span class="o">=</span>finance,tier<span class="o">=</span>frontend
+NAME          READY   STATUS    RESTARTS   AGE
+app-1-zzxdf   1/1     Running   <span class="m">0</span>          6m51s
+</code></pre></div><h4 id="annotation">Annotation</h4>
+<p>Labelと同様にAnnotation(<code>.metadata.annotaions</code>)というmetadataを各リソースに付与することができる。
+これはSelectorで抽出できるものではないので、バージョンとか担当者の連絡先とか、そういった情報を自由に書き足すときに使うようだ。
+このあたりの使い方のベストプラクティスがどんどん広まっていけば無駄な設計書は消えていくのだろう。。</p>
+<h3 id="taintsとtolerations">TaintsとTolerations</h3>
+<h4 id="概要">概要</h4>
+<p>TaintsはNodeに、TolerationsはPodに割り当てられるもの。
+Taintsは「このNodeには〜の条件を満たすPodしかScheduleできませんよー」というもので、
+Tolerationsは「〜のTaintsのNodeならScheduleできますよー」というもの。
+Taints/Tolerationsは特定のNodeで稼働するPodを制限する場合に使う。
+注意点としては、TaintsとTolerationsが合致しているからといってPodが必ずそのNodeにアサインされるわけではないということ。
+TaintsなしのNodeが空いていればそこにScheduleされることもある、と。
+意図的にこのNodeにScheduleさせたい、といったことは後述のNode Selector/Node Affinityで対応できる。</p>
+<h3 id="master-nodeのtaint">Master NodeのTaint</h3>
+<p>Master Nodeでは管理系のPod以外稼働させないためにTaintがデフォルトで設定されている。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl describe node master <span class="p">|</span> grep -i taint
+Taints:             node-role.kubernetes.io/master:NoSchedule
+</code></pre></div><h3 id="taintsの作成削除">Taintsの作成・削除</h3>
+<p>KeyとValueだけでなくEffectも一緒に指定する必要がある。
+Effectの選択肢は3つ。<code>NoSchedule</code>は条件を満たさない場合そのNodeにScheduleできない。
+<code>PreferNoSchedule</code>は<code>NoSchedule</code>に近いがPreferなので保証はされない。
+<code>NoExecute</code>は新規Podだけでなく既に稼働中のPodも条件を満たさなければそのNodeから追い出してしまう。
+Taintsの作成は<code>kubectl taint</code>コマンドを使い、削除はEffectの最後に&rdquo;-&ldquo;をつけるだけ。わっかりにくい。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Key:spray Value:mortein Effect:NoScheduleのTaintを作成</span>
+$ kubectl taint nodes node01 <span class="nv">spray</span><span class="o">=</span>mortein:NoSchedule
+node/node01 tainted
+
+<span class="c1"># デフォルトで定義されているTaintを削除</span>
+$ kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-
+node/master untainted
+</code></pre></div><h3 id="tolerationsの定義">Tolerationsの定義</h3>
+<p>PodにTolerationsを定義するときは<code>spec.tolerations</code>にTolerationの条件を記載する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>/var/answers/bee.yaml<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>bee<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>bee<span class="w">
+</span><span class="w">  </span><span class="k">tolerations</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>spray<span class="w">
+</span><span class="w">    </span><span class="k">value</span><span class="p">:</span><span class="w"> </span>mortein<span class="w">
+</span><span class="w">    </span><span class="k">effect</span><span class="p">:</span><span class="w"> </span>NoSchedule<span class="w">
+</span><span class="w">    </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>Equal<span class="w">
+</span></code></pre></div><h3 id="node-selector-と-node-affinity">Node Selector と Node Affinity</h3>
+<h4 id="概要-1">概要</h4>
+<p>Node SelectorとNode AffinityはどちらもPodを意図したNode上で稼働させるための仕組み。
+Node Selectorはシンプルに、Podに設定された<code>spec.nodeSelector</code>と一致するLabelを持つNodeにPodがScheduleされる。</p>
+<p>Node Affinityは「高度な」Node Selectorといった感じ。
+条件や挙動をより細かく設定できる。</p>
+<h4 id="node-selectorを設定する">Node Selectorを設定する</h4>
+<p>PodにNode Selectorを設定する例は以下のとおり。
+<code>disktype: ssd</code>のLabelをもつNodeにPodをアサインする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">env</span><span class="p">:</span><span class="w"> </span>test<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
+</span><span class="w">  </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">disktype</span><span class="p">:</span><span class="w"> </span>ssd<span class="w">
+</span></code></pre></div><h4 id="node-affinityを設定する">Node Affinityを設定する</h4>
+<p>Node Affinityの場合はちょっと複雑。
+<code>spec.affinity.nodeAffinity</code>の1つ目の<code>requiredDuringSchdulingIgnoredDuringExecution</code>は新たにScheduleするときの絶対条件。
+以下の例だとKeyが<code>kubernetes.io/e2e-az-name</code>でValueが<code>e2e-az1</code>か<code>e2e-az2</code>のいずれかのNodeでなければならない。
+operatorを<code>Exists</code>にすればvaluesが不要になり、Keyが存在していればOK、という設定になる。
+2つ目の<code>preferredDuringSchedulingIgnoredDuringExecution</code>は優先度の設定みたいなもの。
+条件を満たすNodeの優先度(<code>weight</code>)を設定することができ、その合算値が最も高いNodeにScheduleされる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>with-node-affinity<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">affinity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">nodeAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>kubernetes.io/e2e-az-name<span class="w">
+</span><span class="w">            </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
+</span><span class="w">            </span><span class="k">values</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- e2e-az1<span class="w">
+</span><span class="w">            </span>- e2e-az2<span class="w">
+</span><span class="w">      </span><span class="k">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">weight</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">        </span><span class="k">preference</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>another-node-label-key<span class="w">
+</span><span class="w">            </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
+</span><span class="w">            </span><span class="k">values</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- another-node-label-value<span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>with-node-affinity<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/pause<span class="p">:</span><span class="m">2.0</span><span class="w">
+</span></code></pre></div><p>Node Affinityの設定は長いから覚えるより公式から引っ張ってきたほうが早いな。</p>
+<h3 id="resource-requirements">Resource Requirements</h3>
+<h4 id="cpuやメモリのrequestlimitを変更する">CPUやメモリのRequest/Limitを変更する</h4>
+<p>稼働中のPodのリソースは変えられないので<code>kubectl get po &lt;pod名&gt; -o yaml</code>でYAMLに書き出して、
+Pod削除、YAML編集、<code>kubectl apply</code>とするしかない。
+YAMLの構造は以下のとおり、<code>spec.containers[*].resources</code>に<code>limits</code>と<code>requests</code>を指定する。
+リソース不足のときは<code>limits</code>の方を大きくなるように変更する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cpu-demo<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>cpu-example<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>cpu-demo-ctr<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>vish/stress<span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">limits</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">      </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.5&#34;</span><span class="w">
+</span></code></pre></div><h3 id="daemon-sets">Daemon Sets</h3>
+<h4 id="概要-2">概要</h4>
+<p>クラスタの各Nodeで1台ずつPodを稼働させるリソース。
+Nodeが増えたらそのNodeでも1台PodをScheduleする。</p>
+<h3 id="yamlマニフェスト">YAMLマニフェスト</h3>
+<p>ReplicaSetに似ている、というかkind以外完全に一緒。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>test.yaml<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>DaemonSet<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/fluentd-elasticsearch<span class="p">:</span><span class="m">1.20</span><span class="w">
+</span></code></pre></div><p>YAMLは公式サイトからひっぱってくるか、Deploymentを作成してファイルを編集する形がスムーズみたい。</p>
+<h3 id="static-pod">Static Pod</h3>
+<p>似た概念としてStatic Podというものがある。
+これはKubeletだけが稼働しているサーバー上でもPodを作成できる仕組みで、
+<code>kube-system</code>NamespaceのPodはこの形でScheduleされている。(kube-apiserverなど)
+Static Podはkubeletに指定されたパス(<code>staticPodPath: /etc/kubernetes/manifests</code>)にPodのYAMLマニフェストを置くだけで自動的に作成される。
+削除するときはYAMLファイルを削除するだけでよいし、変更するときもファイルを直接書き換えれば良い。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;busybox&#34;のイメージを使用し1000秒SleepするPodを作成</span>
+$ kubectl run --restart<span class="o">=</span>Never --image<span class="o">=</span>busybox static-busybox --dry-run -o yaml --command -- sleep <span class="m">1000</span> &gt; /etc/kubernetes/manifests/static-busybox.yaml
+</code></pre></div><p>Static Podの定義ファイルのパスは以下の流れで確認する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeletプロセスの引数から&#34;--config&#34;で指定されているファイルを確認</span>
+$ ps -ef <span class="p">|</span> grep kubelet
+root      <span class="m">3026</span>  <span class="m">2550</span>  <span class="m">0</span> 01:22 pts/1    00:00:00 grep --color<span class="o">=</span>auto kubelet
+root     <span class="m">30193</span>     <span class="m">1</span>  <span class="m">2</span> 01:18 ?        00:00:06 /usr/bin/kubelet --bootstrap-kubeconfig<span class="o">=</span>/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig<span class="o">=</span>/etc/kubernetes/kubelet.conf --config<span class="o">=</span>/var/lib/kubelet/config.yaml --cgroup-driver<span class="o">=</span>systemd --network-plugin<span class="o">=</span>cni --pod-infra-container-image<span class="o">=</span>k8s.gcr.io/pause:3.2 --resolv-conf<span class="o">=</span>/run/systemd/resolve/resolv.conf
+
+<span class="c1"># 設定ファイルから&#34;staticPodPath&#34;を確認</span>
+$ cat /var/lib/kubelet/config.yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+authentication:
+  anonymous:
+    enabled: <span class="nb">false</span>
+  webhook:
+    cacheTTL: 0s
+    enabled: <span class="nb">true</span>
+
+<span class="o">(</span>中略<span class="o">)</span>
+
+runtimeRequestTimeout: 0s
+staticPodPath: /etc/just-to-mess-with-you
+streamingConnectionIdleTimeout: 0s
+syncFrequency: 0s
+volumeStatsAggPeriod: 0s
+</code></pre></div><h3 id="multiple-scheduler">Multiple Scheduler</h3>
+<h4 id="default以外のschedulerを個別に作成する">default以外のSchedulerを個別に作成する</h4>
+<p>kube-schedulerはデフォルトのもの以外に新しく定義したものを追加したり、入れ替えたりできる。
+kube-schedulerは、kubeadm環境だとPod、手組み環境だとsystemdのServiceとして動いているので
+それらの定義ファイルをコピって名前(<code>--scheduler-name</code>)変えて起動すればOK。
+複数のMasterが存在しない場合は全てのScheduleで<code>--leader-elect=false</code>にする必要がある。
+複数のMasterが存在する場合は<code>--lock-object-name=&lt;Scheduler名&gt;</code>を追記する必要がある。
+ちょっとこのあたりのロジックがわかっていないので後で勉強する。
+あとは<code>--port</code>に使われていないPortを指定する。(<code>netstat -natulp</code>で確認)</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># デフォルトのSchedulerのマニフェストファイルをコピーして書き換えてオリジナルのSchedulerを起動</span>
+$ cp -p /etc/kubernetes/manifests/kube-scheduler.yaml ./my-scheduler.yaml
+$ vi my-scheduler.yaml
+$ cat my-scheduler.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    component: kube-scheduler
+    tier: control-plane
+  name: my-scheduler
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-scheduler
+    - --authentication-kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf
+    - --authorization-kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf
+    - --bind-address<span class="o">=</span>127.0.0.1
+    - --kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf
+    - --leader-elect<span class="o">=</span><span class="nb">false</span>
+    - --scheduler-name<span class="o">=</span>my-scheduler
+    - --port<span class="o">=</span><span class="m">10253</span>
+    image: k8s.gcr.io/kube-scheduler:v1.18.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: <span class="m">8</span>
+      httpGet:
+        host: 127.0.0.1
+        path: /healthz
+        port: <span class="m">10259</span>
+        scheme: HTTPS
+      initialDelaySeconds: <span class="m">15</span>
+      timeoutSeconds: <span class="m">15</span>
+    name: kube-scheduler
+    resources:
+      requests:
+        cpu: 100m
+    volumeMounts:
+    - mountPath: /etc/kubernetes/scheduler.conf
+      name: kubeconfig
+      readOnly: <span class="nb">true</span>
+  hostNetwork: <span class="nb">true</span>
+  priorityClassName: system-cluster-critical
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes/scheduler.conf
+      type: FileOrCreate
+    name: kubeconfig
+
+<span class="c1"># いつもどおりapplyして作成</span>
+$ kubectl apply -f my-scheduler.yaml
+pod/my-scheduler created
+$ kubectl get po -n kube-system
+NAME                                      READY   STATUS             RESTARTS   AGE
+coredns-66bff467f8-nmvfh                  1/1     Running            <span class="m">0</span>          19m
+coredns-66bff467f8-npdcr                  1/1     Running            <span class="m">0</span>          19m
+etcd-master                               1/1     Running            <span class="m">0</span>          20m
+katacoda-cloud-provider-58f89f7d9-m78lz   0/1     CrashLoopBackOff   <span class="m">7</span>          19m
+kube-apiserver-master                     1/1     Running            <span class="m">0</span>          20m
+kube-controller-manager-master            1/1     Running            <span class="m">0</span>          20m
+kube-flannel-ds-amd64-9nplh               1/1     Running            <span class="m">0</span>          19m
+kube-flannel-ds-amd64-g5k4r               1/1     Running            <span class="m">0</span>          19m
+kube-keepalived-vip-brz8x                 1/1     Running            <span class="m">0</span>          19m
+kube-proxy-6wdc4                          1/1     Running            <span class="m">0</span>          19m
+kube-proxy-sgrmq                          1/1     Running            <span class="m">0</span>          19m
+kube-scheduler-master                     1/1     Running            <span class="m">0</span>          20m
+my-scheduler                              1/1     Running            <span class="m">0</span>          45s
+</code></pre></div><h4 id="schedulerを指定してpodを起動する">Schedulerを指定してPodを起動する</h4>
+<p><code>spec.schedulerName</code>にScheduler名を指定すればそのSchedulerが使われる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="w"> </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">     </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">  </span><span class="k">schedulerName</span><span class="p">:</span><span class="w"> </span>my-scheduler<span class="w">
+</span></code></pre></div><h4 id="指定したschedulerが使われたことを確認する">指定したSchedulerが使われたことを確認する</h4>
+<p>Schdulerに限らず、Kubernetesの簡単なイベントログは<code>kubectl get events</code>で確認する。
+自分で作成したSchedulerがちゃんと機能したかどうかは<code>SOURCE</code>や<code>MESSAGE</code>から確認できる。
+詳細なログは<code>kubectl logs</code>コマンドで確認。引数にはリソース名、必要に応じてNamespace名を指定する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl logs my-scheduler -n kube-system
+I0623 03:42:55.376469       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+I0623 03:42:55.376518       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+I0623 03:42:55.792830       <span class="m">1</span> serving.go:313<span class="o">]</span> Generated self-signed cert in-memory
+I0623 03:42:56.205514       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+I0623 03:42:56.205699       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+W0623 03:42:56.206953       <span class="m">1</span> authorization.go:47<span class="o">]</span> Authorization is disabled
+W0623 03:42:56.207041       <span class="m">1</span> authentication.go:40<span class="o">]</span> Authentication is disabled
+I0623 03:42:56.207117       <span class="m">1</span> deprecated_insecure_serving.go:51<span class="o">]</span> Serving healthz insecurely on <span class="o">[</span>::<span class="o">]</span>:10251
+I0623 03:42:56.208400       <span class="m">1</span> secure_serving.go:178<span class="o">]</span> Serving securely on 127.0.0.1:10259
+I0623 03:42:56.208661       <span class="m">1</span> configmap_cafile_content.go:202<span class="o">]</span> Starting client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file
+I0623 03:42:56.208738       <span class="m">1</span> shared_informer.go:223<span class="o">]</span> Waiting <span class="k">for</span> caches to sync <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file
+I0623 03:42:56.208817       <span class="m">1</span> tlsconfig.go:240<span class="o">]</span> Starting DynamicServingCertificateController
+I0623 03:42:56.209399       <span class="m">1</span> configmap_cafile_content.go:202<span class="o">]</span> Starting client-ca::kube-system::extension-apiserver-authentication::client-ca-file
+I0623 03:42:56.209527       <span class="m">1</span> shared_informer.go:223<span class="o">]</span> Waiting <span class="k">for</span> caches to sync <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::client-ca-file
+I0623 03:42:56.308877       <span class="m">1</span> shared_informer.go:230<span class="o">]</span> Caches are synced <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file
+I0623 03:42:56.309719       <span class="m">1</span> shared_informer.go:230<span class="o">]</span> Caches are synced <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::client-ca-file
+</code></pre></div>
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25822%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25822%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25822%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25822%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?Kubernetes%e5%8b%89%e5%bc%b7%e3%82%81%e3%82%822%20%7c%20YuKB https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25822%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25822%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25822%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/">&lt; prev</a> 
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%821/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" itemprop="item" >
+                    
+                        Kubernetes勉強めも2
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://unchainendo.github.io/unchainendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

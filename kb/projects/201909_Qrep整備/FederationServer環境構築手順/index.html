@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://unchainendo.github.io/unchainendo/" />
+        <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://unchainendo.github.io/unchainendo/amp/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">
+        <title> 
+            FederationServer環境構築手順 | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="作業前提 環境区分 ホスト ソースDBが存在する環境 DBサーバー ターゲットDBが存在する環境 ソフトウェアバージョン ホスト Db2 V10 CM8 DBサーバー Db2 V11.5 1. F" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="FederationServer環境構築手順 | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="作業前提 環境区分 ホスト ソースDBが存在する環境 DBサーバー ターゲットDBが存在する環境 ソフトウェアバージョン ホスト Db2 V10 CM8 DBサーバー Db2 V11.5 1. F" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://unchainendo.github.io/unchainendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/kb">KB</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/" itemprop="item" >
+                    
+                        Projects
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" itemprop="item" >
+                    
+                        FederationServer環境構築手順
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://unchainendo.github.io/unchainendo/kb/">
+                                Projects
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">Db2</a>
+                                    </li>
+                                
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">MQ</a>
+                                    </li>
+                                
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">Qrep</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" >
+                    <h1 class="m-entry__header-title-link-text">FederationServer環境構築手順</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/03/01</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="作業前提">作業前提</h3>
+<h4 id="環境区分">環境区分</h4>
+<ul>
+<li>ホスト<br>
+ソースDBが存在する環境</li>
+<li>DBサーバー<br>
+ターゲットDBが存在する環境</li>
+</ul>
+<h4 id="ソフトウェアバージョン">ソフトウェアバージョン</h4>
+<ul>
+<li>ホスト
+<ul>
+<li>Db2 V10 CM8</li>
+</ul>
+</li>
+<li>DBサーバー
+<ul>
+<li>Db2 V11.5</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-federationserver設定">1. FederationServer設定</h3>
+<h4 id="federationserver用ユーザーの作成">FederationServer用ユーザーの作成</h4>
+<p>FederationServer用インスタンスのオーナーをfedmin、NICKNAME定義用ユーザーをfedsysとする。
+FederationServer用DBのパス(今回は/data/db2fed)にアクセス権があることを確認しておく。なければ付与する。
+以降の作業は全てDBサーバー上で実施する。</p>
+<h4 id="federationserver用インスタンスの作成">FederationServer用インスタンスの作成</h4>
+<p>ターゲットDBと同一インスタンスに構成しても良いが、今回はターゲットDBに極力影響しない範囲で実装するためインスタンスごと分ける。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># インスタンスオーナーにスイッチ</span>
+su - fedmin
+
+<span class="c1"># FederationServer用インスタンスの作成</span>
+<span class="c1"># /opt/IBM/db2/V11.5/instance/db2icrt -u &lt;インスタンスオーナー&gt; &lt;インスタンス名&gt;</span>
+/opt/IBM/db2/V11.5/instance/db2icrt -u fedmin fedmin 
+
+<span class="c1"># インスタンス確認</span>
+/opt/IBM/db2/V11.5/instance/db2ilist
+</code></pre></div><h4 id="db2ライセンス適用">Db2ライセンス適用</h4>
+<p>Developer-Cライセンスを削除してStandard Editionライセンスを適用する。<br>
+手順は<a href="https://pages.github.ibm.com/YUENDO/yuendo/posts/q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">Qアプライ環境構築手順</a>参照。</p>
+<h4 id="federationserver用インスタンスの起動">FederationServer用インスタンスの起動</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">db2start
+</code></pre></div><h4 id="ターゲットdbソースdbのカタログ">ターゲットDB、ソースDBのカタログ</h4>
+<p>FederationServerとしてはソースDBしか見に行かないが、同じ環境からターゲットDBにも接続できた方が
+export→diffの操作が楽になるので両方ともカタログしておく。
+手順は<a href="https://pages.github.ibm.com/YUENDO/yuendo/posts/q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">Qアプライ環境構築手順</a>参照。</p>
+<h4 id="dbm構成パラメータの変更">DBM構成パラメータの変更</h4>
+<p>作成したインスタンスをFederationServerとして使うための設定。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># DBM構成パラメータの変更</span>
+db2 update dbm cfg using FEDERATED YES
+
+<span class="c1"># インスタンス再起動(設定反映のため)</span>
+db2stop
+db2start
+
+<span class="c1"># DBM構成パラメータの確認</span>
+db2 get dbm cfg <span class="p">|</span> grep FEDERATED
+</code></pre></div><h4 id="federationserver用dbの作成">FederationServer用DBの作成</h4>
+<p>無駄な文字コード変換を避けるためターゲットDBと同じコードセットで作成する。(作成後は変更不可)
+ページサイズは32Kとする。order byしてexportする際に一時表スペースが溢れないようにするため。<br>
+以降、FederationServer用DBは「FEDDB」とする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># FederationServer用DBの作成</span>
+<span class="c1"># db2 create db &lt;DB名&gt; on &lt;データパス&gt; using codeset &lt;コードセット&gt; territory JP collate using identity pagesize 32K</span>
+db2 create db FEDDB on /data/db2fed using codeset IBM-943 territory JP collate using identity pagesize 32K
+
+<span class="c1"># DB一覧の確認</span>
+db2 list db directory
+</code></pre></div><h4 id="nickname定義用ユーザーへの管理者権限付与">NICKNAME定義用ユーザーへの管理者権限付与</h4>
+<p>NICKNAME作成やFederationServer経由のexportはNICKNAME定義用ユーザーで行うため、
+FEDDBの管理者権限をNICKNAME定義用ユーザーへ付与する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># FEDDBへdb2connect</span>
+db2 connect to FEDDB
+
+<span class="c1"># NICKNAME定義用ユーザー(fedsys)にDBADM権限を付与</span>
+<span class="c1"># db2 grant &lt;権限&gt; on database to user &lt;ユーザー名&gt;</span>
+db2 grant dbadm on database to user fedsys
+
+<span class="c1"># 権限が付与されたことを確認</span>
+<span class="c1"># db2 &#34;select GRANTEE, DBADMAUTH from syscat.dbauth where GRANTEE=&#39;&lt;ユーザー名&gt;&#39;&#34;</span>
+db2 <span class="s2">&#34;select GRANTEE, DBADMAUTH from syscat.dbauth where GRANTEE=&#39;FEDSYS&#39;&#34;</span>
+
+<span class="c1"># NICKNAME定義用ユーザーにDb2用環境変数定義を追加</span>
+su - fedsys
+<span class="c1"># 以下の4行を追記</span>
+<span class="c1"># # The following three lines have been added by UDB DB2.</span>
+<span class="c1"># if [ -f /home/fedmin01/sqllib/db2profile ]; then</span>
+<span class="c1">#     . /home/fedmin01/sqllib/db2profile</span>
+<span class="c1"># fi</span>
+vi ~/.bashrc
+</code></pre></div><h4 id="ラッパーサーバーユーザーマッピングの作成">ラッパー、サーバー、ユーザーマッピングの作成</h4>
+<p>ホストのソースDBに接続するためのwrapper, server, user mappingを作成する。
+以降の作業はNICKNAME定義用ユーザー(fedsys)で行う。<br>
+serverはNICKNAME作成時に指定する。<br>
+これでFederationServerとしての環境設定は完了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># wrapperの作成</span>
+<span class="c1"># db2 create wrapper &lt;wrapper名&gt;</span>
+db2 create wrapper drda
+
+<span class="c1"># wrapperが作成されたことを確認</span>
+db2 <span class="s2">&#34;select * from syscat.wrappers&#34;</span>
+
+<span class="c1"># serverの作成</span>
+<span class="c1"># db2 &#34;create server &lt;server名&gt; type DB2/zOS version 10.1 wrapper &lt;wrapper名&gt; authorization &lt;ソースDB接続ユーザー名&gt; password &lt;パスワード&gt; options (node &#39;&lt;ノード名&gt;&#39;,DBNAME &#39;&lt;DB名&gt;&#39;)&#34;</span>
+db2 <span class="s2">&#34;create server HOST_SOURCE type DB2/zOS version 10.1 wrapper drda authorization qrep_source password xxxxxx options (node &#39;HOST&#39;,DBNAME &#39;SOURCEDB&#39;)&#34;</span>
+
+<span class="c1"># serverが作成されたことを確認</span>
+db2 <span class="s2">&#34;select * from syscat.servers&#34;</span>
+
+<span class="c1"># user mappingの作成</span>
+<span class="c1"># create user mapping for USER server &lt;server名&gt; options(remote_authid &#39;&lt;ソースDB接続ユーザー名&gt;&#39;,remote_password &#39;&lt;パスワード&gt;&#39;)</span>
+create user mapping <span class="k">for</span> USER server HOST_SOURCE options<span class="o">(</span>remote_authid <span class="s1">&#39;qrep_source&#39;</span>,remote_password <span class="s1">&#39;xxxxxx&#39;</span><span class="o">)</span>
+</code></pre></div>
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FFederationServer%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FFederationServer%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FFederationServer%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FFederationServer%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?FederationServer%e7%92%b0%e5%a2%83%e6%a7%8b%e7%af%89%e6%89%8b%e9%a0%86%20%7c%20YuKB https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FFederationServer%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FFederationServer%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FFederationServer%25E7%2592%25B0%25E5%25A2%2583%25E6%25A7%258B%25E7%25AF%2589%25E6%2589%258B%25E9%25A0%2586%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">&lt; prev</a> 
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/" itemprop="item" >
+                    
+                        Projects
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" itemprop="item" >
+                    
+                        FederationServer環境構築手順
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://unchainendo.github.io/unchainendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

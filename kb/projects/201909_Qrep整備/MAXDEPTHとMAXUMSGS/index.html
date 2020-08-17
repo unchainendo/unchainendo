@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://unchainendo.github.io/unchainendo/" />
+        <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://unchainendo.github.io/unchainendo/amp/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/">
+        <title> 
+            MAXDEPTHとMAXUMSGS | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="Qアプライ側のキューでメッセージが滞留しうるのは受信キューとスピルキュー(モデルキュー)。 受信キューは滞りなくレプリケーションされている状況" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="MAXDEPTHとMAXUMSGS | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="Qアプライ側のキューでメッセージが滞留しうるのは受信キューとスピルキュー(モデルキュー)。 受信キューは滞りなくレプリケーションされている状況" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://unchainendo.github.io/unchainendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/kb">KB</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/" itemprop="item" >
+                    
+                        Projects
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/" itemprop="item" >
+                    
+                        MAXDEPTHとMAXUMSGS
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://unchainendo.github.io/unchainendo/kb/">
+                                Projects
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">Db2</a>
+                                    </li>
+                                
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">MQ</a>
+                                    </li>
+                                
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">Qrep</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/" >
+                    <h1 class="m-entry__header-title-link-text">MAXDEPTHとMAXUMSGS</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/03/01</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <p>Qアプライ側のキューでメッセージが滞留しうるのは受信キューとスピルキュー(モデルキュー)。</p>
+<p>受信キューは滞りなくレプリケーションされている状況であればキューにメッセージが滞留することはない。
+ケアすべきはターゲットDBの障害時など、アプライやターゲットDBが停止していてかつMQが起動している場合。
+障害復旧までのソース側の差分更新はMQの受信キューで抱え込むことになるので、想定される更新量と1メッセージのサイズ、何日間の差分更新データを
+抱え込むかを考えてMAXDEPTHを決定する。
+MAXDEPTHに収まる数の差分更新データであれば障害復旧後にアプライによって適用することができ、そのまま差分レプリケーションを再開することができる。
+逆にMQでデータを抱えきれなかった場合は(ソース側のMQにもよるが)差分レプリケーションを再開できず全テーブルでフルリフレッシュが必要となってしまう。</p>
+<p>スピルキューはフルリフレッシュやCAPTURE_LOADによるロード処理中またはspillsub中の差分更新データが格納される。
+スピルキューが使われることはなかなかないが、もし使用される場合は格納されるメッセージが受信キューと異なり、SQL単位でキューに格納されるので注意が必要。
+これはつまり受信キューで受け取ったメッセージ(トランザクション)をアプライが一度解釈してからスピルキューに再格納するからなんだろう。
+例えばSQL文のWHERE句で100万レコードをDELETEするSQL文は100万メッセージになってスピルキューに格納されることになる。
+そのためスピルキューのMAXDEPTHはある程度大きくしておいたほうが無難。
+ただしスピルキューに格納されたメッセージをターゲット表に適用する処理は1エージェントによるシリアルな処理のため非常にパフォーマンスが悪く、スピルが使われるような操作をそもそもさせないようにアプリ側にガイドすることも重要。</p>
+<p>MAXDEPTH以上のメッセージが格納されようとするとキューフルのエラーが発生する。
+Qアプライ稼働中であればMQエラーとして検知されQマップが停止される。</p>
+<p>受信キューとスピルキューのMAXDEPTHが決まったらMAXUMSGSを検討する。
+MAXUMSGSは1つのキューマネージャー上で抱えこめる未コミットのメッセージの総数なので、最低でも受信キューとスピルキューのMAXDEPTHの大きい方よりも大きな値でなければならない。
+受信キューとスピルキューに同時にメッセージが滞留するケースは考えにくいが、スピルキューはQサブ(テーブル)単位で生成されるので複数のスピルキューにメッセージが滞留する可能性はある。
+ファイルシステムに余裕があるのであれば最大値999999999にするというのも一案。
+未コミットメッセージの総数がMAXUMSGSを超過した場合、これもまたMQのエラーとしてQアプライが検知しQマップが停止する。</p>
+<p><a href="https://www.ibm.com/support/knowledgecenter/ja/SSEPGG_9.7.0/com.ibm.swg.im.iis.repl.qtune.doc/topics/iiyrqtunmqumg.html">最大非コミット・メッセージ数 (MAXUMSGS)</a></p>
+
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=MAXDEPTH%E3%81%A8MAXUMSGS&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FMAXDEPTH%25E3%2581%25A8MAXUMSGS%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=MAXDEPTH%E3%81%A8MAXUMSGS&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FMAXDEPTH%25E3%2581%25A8MAXUMSGS%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FMAXDEPTH%25E3%2581%25A8MAXUMSGS%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=MAXDEPTH%E3%81%A8MAXUMSGS&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FMAXDEPTH%25E3%2581%25A8MAXUMSGS%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?MAXDEPTH%e3%81%a8MAXUMSGS%20%7c%20YuKB https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=MAXDEPTH%E3%81%A8MAXUMSGS&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FMAXDEPTH%25E3%2581%25A8MAXUMSGS%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=MAXDEPTH%E3%81%A8MAXUMSGS&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FMAXDEPTH%25E3%2581%25A8MAXUMSGS%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=MAXDEPTH%E3%81%A8MAXUMSGS&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Fprojects%2F201909_Qrep%25E6%2595%25B4%25E5%2582%2599%2FMAXDEPTH%25E3%2581%25A8MAXUMSGS%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">&lt; prev</a> 
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/" itemprop="item" >
+                    
+                        Projects
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/" itemprop="item" >
+                    
+                        MAXDEPTHとMAXUMSGS
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://unchainendo.github.io/unchainendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

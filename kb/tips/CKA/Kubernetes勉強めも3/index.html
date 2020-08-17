@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://unchainendo.github.io/unchainendo/" />
+        <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://unchainendo.github.io/unchainendo/amp/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/">
+        <title> 
+            Kubernetes勉強めも3 | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="Monitoring関連 Metrics Serverによる監視 各NodeにインストールされているkubeletにはサブコンポーネントとしてcAdvisor" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="Kubernetes勉強めも3 | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="Monitoring関連 Metrics Serverによる監視 各NodeにインストールされているkubeletにはサブコンポーネントとしてcAdvisor" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://unchainendo.github.io/unchainendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/kb">KB</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/" itemprop="item" >
+                    
+                        Kubernetes勉強めも3
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://unchainendo.github.io/unchainendo/kb/">
+                                CKA
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">kubernetes</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも3</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/22</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="monitoring関連">Monitoring関連</h3>
+<h4 id="metrics-serverによる監視">Metrics Serverによる監視</h4>
+<p>各Nodeにインストールされているkubeletにはサブコンポーネントとして<code>cAdvisor</code>(<code>Container Advisor</code>)が実装されている。
+<code>cAdvisor</code>は各Node上のPodの情報をAPI経由でMetrix Serverから見えるようにしている。</p>
+<h4 id="metrics-serverの実装">Metrics Serverの実装</h4>
+<p>Metrix Serverを動かすにはGitからyamlファイル群を落としてきて<code>kubectl apply -f .</code>すればよい。
+以下は研修用のURLなので実際に使うときにはちゃんと調べないといけない。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+Cloning into <span class="s1">&#39;kubernetes-metrics-server&#39;</span>...
+remote: Enumerating objects: 3, <span class="k">done</span>.
+remote: Counting objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, <span class="k">done</span>.
+remote: Compressing objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, <span class="k">done</span>.
+remote: Total <span class="m">15</span> <span class="o">(</span>delta 0<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">12</span>
+Unpacking objects: 100% <span class="o">(</span>15/15<span class="o">)</span>, <span class="k">done</span>.
+master $ ls -l
+total <span class="m">12</span>
+drwxr-xr-x <span class="m">2</span> root root <span class="m">4096</span> May <span class="m">21</span> 12:41 Desktop
+drwxr-xr-x <span class="m">4</span> root root <span class="m">4096</span> Jun  <span class="m">8</span> 22:04 go
+drwxr-xr-x <span class="m">3</span> root root <span class="m">4096</span> Jun <span class="m">23</span> 05:29 kubernetes-metrics-server
+master $ <span class="nb">cd</span> kubernetes-metrics-server/
+master $ ls -l
+total <span class="m">32</span>
+-rw-r--r-- <span class="m">1</span> root root <span class="m">384</span> Jun <span class="m">23</span> 05:29 aggregated-metrics-reader.yaml
+-rw-r--r-- <span class="m">1</span> root root <span class="m">308</span> Jun <span class="m">23</span> 05:29 auth-delegator.yaml
+-rw-r--r-- <span class="m">1</span> root root <span class="m">329</span> Jun <span class="m">23</span> 05:29 auth-reader.yaml
+-rw-r--r-- <span class="m">1</span> root root <span class="m">298</span> Jun <span class="m">23</span> 05:29 metrics-apiservice.yaml
+-rw-r--r-- <span class="m">1</span> root root <span class="m">976</span> Jun <span class="m">23</span> 05:29 metrics-server-deployment.yaml
+-rw-r--r-- <span class="m">1</span> root root <span class="m">249</span> Jun <span class="m">23</span> 05:29 metrics-server-service.yaml
+-rw-r--r-- <span class="m">1</span> root root <span class="m">219</span> Jun <span class="m">23</span> 05:29 README.md
+-rw-r--r-- <span class="m">1</span> root root <span class="m">612</span> Jun <span class="m">23</span> 05:29 resource-reader.yaml
+master $ kubectl create -f .
+clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
+clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created
+rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader created
+apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created
+serviceaccount/metrics-server created
+deployment.apps/metrics-server created
+service/metrics-server created
+clusterrole.rbac.authorization.k8s.io/system:metrics-server created
+clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
+</code></pre></div><h4 id="metrics-serverによる稼働状況の確認">Metrics Serverによる稼働状況の確認</h4>
+<p>NodeやPodを引数にとってそれぞれのリソース使用率を確認できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl top node
+NAME     CPU<span class="o">(</span>cores<span class="o">)</span>   CPU%   MEMORY<span class="o">(</span>bytes<span class="o">)</span>   MEMORY%
+master   153m         7%     1203Mi          63%
+node01   1996m        99%    919Mi           23%
+$ kubectl top pod
+NAME       CPU<span class="o">(</span>cores<span class="o">)</span>   MEMORY<span class="o">(</span>bytes<span class="o">)</span>
+elephant   14m          50Mi
+lion       943m         1Mi
+rabbit     968m         1Mi
+</code></pre></div><h3 id="logging関連">Logging関連</h3>
+<h4 id="podやcontainerのログを確認する">PodやContainerのログを確認する</h4>
+<p><code>kubectl logs &lt;Pod名&gt;</code>でログを出力できる。<code>-f</code>オプションで垂れ流し。
+Podに複数Containerが含まれる場合はこのままだとエラーが出てしまうので、Pod名の後ろにContainer名をつける。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp-1&#34;Podのログを確認</span>
+$ kubectl logs -f webapp-1
+<span class="o">[</span>2020-06-23 05:45:42,111<span class="o">]</span> INFO in event-simulator: USER2 is viewing page2
+<span class="o">[</span>2020-06-23 05:45:43,113<span class="o">]</span> INFO in event-simulator: USER4 is viewing page3
+<span class="o">[</span>2020-06-23 05:45:44,114<span class="o">]</span> INFO in event-simulator: USER2 is viewing page1
+<span class="o">[</span>2020-06-23 05:45:45,115<span class="o">]</span> INFO in event-simulator: USER4 logged in
+<span class="o">[</span>2020-06-23 05:45:46,116<span class="o">]</span> INFO in event-simulator: USER2 is viewing page1
+<span class="o">[</span>2020-06-23 05:45:47,118<span class="o">]</span> WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+
+<span class="c1"># &#34;webapp-2&#34;Podのログを見ようとするが複数Container構成のためエラー発生</span>
+$ kubectl logs webapp-2
+error: a container name must be specified <span class="k">for</span> pod webapp-2, choose one of: <span class="o">[</span>simple-webapp db<span class="o">]</span>
+
+<span class="c1"># Container名を指定して再度トライ</span>
+$ kubectl logs webapp-2 simple-webapp
+<span class="o">[</span>2020-06-23 05:47:38,743<span class="o">]</span> INFO in event-simulator: USER2 logged in
+<span class="o">[</span>2020-06-23 05:47:39,745<span class="o">]</span> INFO in event-simulator: USER1 logged in
+<span class="o">[</span>2020-06-23 05:47:40,746<span class="o">]</span> INFO in event-simulator: USER1 logged in
+<span class="o">[</span>2020-06-23 05:47:41,747<span class="o">]</span> INFO in event-simulator: USER4 is viewing page3
+<span class="o">[</span>2020-06-23 05:47:42,749<span class="o">]</span> INFO in event-simulator: USER2 is viewing page1
+<span class="o">[</span>2020-06-23 05:47:43,750<span class="o">]</span> WARNING in event-simulator: USER5 Failed to Login as the account is locked due to MANY FAILED ATTEMPTS.
+</code></pre></div><p>非常にシンプルだけどCKAとしてはこれ以上踏み込まないようだ。
+MonitorとLoggingは情報量少ないなあ。まあCKAとしてはこんなもんなのかな。</p>
+
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25823%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25823%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25823%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25823%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?Kubernetes%e5%8b%89%e5%bc%b7%e3%82%81%e3%82%823%20%7c%20YuKB https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25823%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25823%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25823%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/">&lt; prev</a> 
+                 <a class="m-entry__page-navigation-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/" itemprop="item" >
+                    
+                        Kubernetes勉強めも3
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://unchainendo.github.io/unchainendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

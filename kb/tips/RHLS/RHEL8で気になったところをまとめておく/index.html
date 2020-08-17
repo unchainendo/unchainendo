@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://unchainendo.github.io/unchainendo/" />
+        <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://unchainendo.github.io/unchainendo/amp/kb/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/">
+        <title> 
+            RHEL8めも | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="はじめに RHEL8の研修を受講して今更ながら初めて知った情報とか便利機能を書き残しておく。 コマンド履歴 いつもviモードで履歴検索かけちゃうの" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="RHEL8めも | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="はじめに RHEL8の研修を受講して今更ながら初めて知った情報とか便利機能を書き残しておく。 コマンド履歴 いつもviモードで履歴検索かけちゃうの" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://unchainendo.github.io/unchainendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/unchainendo/kb">KB</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/" itemprop="item" >
+                    
+                        RHLS
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/" itemprop="item" >
+                    
+                        RHEL8めも
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://unchainendo.github.io/unchainendo/kb/">
+                                RHLS
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/RHEL/">RHEL</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/" >
+                    <h1 class="m-entry__header-title-link-text">RHEL8めも</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/29</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="はじめに">はじめに</h3>
+<p>RHEL8の研修を受講して今更ながら初めて知った情報とか便利機能を書き残しておく。</p>
+<h3 id="heading"></h3>
+<h4 id="コマンド履歴">コマンド履歴</h4>
+<p>いつもviモードで履歴検索かけちゃうので<code>history</code>はほとんど使ったことなかった。</p>
+<p><code>history</code>コマンドを実行すると<code>&lt;数字連番&gt; &lt;コマンド&gt;</code>という形で履歴がばーっと表示される。
+例えば<code>3</code>のコマンド履歴を再利用したい場合は<code>!3</code>とすれば良い。
+<code>!ls</code>とすれば、<code>ls</code>で始まる最後に実行したコマンドを実行できる。</p>
+<h4 id="rhel8のパッケージ管理">RHEL8のパッケージ管理</h4>
+<p><code>yum</code>に代わって<code>dnf</code>という仕組みになったみたい。
+とはいえこれまでどおりyumコマンドは使うことができて、裏でdnfが呼び出される模様。
+まだまだyumを使いたいけれど、、徐々に世代交代していくのだろう。</p>
+<p>RHEL7と大きく異なるのはリポジトリの考え方。
+OptionalとかExtendedみたいなリポジトリはなくなり、<code>BaseOS</code>と<code>AppStream</code>という2つになった。
+<code>BaseOS</code>は文字どおりOSとその周辺機能が提供され、EOSも1つ。
+一方<code>AppStream</code>の方はWebサーバーとかDBとか開発言語とか、そういったアプリケーションをOSとは分けてバージョン管理できるようになっている。
+特定のアプリケーション(例えばhttpd)を構成するパッケージ群はモジュールと呼ばれ、パッケージ管理の新しい単位として使えるみたい。
+<code>yum module list</code>って感じで。
+更にサポート期間もこのモジュールごとに決められているというのも新しいポイント。
+柔軟な分、EOS管理の考え方は少し複雑になってしまうかもしれない。</p>
+<h4 id="webコンソール">Webコンソール</h4>
+<p>RHELにはWebコンソール管理インタフェースという機能があったらしい。全然知らなかった。
+サーバーの管理と監視を行うためのWebベースの管理インタフェースとのこと。
+Webコンソールを有効化するには<code>cockpit</code>パッケージをインストールする必要がある。
+最小インストール以外は最初からインストールされているとのこと。
+<code>yum install cockpit</code>
+あとはsystemctlで<code>cockpit.socket</code>サービスをenableして、必要に応じてfirewalldに穴あけする。
+<code>systemctl enable cockpit.socket</code>
+サービスが起動していればあとはWebブラウザで<code>https://&lt;IPアドレス&gt;:9090</code>を開いて適当なユーザーでログインするだけ。</p>
+<p>Webコンソールではユーザーのパスワード管理やパフォーマンス(CPU、メモリ、ディスク、ネットワーク)確認、ログ確認などの管理タスクをGUIで行うことができる。
+AIXのSMITに近い感じかな。</p>
+<h4 id="ユーザージョブのスケジューリング">ユーザージョブのスケジューリング</h4>
+<p>cronはよく触ってきたけれど<code>at</code>、<code>atq</code>は初めて使い方を勉強したのでメモ。
+<code>at</code>は単発でコマンドをスケジュールして実行するためのもので、aからzまでの26個のキューにスケジュールを格納できる。
+キューはアルファベット順で後ろにいくほど優先度が低くなる。</p>
+<p>使い方は<code>at &lt;TIMESPEC&gt;</code>をそのまま実行して対話式にスケジュールしたいコマンドを設定するか、
+パイプやリダイレクトでスケジュールしたいコマンドを&quot;&ldquo;文字列として&quot;&ldquo;<code>at &lt;TIMESPEC&gt;</code>に渡してあげれば良い。
+cronだと何分後、何日後といった書き方はできないのでatの方が便利なときがあるのかも。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># echoでスケジュールしたいコマンドを文字列として出力してatコマンドにパイプで渡す</span>
+$ <span class="nb">echo</span> <span class="s2">&#34;date &gt;&gt; ./test.txt&#34;</span> <span class="p">|</span> at now +3min
+warning: commands will be executed using /bin/sh
+job <span class="m">1</span> at Thu Mar <span class="m">21</span> 12:30:00 <span class="m">2019</span>
+
+<span class="c1"># atq または at -l でジョブを確認</span>
+$ atq
+<span class="m">1</span> Thu Mar <span class="m">21</span> 12:30:00 <span class="m">2019</span> a student
+
+<span class="c1"># ジョブ番号1のユーザージョブを削除</span>
+$ atrm <span class="m">1</span>
+</code></pre></div><p>少し逸れるが<code>watch</code>コマンドってのも初めて知った。
+<code>watch &lt;コマンド&gt;</code>とすると指定したコマンドの出力を一定間隔(デフォルト2秒)で更新してくれる。
+ただターミナルログには残らないので使い道は限られてしまいそう。
+for文+sleepでぶん回したくなったときに思い出すようにしよう。</p>
+<h4 id="プロセスの優先度">プロセスの優先度</h4>
+<p><code>nice</code>と<code>renice</code>の話。これも仕組みを知っていただけで触ったことはなかった。
+niceレベルは<code>-20</code>から<code>19</code>までの40段階で、数字が大きいほど優先度が高い。通常は<code>0</code>。</p>
+<p>プロセスの優先度は<code>top</code>または<code>ps</code>で確認できる。
+topはnice値(NI列)に対して優先度(PR列)が割り当てられる。
+nice値-20が優先度0、nice値19が優先度39といった感じ。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># topコマンドでnice値(NI列)と優先度(PR列)を確認</span>
+$ top
+top - 03:06:23 up <span class="m">8</span> min,  <span class="m">1</span> user,  load average: 0.00, 0.03, 0.02
+Tasks:  <span class="m">93</span> total,   <span class="m">1</span> running,  <span class="m">92</span> sleeping,   <span class="m">0</span> stopped,   <span class="m">0</span> zombie
+%Cpu<span class="o">(</span>s<span class="o">)</span>:  0.3 us,  0.0 sy,  0.0 ni, 99.3 id,  0.0 wa,  0.0 hi,  0.3 si,  0.0 st
+MiB Mem :   1829.4 total,   1513.2 free,    137.3 used,    178.9 buff/cache
+MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   1545.3 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    <span class="m">1</span> root      <span class="m">20</span>   <span class="m">0</span>  <span class="m">175868</span>  <span class="m">10420</span>   <span class="m">8112</span> S   0.0   0.6   0:00.79 systemd
+    <span class="m">2</span> root      <span class="m">20</span>   <span class="m">0</span>       <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span> S   0.0   0.0   0:00.00 kthreadd
+    <span class="m">3</span> root       <span class="m">0</span> -20       <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span> I   0.0   0.0   0:00.00 rcu_gp
+    <span class="m">4</span> root       <span class="m">0</span> -20       <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span> I   0.0   0.0   0:00.00 rcu_par_gp
+
+<span class="c1"># psコマンドでnice値を確認 + nice値でソート</span>
+$ ps axo pid,comm,nice,cls --sort<span class="o">=</span>-nice
+  PID COMMAND          NI CLS
+   <span class="m">23</span> khugepaged       <span class="m">19</span>  TS
+   <span class="m">22</span> ksmd              <span class="m">5</span>  TS
+    <span class="m">1</span> systemd           <span class="m">0</span>  TS
+    <span class="m">2</span> kthreadd          <span class="m">0</span>  TS
+    <span class="m">7</span> kworker/u2:0-ev   <span class="m">0</span>  TS
+    <span class="m">9</span> ksoftirqd/0       <span class="m">0</span>  TS
+   <span class="m">10</span> rcu_sched         <span class="m">0</span>  TS
+</code></pre></div><p>特に何も指定しなければ親プロセス(コマンドラインならシェル)のniceレベルを継承する。
+シェルは通常nice値0なので、そこから生成されるプロセスもnice値は0になる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># バックグラウンドプロセスを起動</span>
+$ sha1sum /dev/zero <span class="p">&amp;</span>
+<span class="o">[</span>1<span class="o">]</span> <span class="m">2342</span>
+
+<span class="c1"># 起動したプロセスのnice値は0</span>
+$ ps -o pid,ppid,comm,nice <span class="m">2342</span>
+  PID  PPID COMMAND          NI
+ <span class="m">2342</span>  <span class="m">2093</span> sha1sum           <span class="m">0</span>
+
+<span class="c1"># 親プロセス(シェル)のnice値も0</span>
+$ ps -o pid,ppid,comm,nice <span class="m">2093</span>
+  PID  PPID COMMAND          NI
+ <span class="m">2093</span>  <span class="m">2092</span> bash              <span class="m">0</span>
+</code></pre></div><p>niceレベルを変える場合は<code>nice</code>コマンドを使用する。
+<code>nice &lt;コマンド&gt;</code>でデフォルトのnice値10でプロセスを起動する。
+nice値を指定する場合は<code>nice -n &lt;nice値&gt; &lt;コマンド&gt;</code>とする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># niceコマンドでバックグラウンドプロセスを起動</span>
+$ nice sha1sum /dev/zero <span class="p">&amp;</span>
+<span class="o">[</span>1<span class="o">]</span> <span class="m">2361</span>
+
+<span class="c1"># nice値はデフォルトの10</span>
+$ ps -o pid,comm,nice <span class="m">2361</span>
+  PID COMMAND          NI
+ <span class="m">2361</span> sha1sum          <span class="m">10</span>
+
+<span class="c1"># nice値を指定してバックグラウンドプロセスを起動</span>
+$ nice -n <span class="m">15</span> sha1sum /dev/zero <span class="p">&amp;</span>
+<span class="o">[</span>2<span class="o">]</span> <span class="m">2363</span>
+
+<span class="c1"># 指定したnice値でプロセスが起動している</span>
+$ ps -o pid,comm,nice <span class="m">2363</span>
+  PID COMMAND          NI
+ <span class="m">2363</span> sha1sum          <span class="m">15</span>
+</code></pre></div><p>稼働中のプロセスのnice値は<code>renice -n &lt;nice値&gt; &lt;PID&gt;</code>で変更できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># nice値10でプロセス起動</span>
+$ nice sha1sum /dev/zero <span class="p">&amp;</span>
+<span class="o">[</span>1<span class="o">]</span> <span class="m">2417</span>
+$ ps -o pid,comm,nice <span class="m">2417</span>
+  PID COMMAND          NI
+ <span class="m">2417</span> sha1sum          <span class="m">10</span>
+
+<span class="c1"># reniceでnice値を18に変更</span>
+$ renice -n <span class="m">18</span> <span class="m">2417</span>
+<span class="m">2417</span> <span class="o">(</span>process ID<span class="o">)</span> 従来の優先順位は <span class="m">10</span> で, 新しい優先順位は <span class="m">18</span> です
+$ ps -o pid,comm,nice <span class="m">2417</span>
+  PID COMMAND          NI
+ <span class="m">2417</span> sha1sum          <span class="m">18</span>
+</code></pre></div><h4 id="acl設定">ACL設定</h4>
+<p><code>setfacl</code>でユーザーやグループを指定したアクセス権の設定ができる。
+<code>setfacl -m u:&lt;ユーザー名 or UID&gt;:&lt;パーミッション&gt; &lt;ファイル or ディレクトリ&gt;</code>で設定して
+<code>getfacl &lt;ファイル or ディレクトリ&gt;</code>で確認。</p>
+<pre><code># ihs01ユーザーにすべての権限を付与
+$ setfacl -m u:ihs01:rwx test.txt
+$ getfacl test.txt
+# file: test.txt
+# owner: test
+# group: test
+user::rwx
+user:ihs01:rwx
+group::rw-
+mask::rwx
+other::r--
+</code></pre><h4 id="selinuxについて">SELinuxについて</h4>
+<p>SELinuxといえばとりあえず無効化するもの、ってくらいにしか思っていなかったので軽く概要だけメモっておく。</p>
+<ul>
+<li>SELinuxとは「どのプロセスが、どのファイル、ディレクトリ、ポートにアクセスできるかを決定する、一連のセキュリティルール」を指す。</li>
+<li>すべてのファイル、プロセス、ディレクトリ、ポートにはSELinuxコンテキストが付いている。</li>
+<li>SELinuxコンテキストとは、あるプロセスがファイル、ディレクトリ、ポートにアクセスできるかどうかを決定するためのポリシーを表すセキュリティラベルのこと。</li>
+<li>セキュリティラベルには<code>ユーザー(SELinux User)</code>、<code>役割(Role)</code>、<code>タイプ(Type)</code>、<code>気密度(Level)</code>の4つで構成される。</li>
+<li><code>ps</code>、<code>ls</code>などでSELinuxコンテキストを表示するには<code>-Z</code>オプションを使用する。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ ls -lZ /
+合計 <span class="m">24</span>
+drwxr-xr-x.   <span class="m">4</span> root  root unconfined_u:object_r:default_t:s0   <span class="m">29</span>  8月 <span class="m">12</span> 04:14 app
+lrwxrwxrwx.   <span class="m">1</span> root  root system_u:object_r:bin_t:s0            <span class="m">7</span>  8月 <span class="m">12</span>  <span class="m">2018</span> bin -&gt; usr/bin
+dr-xr-xr-x.   <span class="m">5</span> root  root system_u:object_r:boot_t:s0        <span class="m">4096</span>  8月 <span class="m">15</span>  <span class="m">2019</span> boot
+</code></pre></div><ul>
+<li>SELinuxコンテキストは<code>semanage fcontext</code>コマンドで管理し、<code>restorecon</code>コマンドで適用する。(<code>chcon</code>コマンドでも可能)</li>
+<li><code>boolean</code>はSELinuxポリシーを個別に有効/無効にできるスイッチとして使える。</li>
+<li>SELinuxのログを<code>/var/log/messages</code>に送るには<code>setroubleshoot-server</code>パッケージをインストールする必要がある。</li>
+<li><code>sealert</code>コマンドはトラブルシューティングに必要な情報を見やすく表示する。</li>
+</ul>
+<h4 id="rhel8の新しいストレージ管理stratis">RHEL8の新しいストレージ管理「Stratis」</h4>
+<p>デバイス、ボリューム、ファイルシステムといったものはそれぞれ個別に管理していたが
+RHEL8からそれらを<code>Stratis</code>という新しいボリューム管理ファイルシステムで管理できるようになったようだ。
+ボリューム管理ファイルシステム(&ldquo;<code>Volume-Managing Filesystem(VMFs)</code>)ってのは複数のボリュームをまとめて1つのプールを作り、そこからファイルシステムを作成できる仕組みのようだ。
+Stratisのファイルシステムはシンプロとのこと。
+感覚的には外部ディスク装置のストレージプールとかボリュームの切り出しに近い。</p>
+<p>ブロックデバイス(/dev/sda, /dev/sdb)をまとめたプールを作り、そのプールからファイルシステムを切り出す。
+今までPV、VG、LVと順番に作っていたものが「プール」にひとまとめになった感じ。</p>
+<p>ストレージまわりは今後絶対使うことになりそうだから環境整備から一通り試してみる。
+まずはStratisのインストール。早速<code>AppStream</code>リポジトリを使用する。
+<code>BaseOS</code>側だと思いこんで探すのに時間かかってしまった。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># stratis-cliとstratisdをインストール</span>
+<span class="c1"># yum install stratis-cli stratisd</span>
+Updating Subscription Management repositories.
+Unable to <span class="nb">read</span> consumer identity
+This system is not registered to Red Hat Subscription Management. You can use subscription-manager to register.
+メタデータの期限切れの最終確認: 0:00:27 時間前の 2020年08月13日 11時08分15秒 に実施しました。
+依存関係が解決しました。
+<span class="o">=======================================================================================================================</span>
+ パッケージ                              アーキテクチャー   バージョン         リポジトリ                        <span class="nv">サイズ</span>
+<span class="o">=======================================================================================================================</span>
+Installing:
+ stratis-cli                             noarch             1.0.2-1.el8        rhel-dvd-AppStream                 <span class="m">51</span> k
+ stratisd                                x86_64             1.0.3-1.el8        rhel-dvd-AppStream                1.2 M
+依存関係をインストール中:
+ python3-dbus-client-gen                 noarch             0.4-1.el8          rhel-dvd-AppStream                 <span class="m">26</span> k
+ python3-dbus-python-client-gen          noarch             0.6-2.el8          rhel-dvd-AppStream                 <span class="m">24</span> k
+ python3-dbus-signature-pyparsing        noarch             0.03-2.el8         rhel-dvd-AppStream                 <span class="m">19</span> k
+ python3-into-dbus-python                noarch             0.06-2.el8         rhel-dvd-AppStream                 <span class="m">27</span> k
+ python3-justbases                       noarch             0.9-6.el8          rhel-dvd-AppStream                 <span class="m">45</span> k
+ python3-justbytes                       noarch             0.11-2.el8         rhel-dvd-AppStream                 <span class="m">40</span> k
+ python3-pyparsing                       noarch             2.1.10-7.el8       rhel-dvd-BaseOS                   <span class="m">142</span> k
+
+<span class="nv">トランザクションの概要</span>
+<span class="o">======================================================================================================================</span>
+インストール  <span class="m">9</span> パッケージ
+
+合計サイズ: 1.6 M
+インストール済みのサイズ: 5.1 M
+これでよろしいですか? <span class="o">[</span>y/N<span class="o">]</span>: y
+パッケージのダウンロード中です:
+トランザクションの確認を実行中
+トランザクションの確認に成功しました。
+トランザクションのテストを実行中
+トランザクションのテストに成功しました。
+トランザクションを実行中
+  準備             :                                                             1/1
+  Installing       : python3-pyparsing-2.1.10-7.el8.noarch                       1/9
+  Installing       : python3-dbus-signature-pyparsing-0.03-2.el8.noarch          2/9
+  Installing       : python3-into-dbus-python-0.06-2.el8.noarch                  3/9
+  Installing       : python3-dbus-python-client-gen-0.6-2.el8.noarch             4/9
+  Installing       : stratisd-1.0.3-1.el8.x86_64                                 5/9
+  scriptletの実行中: stratisd-1.0.3-1.el8.x86_64                                 5/9
+  Installing       : python3-justbases-0.9-6.el8.noarch                          6/9
+  Installing       : python3-justbytes-0.11-2.el8.noarch                         7/9
+  Installing       : python3-dbus-client-gen-0.4-1.el8.noarch                    8/9
+  Installing       : stratis-cli-1.0.2-1.el8.noarch                              9/9
+  scriptletの実行中: stratis-cli-1.0.2-1.el8.noarch                              9/9
+  検証             : python3-dbus-client-gen-0.4-1.el8.noarch                    1/9
+  検証             : python3-dbus-python-client-gen-0.6-2.el8.noarch             2/9
+  検証             : python3-dbus-signature-pyparsing-0.03-2.el8.noarch          3/9
+  検証             : python3-into-dbus-python-0.06-2.el8.noarch                  4/9
+  検証             : python3-justbases-0.9-6.el8.noarch                          5/9
+  検証             : python3-justbytes-0.11-2.el8.noarch                         6/9
+  検証             : stratis-cli-1.0.2-1.el8.noarch                              7/9
+  検証             : stratisd-1.0.3-1.el8.x86_64                                 8/9
+  検証             : python3-pyparsing-2.1.10-7.el8.noarch                       9/9
+Installed products updated.
+
+インストール済み:
+  stratis-cli-1.0.2-1.el8.noarch                          stratisd-1.0.3-1.el8.x86_64                                python3-dbus-client-gen-0.4-1.el8.noarch
+  python3-dbus-python-client-gen-0.6-2.el8.noarch         python3-dbus-signature-pyparsing-0.03-2.el8.noarch         python3-into-dbus-python-0.06-2.el8.noarch
+  python3-justbases-0.9-6.el8.noarch                      python3-justbytes-0.11-2.el8.noarch                        python3-pyparsing-2.1.10-7.el8.noarch
+
+完了しました!
+
+<span class="c1"># stratisdサービスを起動する</span>
+<span class="c1"># systemctl enable --now stratisd</span>
+<span class="c1"># systemctl status stratisd</span>
+● stratisd.service - A daemon that manages a pool of block devices to create flexible file systems
+   Loaded: loaded <span class="o">(</span>/usr/lib/systemd/system/stratisd.service<span class="p">;</span> enabled<span class="p">;</span> vendor preset: enabled<span class="o">)</span>
+   Active: active <span class="o">(</span>running<span class="o">)</span> since Thu 2020-08-13 14:15:30 EDT<span class="p">;</span> 1s ago
+     Docs: man:stratisd<span class="o">(</span>8<span class="o">)</span>
+ Main PID: <span class="m">13302</span> <span class="o">(</span>stratisd<span class="o">)</span>
+    Tasks: <span class="m">1</span> <span class="o">(</span>limit: 11517<span class="o">)</span>
+   Memory: 848.0K
+   CGroup: /system.slice/stratisd.service
+           └─13302 /usr/libexec/stratisd --debug
+
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST systemd<span class="o">[</span>1<span class="o">]</span>: Started A daemon that manages a pool of block devices to create flexible file systems.
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>: DEBUG libstratis::stratis::buff_log: BuffLogger: pass_through: <span class="nb">true</span> hold time: none
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>:  INFO stratisd: Using StratEngine
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>: DEBUG stratisd: Engine state:
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>: StratEngine <span class="o">{</span>
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>:     pools: <span class="o">{}</span>,
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>:     incomplete_pools: <span class="o">{}</span>,
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>:     watched_dev_last_event_nrs: <span class="o">{}</span>
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>: <span class="o">}</span>
+Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span>13302<span class="o">]</span>:  INFO stratisd: DBUS API is now available
+</code></pre></div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="hl"><span class="lnt">3
+</span></span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="hl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello&#34;</span><span class="o">);</span>
+</span>    <span class="o">}</span>
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=RHEL8%E3%82%81%E3%82%82&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FRHLS%2FRHEL8%25E3%2581%25A7%25E6%25B0%2597%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%259F%25E3%2581%25A8%25E3%2581%2593%25E3%2582%258D%25E3%2582%2592%25E3%2581%25BE%25E3%2581%25A8%25E3%2582%2581%25E3%2581%25A6%25E3%2581%258A%25E3%2581%258F%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=RHEL8%E3%82%81%E3%82%82&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FRHLS%2FRHEL8%25E3%2581%25A7%25E6%25B0%2597%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%259F%25E3%2581%25A8%25E3%2581%2593%25E3%2582%258D%25E3%2582%2592%25E3%2581%25BE%25E3%2581%25A8%25E3%2582%2581%25E3%2581%25A6%25E3%2581%258A%25E3%2581%258F%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FRHLS%2FRHEL8%25E3%2581%25A7%25E6%25B0%2597%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%259F%25E3%2581%25A8%25E3%2581%2593%25E3%2582%258D%25E3%2582%2592%25E3%2581%25BE%25E3%2581%25A8%25E3%2582%2581%25E3%2581%25A6%25E3%2581%258A%25E3%2581%258F%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=RHEL8%E3%82%81%E3%82%82&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FRHLS%2FRHEL8%25E3%2581%25A7%25E6%25B0%2597%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%259F%25E3%2581%25A8%25E3%2581%2593%25E3%2582%258D%25E3%2582%2592%25E3%2581%25BE%25E3%2581%25A8%25E3%2582%2581%25E3%2581%25A6%25E3%2581%258A%25E3%2581%258F%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?RHEL8%e3%82%81%e3%82%82%20%7c%20YuKB https://unchainendo.github.io/unchainendo/kb/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=RHEL8%E3%82%81%E3%82%82&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FRHLS%2FRHEL8%25E3%2581%25A7%25E6%25B0%2597%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%259F%25E3%2581%25A8%25E3%2581%2593%25E3%2582%258D%25E3%2582%2592%25E3%2581%25BE%25E3%2581%25A8%25E3%2582%2581%25E3%2581%25A6%25E3%2581%258A%25E3%2581%258F%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=RHEL8%E3%82%81%E3%82%82&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FRHLS%2FRHEL8%25E3%2581%25A7%25E6%25B0%2597%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%259F%25E3%2581%25A8%25E3%2581%2593%25E3%2582%258D%25E3%2582%2592%25E3%2581%25BE%25E3%2581%25A8%25E3%2582%2581%25E3%2581%25A6%25E3%2581%258A%25E3%2581%258F%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=RHEL8%E3%82%81%E3%82%82&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Funchainendo.github.io%2Funchainendo%2Fkb%2Ftips%2FRHLS%2FRHEL8%25E3%2581%25A7%25E6%25B0%2597%25E3%2581%25AB%25E3%2581%25AA%25E3%2581%25A3%25E3%2581%259F%25E3%2581%25A8%25E3%2581%2593%25E3%2582%258D%25E3%2582%2592%25E3%2581%25BE%25E3%2581%25A8%25E3%2582%2581%25E3%2581%25A6%25E3%2581%258A%25E3%2581%258F%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                
+                
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/" itemprop="item" >
+                    
+                        KB
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/" itemprop="item" >
+                    
+                        RHLS
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/" itemprop="item" >
+                    
+                        RHEL8めも
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://unchainendo.github.io/unchainendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://unchainendo.github.io/unchainendo/kb/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://unchainendo.github.io/unchainendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

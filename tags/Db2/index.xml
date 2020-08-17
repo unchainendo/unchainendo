@@ -13,73 +13,73 @@
     
     <item>
       <title>CCD表の環境を整備する</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/CCD%E8%A1%A8%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</guid>
       <description>作業前提 背景 ホストからDBサーバーへのQレプリケーション環境が完成した後に以下の追加要件が発生したのでCCD環境の構築手順を整理した。 最終的</description>
     </item>
     
     <item>
       <title>FederationServer環境構築手順</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/FederationServer%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</guid>
       <description>作業前提 環境区分 ホスト ソースDBが存在する環境 DBサーバー ターゲットDBが存在する環境 ソフトウェアバージョン ホスト Db2 V10 CM8 DBサーバー Db2 V11.5 1. F</description>
     </item>
     
     <item>
       <title>MAXDEPTHとMAXUMSGS</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/MAXDEPTH%E3%81%A8MAXUMSGS/</guid>
       <description>Qアプライ側のキューでメッセージが滞留しうるのは受信キューとスピルキュー(モデルキュー)。 受信キューは滞りなくレプリケーションされている状況</description>
     </item>
     
     <item>
       <title>Qアプライ環境構築手順</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/</guid>
       <description>0. 作業前提 環境区分 ホスト ソースDBが存在し、Qキャプチャーを稼働させる環境 IDRサーバー Qアプライを稼働させる環境 DBサーバー ターゲットDB</description>
     </item>
     
     <item>
       <title>Qサブスクリプション関連操作まとめ</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%B5%E3%83%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%A2%E9%80%A3%E6%93%8D%E4%BD%9C%E3%81%BE%E3%81%A8%E3%82%81/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%B5%E3%83%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%A2%E9%80%A3%E6%93%8D%E4%BD%9C%E3%81%BE%E3%81%A8%E3%82%81/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%B5%E3%83%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%A2%E9%80%A3%E6%93%8D%E4%BD%9C%E3%81%BE%E3%81%A8%E3%82%81/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%B5%E3%83%96%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E9%96%A2%E9%80%A3%E6%93%8D%E4%BD%9C%E3%81%BE%E3%81%A8%E3%82%81/</guid>
       <description>Qサブスクリプションの作成 前提条件 ソース表のユニーク索引が定義された列に重複レコードが存在しないこと ソース表とターゲット表の列数、列名に差異</description>
     </item>
     
     <item>
       <title>TMPDIRとIPCファイル</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/TMPDIR%E3%81%A8IPC%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/TMPDIR%E3%81%A8IPC%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/TMPDIR%E3%81%A8IPC%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/TMPDIR%E3%81%A8IPC%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB/</guid>
       <description>概要 Qキャプチャー、アプライのIPCファイルは一時ファイル書き込み用ディレクトリ(TMPDIR)に生成される。 TMPDIRはデフォルトで/t</description>
     </item>
     
     <item>
       <title>テーブルがいつALTERされたか確認する</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8C%E3%81%84%E3%81%A4ALTER%E3%81%95%E3%82%8C%E3%81%9F%E3%81%8B%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8C%E3%81%84%E3%81%A4ALTER%E3%81%95%E3%82%8C%E3%81%9F%E3%81%8B%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8C%E3%81%84%E3%81%A4ALTER%E3%81%95%E3%82%8C%E3%81%9F%E3%81%8B%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%8C%E3%81%84%E3%81%A4ALTER%E3%81%95%E3%82%8C%E3%81%9F%E3%81%8B%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B/</guid>
       <description>概要 レプリケーションでエラー(error_action)や不整合(conflict_action)が発生した場合にターゲット表が最後にいつA</description>
     </item>
     
     <item>
       <title>送信チャネルのRETRYING</title>
-      <link>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/%E9%80%81%E4%BF%A1%E3%83%81%E3%83%A3%E3%83%8D%E3%83%AB%E3%81%AERETRYING/</link>
+      <link>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/%E9%80%81%E4%BF%A1%E3%83%81%E3%83%A3%E3%83%8D%E3%83%AB%E3%81%AERETRYING/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unchainendo.github.io/unchainendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/%E9%80%81%E4%BF%A1%E3%83%81%E3%83%A3%E3%83%8D%E3%83%AB%E3%81%AERETRYING/</guid>
+      <guid>https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/%E9%80%81%E4%BF%A1%E3%83%81%E3%83%A3%E3%83%8D%E3%83%AB%E3%81%AERETRYING/</guid>
       <description>IDRサーバー(アプライ側)のMQを停止する場合はホスト側の送信チャネルを停止すること。 ホスト側の送信チャネルが起動したままIDRサーバーの</description>
     </item>
     

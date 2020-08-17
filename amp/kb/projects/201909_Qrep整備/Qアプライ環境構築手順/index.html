@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html ⚡ lang="ja">
+    <head>
+        
+
+        <meta charset="utf-8" />
+        <script async src="https://cdn.ampproject.org/v0.js"></script>
+        <title>Qアプライ環境構築手順 | YuKB</title>
+        
+            <link rel="canonical" href="https://unchainendo.github.io/unchainendo/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" />
+        
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+        
+        
+
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "NewsArticle",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https:\/\/unchainendo.github.io\/unchainendo\/kb\/projects\/201909_Qrep%E6%95%B4%E5%82%99\/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86\/"
+                },
+                "headline": "Qアプライ環境構築手順",
+                
+                "datePublished": "2020-03-01T00:00:00"},
+                "author": {
+                    "@type": "Person",
+                    "name": "unchainendo"
+                },
+                "publisher": {
+                    "name": "YuKB",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": ""
+                }
+            }
+        </script>
+        <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+        
+        
+        
+        <style amp-custom>;@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:100}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:200}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:300}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:400}@font-face{font-family:yu gothic;src:local("Yu Gothic Bold");font-weight:700}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:100}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:200}@font-face{font-family:myyugothicm;font-weight:100;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:200;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:300;src:local("YuGothic-Regular"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:400;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:500;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:600;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:700;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:800;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:900;src:local("YuGothic-Bold"),local("Yu Gothic")}body{font-family:-apple-system,BlinkMacSystemFont,helvetica neue,biz udpゴシック,BIZ-UDPGothic,ud digi kyokasho n-r,hiragino kaku gothic pron,noto sans jp,MyYuGothicM,Verdana,Meiryo,"m+ 1p",sans-serif;font-feature-settings:"palt" 1}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-logo__link,.a-breadcrumbs__list-item-link{text-decoration:none}.chroma{color:#f8f8f2;background-color:#272822}.chroma .err{color:#960050;background-color:#1e0010}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .ln{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .k{color:#66d9ef}.chroma .kc{color:#66d9ef}.chroma .kd{color:#66d9ef}.chroma .kn{color:#f92672}.chroma .kp{color:#66d9ef}.chroma .kr{color:#66d9ef}.chroma .kt{color:#66d9ef}.chroma .na{color:#a6e22e}.chroma .nc{color:#a6e22e}.chroma .no{color:#66d9ef}.chroma .nd{color:#a6e22e}.chroma .ne{color:#a6e22e}.chroma .nf{color:#a6e22e}.chroma .nx{color:#a6e22e}.chroma .nt{color:#f92672}.chroma .l{color:#ae81ff}.chroma .ld{color:#e6db74}.chroma .s{color:#e6db74}.chroma .sa{color:#e6db74}.chroma .sb{color:#e6db74}.chroma .sc{color:#e6db74}.chroma .dl{color:#e6db74}.chroma .sd{color:#e6db74}.chroma .s2{color:#e6db74}.chroma .se{color:#ae81ff}.chroma .sh{color:#e6db74}.chroma .si{color:#e6db74}.chroma .sx{color:#e6db74}.chroma .sr{color:#e6db74}.chroma .s1{color:#e6db74}.chroma .ss{color:#e6db74}.chroma .m{color:#ae81ff}.chroma .mb{color:#ae81ff}.chroma .mf{color:#ae81ff}.chroma .mh{color:#ae81ff}.chroma .mi{color:#ae81ff}.chroma .il{color:#ae81ff}.chroma .mo{color:#ae81ff}.chroma .o{color:#f92672}.chroma .ow{color:#f92672}.chroma .c{color:#75715e}.chroma .ch{color:#75715e}.chroma .cm{color:#75715e}.chroma .c1{color:#75715e}.chroma .cs{color:#75715e}.chroma .cp{color:#75715e}.chroma .cpf{color:#75715e}.chroma .gd{color:#f92672}.chroma .ge{font-style:italic}.chroma .gi{color:#a6e22e}.chroma .gs{font-weight:700}.chroma .gu{color:#75715e}.a-copy-right{display:block;padding:2rem}.a-breadcrumbs__list{flex-wrap:wrap;list-style:none;margin:0;padding:0}.a-breadcrumbs__list-item{display:inline-block;white-space:nowrap}.a-breadcrumbs__list-item-link{font-size:.875rem}.a-breadcrumbs__list-item-link,.a-breadcrumbs__list-item-link:active,.a-breadcrumbs__list-item-link:hover,.a-breadcrumbs__list-item-link:visited{color:#212529}.a-breadcrumbs__list-item-link:hover{color:#0056b3;text-decoration:underline}.a-breadcrumbs__list-item-link-gt{padding-left:.5rem;padding-right:.5rem}.m-logo{padding:2rem}.m-logo__link{font-size:2rem}.m-logo__link,.m-logo__link:active,.m-logo__link:hover,.m-logo__link:visited{color:#212529}.m-global-menu{display:flex}.m-global-menu__navigation{display:flex}.m-global-menu__navigation-list{display:flex;align-items:baseline;padding:0;margin:0;list-style:none}.m-global-menu__navigation-list-item{display:flex;align-items:baseline;margin:0;padding:1rem}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active{display:block;font-weight:400}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link:active,.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link:visited{text-decoration:none;color:#212529}.m-global-menu__navigation-list-item-link--active{font-weight:700}.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link--active:active,.m-global-menu__navigation-list-item-link--active:hover,.m-global-menu__navigation-list-item-link--active:visited{text-decoration:none;border-bottom:2px solid #212529}.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link--active:hover{color:#0056b3}.m-body{display:block;width:100%}.m-global-header{display:flex;align-items:baseline;max-width:1260px;margin-left:auto;margin-right:auto;height:100px}@media screen and (max-width:1024px){.m-global-header{flex-direction:column;align-items:center;height:auto}}.m-main{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-main-container{display:flex}@media screen and (max-width:1024px){.m-main-container{flex-direction:column}}.m-content-container{width:auto}.m-aside-container{flex-shrink:0;width:400px}@media screen and (max-width:1024px){.m-aside-container{width:auto}}.m-global-footer{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-entry{padding:2rem}.m-entry__breadcrumbs{padding-bottom:2rem}.m-entry__header{padding-bottom:2rem}.m-entry__header-taxonomies{display:flex}.m-entry__header-taxonomies-category{padding-right:1rem}.m-entry__header-taxonomies-category-title-link,.m-entry__header-taxonomies-category-title-link:active,.m-entry__header-taxonomies-category-title-link:hover,.m-entry__header-taxonomies-category-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-category-title-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-category-title-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-taxonomies-tags-list{display:flex;list-style:none;padding:0}.m-entry__header-taxonomies-tags-list-item{padding-right:1rem}.m-entry__header-taxonomies-tags-list-item-link,.m-entry__header-taxonomies-tags-list-item-link:active,.m-entry__header-taxonomies-tags-list-item-link:hover,.m-entry__header-taxonomies-tags-list-item-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-title-link,.m-entry__header-title-link:active,.m-entry__header-title-link:hover,.m-entry__header-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-title-link-text{font-size:2rem;padding-top:1rem;padding-bottom:1rem}.m-entry__header-eyecache{padding-top:1rem}.m-entry__header-eyecache-img{width:100%}.m-entry__footer{padding:1rem}.m-entry__footer-sns-buttons{display:flex;justify-content:center;width:100%;padding-bottom:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu{display:block;padding-right:1rem;font-size:1.5rem;line-height:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu,.m-entry__footer-sns-buttons-icon:active,.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon:visited{text-decoration:none;color:#212529}.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon-hatebu:hover{color:#0056b3}.m-entry__footer-sns-buttons-icon-hatebu{position:relative;top:4px;font-family:Verdana;font-weight:700}.m-entry__page-navigation{display:flex;justify-content:center;padding-bottom:2rem}.m-entry__page-navigation-link{padding-right:1rem}.m-entry__page-navigation-link,.m-entry__page-navigation-link:active,.m-entry__page-navigation-link:hover,.m-entry__page-navigation-link:visited{text-decoration:none;color:#212529}.m-entry__page-navigation-link:hover{color:#0056b3}.m-entry__content{line-height:170%}.m-entry__content h2{padding-top:2rem;padding-bottom:1rem}.m-entry__content h3{padding-top:1rem;padding-bottom:1rem}.m-entry__content img{width:100%}.m-entry__content code{background-color:#eee;padding-left:8px;padding-right:8px;font-weight:400;border-radius:4px}.m-entry__content pre{padding:1rem}.m-entry__content .highlight pre code{padding:0;background-color:transparent}.m-entry__content table{margin:1rem;width:100%;border-collapse:collapse}.m-entry__content table tr th{padding:.5rem;border:1px solid #ccc;background-color:#ccc}.m-entry__content table tr td{padding:.5rem;border:1px solid #ccc}.m-entry__content blockquote{padding:1rem;margin:2rem;border-left:3px solid #ccc}.m-entry__content a[target=_blank]::after{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;margin-left:5px;margin-right:3px;display:inline-block}.m-list__breadcrumbs{padding-top:2rem;padding-left:2rem;padding-right:2rem}.m-paginator{padding-left:2rem;padding-right:2rem}.m-paginator__list{display:flex;justify-content:center;list-style:none;margin:0;padding:0}.m-paginator__list-item{display:block;padding:.5rem}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-paginator__list-item-link:active,.m-paginator__list-item-link:hover,.m-paginator__list-item-link:visited{color:#212529}.m-paginator__list-item-link:hover,.m-paginator__list-item-link--current:hover{color:#0056b3}.m-paginator__list-item-link--current{font-weight:700}.m-paginator__list-item-link--current,.m-paginator__list-item-link--current:active,.m-paginator__list-item-link--current:hover,.m-paginator__list-item-link--current:visited{text-decoration:none;border-bottom:2px solid #212529}.m-aside-container{padding:1rem}.m-aside-widget,.m-aside-widget__tags,.m-aside-widget__category,.m-aside-widget__profile{padding:1rem}.m-aside-widget__profile-avatar{text-align:center}.m-aside-widget__profile-avatar-img{border-radius:30rem}.m-aside-widget__profile-author{padding:1rem;text-align:center}.m-aside-widget__category-list{list-style:none}.m-aside-widget__category-list-item{padding-bottom:.5rem}.m-aside-widget__category-list-item-link,.m-aside-widget__category-list-item-link:active,.m-aside-widget__category-list-item-link:hover,.m-aside-widget__category-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__category-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__category-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__category>.m-aside-widget__category-list{padding:0}.m-aside-widget__tags-list{list-style:none}.m-aside-widget__tags-list-item{padding-bottom:.5rem}.m-aside-widget__tags-list-item-link,.m-aside-widget__tags-list-item-link:active,.m-aside-widget__tags-list-item-link:hover,.m-aside-widget__tags-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__tags>.m-aside-widget__tags-list{padding:0}</style>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    </head>
+    <body>
+        <header class="m-global-header">
+            <div class="m-logo">
+                <a class="m-logo__link" href="/" >YuKB</a>
+            </div>
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry" >
+        <div class="m-entry__header">
+            <div class="m-entry__header-category">
+                <span class="m-entry__header-category-title">
+                    Projects
+                </span>
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://unchainendo.github.io/unchainendo/amp/kb/projects/201909_Qrep%E6%95%B4%E5%82%99/Q%E3%82%A2%E3%83%97%E3%83%A9%E3%82%A4%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86/" >
+                    <h1 class="m-entry__header-title-link-text">Qアプライ環境構築手順</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/03/01</time>
+            </div>
+
+            
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="0-作業前提">0. 作業前提</h3>
+<h4 id="環境区分">環境区分</h4>
+<ul>
+<li>ホスト
+ソースDBが存在し、Qキャプチャーを稼働させる環境</li>
+<li>IDRサーバー
+Qアプライを稼働させる環境</li>
+<li>DBサーバー
+ターゲットDBが存在する環境</li>
+</ul>
+<h4 id="ソフトウェアバージョン">ソフトウェアバージョン</h4>
+<ul>
+<li>ホスト
+<ul>
+<li>Db2 V10 CM8</li>
+<li>IIDR V10.2.1 (ARCH_LEVEL=1021)</li>
+<li>MQ V9.0.0</li>
+</ul>
+</li>
+<li>IDRサーバー
+<ul>
+<li>Db2 Standart Edition V11.5</li>
+<li>IDR for Availability V1.2 (ARCH_LEVEL=1140)</li>
+<li>MQ V9.1</li>
+</ul>
+</li>
+<li>DBサーバー
+<ul>
+<li>Db2 V11.5</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-事前準備">1. 事前準備</h3>
+<h4 id="qアプライ実行ユーザー作成">Qアプライ実行ユーザー作成</h4>
+<p>Qアプライ実行ユーザー名はdb2qrepとする。db2qrepにはMQの管理者権限も付与し、MQの実行ユーザーとしても利用する。</p>
+<h4 id="mqdb2インストール前提パッケージ導入">MQ、Db2インストール前提パッケージ導入</h4>
+<p>KnowledgeCenter等で公開されている前提パッケージはyum installしておく。</p>
+<h3 id="2-ミドルウェアインストール">2. ミドルウェアインストール</h3>
+<h4 id="mqserverインストール">MQServerインストール</h4>
+<p>mqmユーザー、グループはインストール時に自動的に作成される。
+UID、GIDを指定したい場合は事前に作成しておくこと。(※mqmユーザーのホームディレクトリは<code>/var/mqm</code>にすること。)</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQインストールモジュールの解凍</span>
+tar -zxvf ./IBM_MQ_9.1.1_LINUX_X86-64.tar.gz
+
+<span class="c1"># ライセンス同意</span>
+<span class="nb">cd</span> ./MQServer
+./mqlicense.sh -text_only
+
+<span class="c1"># rpmモジュールのインストール</span>
+rpm -ivh ./MQSeries*.rpm
+
+<span class="c1"># rpmインストール時にカーネルパラメータ(nofile)の警告が表示された場合はQアプライ実行ユーザー(MQ実行ユーザー)の</span>
+カーネルパラメータを変更する。
+vi /etc/security/limits.conf
+</code></pre></div><h4 id="qアプライ実行ユーザーの所属グループ追加">Qアプライ実行ユーザーの所属グループ追加</h4>
+<p>Qアプライ実行ユーザーをmqmグループに追加する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">usermod -aG mqm db2qrep
+</code></pre></div><h4 id="db2インストール">Db2インストール</h4>
+<p>db2precheckをしてからインストーラを実行する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Db2インストールモジュールの解凍</span>
+tar -zxvf ./DB2_Svr_11.5_Linux_x86-64.tar.gz
+
+<span class="c1"># db2precheck実行</span>
+<span class="c1"># db2prereqcheck -v &lt;Db2バージョン&gt;</span>
+<span class="nb">cd</span> ./server_dec
+./db2prereqcheck -v 11.5.0.0
+
+<span class="c1"># インストール実行</span>
+<span class="c1"># インストール先ディレクトリをデフォルトから変更する場合はインストール中に指定</span>
+./db2_install
+</code></pre></div><h3 id="3-db2設定">3. Db2設定</h3>
+<h4 id="db2インスタンスの作成">Db2インスタンスの作成</h4>
+<p>インスタンス作成ログは<code>/tmp/db2icrt.log</code>に出力される。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ用インスタンスの作成</span>
+<span class="c1"># db2icrt -u &lt;インスタンスオーナー&gt; &lt;インスタンス名&gt;</span>
+/opt/ibm/db2/V11.5/instance/db2icrt -u db2qrep db2qrep
+
+<span class="c1"># インスタンスが作成されたことを確認</span>
+/opt/ibm/db2/V11.5/instance/db2ilist
+</code></pre></div><h4 id="qアプライ実行ユーザー環境設定">Qアプライ実行ユーザー環境設定</h4>
+<p>Qアプライ用ディレクトリの作成とDb2Connect用ライセンスファイルの配置と環境変数(CLASSPATH)の設定を行う。
+Db2Connect用ライセンスファイルはIDRサーバーからホストにdb2connectする際に必要になる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ用ディレクトリの作成</span>
+su - db2qrep
+mkdir /home/db2qrep/qapp
+<span class="nb">exit</span>
+
+<span class="c1"># Db2Connect用ライセンスファイルの配置</span>
+cp -p /tmp/xxx/xxx/db2jcc_license_cisuz.jar /home/db2qrep/qapp/
+chown db2qrep:xxx /home/db2qrep/qapp/db2jcc_license_cisuz.jar
+
+<span class="c1"># 環境変数設定</span>
+<span class="c1"># 以下の1行を追記</span>
+<span class="c1"># export CLASSPATH=$CLASSPATH:$HOME/qapp/db2jcc_license_cisuz.jar</span>
+vi /home/db2qrep/.bashrc
+</code></pre></div><h4 id="db2ライセンス適用">Db2ライセンス適用</h4>
+<p>Db2のStandardライセンスとIDRのライセンスを適用する。
+IDRのライセンスが適用されていないとQアプライ起動処理が失敗する。
+Db2はインストール時にDeveloper-Cライセンスが適用されているので外しておく。<br>
+<a href="https://www.ibm.com/support/pages/db2-db2-v115-server-%E3%82%A8%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%A8-developer-c-%E3%81%8C%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%95%E3%82%8C%E3%82%8B">Db2 v11.5 Server エディションをインストールすると Developer-C がインストールされる</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ライセンスファイルの配置・オーナー変更(あらかじめ/tmpに配置してある前提)</span>
+cp -p /tmp/xxx/xxx/db2std_vpc.lic /home/db2qrep/qapp/
+cp -p /tmp/xxx/xxx/idr4a.lic /home/db2qrep/qapp/
+chown db2qrep /home/db2qrep/qapp/db2std_vpc.lic
+chown db2qrep /home/db2qrep/qapp/idr4a.lic
+
+<span class="c1"># インスタンスオーナーにスイッチ</span>
+su - db2qrep
+
+<span class="c1"># Developer-Cライセンス削除</span>
+db2licm -r db2dec
+
+<span class="c1"># Standard Editionライセンス適用</span>
+db2-licm -a /ibmwork/db2std_vpc.lic
+
+<span class="c1"># IDRライセンス適用</span>
+db2-licm -a /ibmwork/idr4a.lic
+
+<span class="c1"># 適用済みライセンスの確認</span>
+db2licm -l
+</code></pre></div><h4 id="db2文字コードの設定">Db2文字コードの設定</h4>
+<p>今回はレジストリ変数と環境変数でDb2のコードセットをSJIS(943)に変更する。
+IDRサーバーのコードセットはターゲットDBのコードセットに合わせる。
+設定しなければOSの文字コード(RHELならUTF-8)が使用される。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># レジストリ変数の設定</span>
+db2set <span class="nv">DB2CODEPAGE</span><span class="o">=</span><span class="m">943</span>
+
+<span class="c1"># レジストリ変数の確認</span>
+db2set
+
+<span class="c1"># 環境変数の設定</span>
+<span class="c1"># 以下の1行を追記</span>
+<span class="c1"># export DB2CODEPAGE=943</span>
+vi /home/db2qrep/.bashrc
+
+<span class="c1"># 環境変数の読み込み、確認</span>
+. /home/db2qrep/.bashrc
+<span class="nb">echo</span> <span class="nv">$DB2CODEPAGE</span>
+</code></pre></div><h4 id="ソースdbターゲットdbのカタログ">ソースDB、ターゲットDBのカタログ</h4>
+<p>IDRサーバーからソースDBとターゲットDBをカタログする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ノードのカタログ</span>
+<span class="c1"># db2 catalog tcpip node &lt;ノード名&gt; remote &lt;ホスト名&gt; server &lt;ポート&gt;</span>
+<span class="c1"># データベースのカタログ</span>
+<span class="c1"># db2 catalog db &lt;DB名&gt; at node &lt;ノード名&gt;</span>
+<span class="c1"># データベースへの接続確認</span>
+<span class="c1"># db2 connect to &lt;DB名&gt; user &lt;接続ユーザー名&gt; using &lt;パスワード&gt;</span>
+
+<span class="c1"># DBサーバーノードのカタログ</span>
+db2 catalog tcpip node DBSERVER remote dbserver server <span class="m">50000</span>
+
+<span class="c1"># ホストノードのカタログ</span>
+db2 catalog tcpip node HOST remote host server <span class="m">7070</span>
+
+<span class="c1"># ターゲットDBのカタログ</span>
+db2 catalog db TARGETDB at node DBSERVER
+
+<span class="c1"># ターゲットDBのカタログ</span>
+db2 catalog db SOURCEDB at node HOST
+
+<span class="c1"># カタログ済みノード一覧の確認</span>
+db2 list node directory
+
+<span class="c1"># カタログ済みDB一覧の確認</span>
+db2 list db directory
+
+<span class="c1"># ターゲットDBへの接続確認</span>
+db2 connect to TARGETDB user qrep_target using xxxxxx
+
+<span class="c1"># ターゲットDBへの接続確認</span>
+db2 connect to SOURCEDB user qrep_source using xxxxxx
+</code></pre></div><p>同様にDBサーバーからもソースDBをカタログする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ホストノードのカタログ</span>
+db2 catalog tcpip node HOST remote host server <span class="m">7070</span>
+
+<span class="c1"># ターゲットDBのカタログ</span>
+db2 catalog db SOURCEDB at node HOST
+
+<span class="c1"># カタログ済みノード一覧の確認</span>
+db2 list node directory
+
+<span class="c1"># カタログ済みDB一覧の確認</span>
+db2 list db directory
+
+<span class="c1"># ターゲットDBへの接続確認</span>
+db2 connect to SOURCEDB user qrep_source using xxxxxx
+</code></pre></div><h4 id="パスワードファイルの作成">パスワードファイルの作成</h4>
+<p>Qアプライ用ディレクトリにパスワードファイルを生成してソースDB、ターゲットDBの認証情報を登録する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># パスワードファイルの生成(カレントディレクトリに生成される)</span>
+<span class="nb">cd</span> /home/db2qrep/qapp
+asnpwd init encrypt password
+
+<span class="c1"># ソースDBとターゲットDBの認証情報を登録</span>
+<span class="c1"># asnpwd add alias &lt;DB名&gt; id &lt;接続ユーザー名&gt; password &lt;パスワード&gt;</span>
+asnpwd add <span class="nb">alias</span> SOURCEDB id qrep_source password xxxxxx
+asnpwd add <span class="nb">alias</span> TARGETDB id qrep_target password xxxxxx
+
+<span class="c1"># エントリ確認</span>
+asnpwd list
+</code></pre></div><h3 id="4-mq設定">4. MQ設定</h3>
+<h4 id="キューマネージャーの作成起動">キュー・マネージャーの作成、起動</h4>
+<p>キュー・マネージャーを作成して起動する。
+データパス、ログパス、ログファイルサイズ、ログファイル数等は作成時に設定する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># キュー・マネージャーの作成</span>
+<span class="c1"># crtmqm -lf &lt;ログファイルサイズ&gt; -lp &lt;1次ログファイル数&gt; -ls &lt;2次ログファイル数&gt; -x &lt;MAXUMSGS&gt; -ld &lt;ログパス&gt; -md &lt;データパス&gt; &lt;キュー・マネージャー名&gt;</span>
+crtmqm -lf <span class="m">40960</span> -lp <span class="m">20</span> -ls <span class="m">2</span> -x <span class="m">50000</span> -ld /var/mqm/log -md /var/mqm/qmgrs QMG
+
+<span class="c1"># キュー・マネージャーが作成されたことを確認</span>
+dspmq
+
+<span class="c1"># キュー・マネージャーの起動</span>
+<span class="c1"># strmqm &lt;キュー・マネージャー名&gt;</span>
+strmqm QMG
+</code></pre></div><h4 id="mqオブジェクトの作成">MQオブジェクトの作成</h4>
+<p>再利用できるようにMQオブジェクト作成用のスクリプトを作成しそれを使ってオブジェクトを作成する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># MQオブジェクト作成用スクリプトの作成</span>
+mkdir /home/db2qrep/MQ
+<span class="nb">cd</span> /home/db2qrep/MQ
+cat &gt; ./create_apply_mqobjects.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">define qlocal(&lt;受信キュー名&gt;) MAXDEPTH(1000000)
+</span><span class="s">define channel(&lt;受信チャネル名&gt;) chltype(rcvr) trptype(tcp)
+</span><span class="s">define qlocal(&lt;XMITキュー名&gt;) MAXDEPTH(1000000) usage(XMITQ)
+</span><span class="s">define qremote(&lt;管理キュー名&gt;) rname(&lt;ホスト側受信キュー名&gt;) RQMNAME(&lt;ホスト側キュー・マネージャー名&gt;) XMITQ(&lt;XMITキュー名&gt;)
+</span><span class="s">define channel(&lt;送信チャネル名&gt;) chltype(sdr) xmitq(&lt;XMITキュー名&gt;) trptype(tcp) conname(&#39;&lt;ホストのホスト名&gt;(&lt;ポート&gt;)&#39;) discint(0)
+</span><span class="s">DEFINE QMODEL (&lt;スピルキュー名&gt;) DEFSOPT(SHARED) MAXDEPTH(1000000)  MSGDLVSQ(FIFO) DEFTYPE(PERMDYN)
+</span><span class="s">EOF</span>
+
+<span class="c1"># MQオブジェクトの作成</span>
+<span class="c1"># runmqsc &lt;キュー・マネージャー名&gt; &lt; &lt;スクリプト名&gt;</span>
+runmqsc QMG &lt; ./create_apply_mqobjects.txt
+
+<span class="c1"># MQオブジェクトの確認</span>
+<span class="nb">echo</span> <span class="s2">&#34;display channel(&lt;受信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc QMG
+<span class="nb">echo</span> <span class="s2">&#34;display channel(&lt;送信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc QMG
+<span class="nb">echo</span> <span class="s2">&#34;display qstatus(*)&#34;</span> <span class="p">|</span> runmqsc QMG
+</code></pre></div><h4 id="キューマネージャーの設定変更">キュー・マネージャーの設定変更</h4>
+<p>chlauthがデフォルトで有効になっているので無効化する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># chlauthの無効化</span>
+<span class="nb">echo</span> <span class="s2">&#34;alter qmgr chlauth(disabled)&#34;</span> <span class="p">|</span> runmqsc QMG
+
+<span class="c1"># chlauthの確認</span>
+<span class="nb">echo</span> <span class="s2">&#34;display qmgr&#34;</span> <span class="p">|</span> runmqsc QMG
+</code></pre></div><h4 id="リスナー起動">リスナー起動</h4>
+<p>今回はリスナーとキュー・マネージャーは独立して起動・停止するように構築しているので個別に起動する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># リスナー起動</span>
+<span class="c1"># nohup runmqlsr -m &lt;キュー・マネージャー名&gt; -t TCP -p &lt;ポート&gt; &amp;</span>
+nohup runmqlsr -m QMG -t TCP -p <span class="m">1414</span> <span class="p">&amp;</span>
+
+<span class="c1"># リスナープロセスの確認</span>
+ps -ef <span class="p">|</span> grep runmqlsr <span class="p">|</span> grep -v grep
+</code></pre></div><h4 id="チャネル起動">チャネル起動</h4>
+<p>送信チャネルを起動する。
+受信チャネルはホスト側の送信チャネルの状態に追従するためホスト側で起動する必要がある。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 送信チャネルの起動</span>
+<span class="nb">echo</span> <span class="s2">&#34;start channel(&lt;送信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc &lt;キュー・マネージャー名&gt;
+
+<span class="c1"># 送信チャネルの状態確認</span>
+<span class="nb">echo</span> <span class="s2">&#34;display chstatus(&lt;送信チャネル名&gt;)&#34;</span> <span class="p">|</span> runmqsc &lt;キュー・マネージャー名&gt;
+</code></pre></div><h3 id="5-qrep設定">5. Qrep設定</h3>
+<h4 id="ソースdbのバインド">ソースDBのバインド</h4>
+<p>IDRサーバーからソースDB(ホスト)へのDb2接続のバインド設定を行う。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ソースDBへ接続</span>
+db2 connect to SOURCEDB user qrep_source using xxxxxx
+
+<span class="c1"># ソースDB接続のバインド設定</span>
+db2 <span class="nb">bind</span> <span class="nv">$HOME</span>/sqllib/bnd/@ddcmvs.lst sqlerror <span class="k">continue</span>
+
+<span class="c1"># DB接続の切断</span>
+db2 terminate
+</code></pre></div><h4 id="アプライ制御表作成">アプライ制御表作成</h4>
+<p>アプライ制御表作成用のスクリプトを作成してasnclpコマンドで実行する。
+以降のアプライ関連の定義操作もスクリプトを作成して実行する形式を取る。
+asnclpコマンドを実行すると即座に制御表が作成される(<code>SET RUN SCRIPT NOW STOP ON SQL ERROR ON</code>)が、
+後から手動実行するためのSQLファイル(capture_ctltable.sql, apply_ctltable.sql)も生成されてしまう。
+不要なファイルだが生成を抑制することはできないようなので邪魔なら削除すること。
+CREATE CONTROL TABLES文にアプライ制御表(ibmqrep_applyparms表)のパラメータを渡すことができるため、
+ここでいくつか渡してしまう。残りは制御表を手動で書き換える。
+今回はモニター間隔・モニターログ量(MONITOR INTERVAL, MONITOR LIMIT)を指定。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義関連スクリプトの配置先ディレクトリを作成</span>
+mkdir -p /home/db2qrep/QREP/define
+<span class="nb">cd</span> /home/db2qrep/QREP/define
+
+<span class="c1"># アプライ制御表作成スクリプトを作成</span>
+cat &gt; ./create_apply_ctltable.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
+</span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
+</span><span class="s">SET SERVER TARGET TO DB &lt;ターゲットDB名&gt;;
+</span><span class="s">
+</span><span class="s">SET QMANAGER &lt;キュー・マネージャー名&gt; FOR APPLY SCHEMA;
+</span><span class="s">SET APPLY SCHEMA &lt;制御表スキーマ名&gt;;
+</span><span class="s">SET OUTPUT CAPTURE SCRIPT &#34;capture_ctltable.sql&#34;;
+</span><span class="s">SET OUTPUT TARGET SCRIPT &#34;apply_ctltable.sql&#34;;
+</span><span class="s">
+</span><span class="s">#SET RUN SCRIPT LATER;
+</span><span class="s">SET RUN SCRIPT NOW STOP ON SQL ERROR ON;
+</span><span class="s">
+</span><span class="s">CREATE CONTROL TABLES FOR APPLY SERVER USING MONITOR LIMIT 93600 MONITOR INTERVAL 60000 IN UW TBSPACE &lt;制御表用の表スペース&gt;;
+</span><span class="s">EOF</span>
+
+<span class="c1"># アプライ制御表作成</span>
+asnclp -f ./create_apply_ctltable.txt
+
+<span class="c1"># ターゲットDBに接続して制御表が作成されたことを確認</span>
+<span class="c1"># ※asnというスキーマにも制御表がいくつか作成されてしまうがこの制御表は使用しないとのこと</span>
+db2 connect to TARGETDB user qrep_target using xxxxxx
+db2 list tables <span class="k">for</span> schema qrep_target
+db2 list tables <span class="k">for</span> schema asn
+</code></pre></div><h4 id="qマップの作成">Qマップの作成</h4>
+<p>Qマップも同じように作成用スクリプトを用意して実行する。
+ここではアプライエージェント数(NUM APPLY AGENTS)とハートビート間隔(HEARTBEAT INTERVAL)と最大メッセージサイズ(MAX MESSAGE SIZE)を指定。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qマップ作成スクリプトを作成</span>
+cat &gt; ./create_qmap.txt <span class="s">&lt;&lt; EOF
+</span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
+</span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
+</span><span class="s">SET SERVER TARGET TO DB &lt;ターゲットDB名&gt;;
+</span><span class="s">SET SERVER CAPTURE TO DB &lt;ソースDB名&gt;;
+</span><span class="s">
+</span><span class="s">SET CAPTURE SCHEMA SOURCE &lt;制御表スキーマ名&gt;;
+</span><span class="s">SET APPLY SCHEMA &lt;制御表スキーマ名&gt;;
+</span><span class="s">
+</span><span class="s">#SET RUN SCRIPT LATER;
+</span><span class="s">SET RUN SCRIPT NOW STOP ON SQL ERROR ON;
+</span><span class="s">
+</span><span class="s">SET OUTPUT CAPTURE SCRIPT &#34;cap_creqmap.sql&#34;;
+</span><span class="s">SET OUTPUT TARGET SCRIPT &#34;app_creqmap.sql&#34;;
+</span><span class="s">
+</span><span class="s">CREATE REPLQMAP &#34;&lt;Qマップ名&gt;&#34; USING ADMINQ &#34;&lt;管理キュー名&gt;&#34; RECVQ &#34;&lt;受信キュー名&gt;&#34; SENDQ &#34;&lt;ホスト側送信キュー名&gt;&#34; NUM APPLY AGENTS 16 HEARTBEAT INTERVAL 60000 MAX MESSAGE SIZE 64;
+</span><span class="s">EOF</span>
+
+<span class="c1"># Qマップ作成</span>
+asnclp -f ./create_qmap.txt
+
+<span class="c1"># Qマップが作成されたことを確認</span>
+db2 <span class="s2">&#34;select * from qrep_target.ibmqrep_recvqueues&#34;</span>
+</code></pre></div><h4 id="制御表の変更">制御表の変更</h4>
+<p>設計したパラメータを制御表に入れ込んでいく。
+主に変更する制御表は以下の4つ。</p>
+<ul>
+<li>Qアプライ
+<ul>
+<li>IBMQREP_APPLYPARMS表</li>
+<li>IBMQREP_RECVQUEUES表</li>
+</ul>
+</li>
+<li>Qキャプチャー
+<ul>
+<li>IBMQREP_CAPPARMS表</li>
+<li>IBMQREP_SENDQUEUES表
+変更方法は通常のUPDATE文でOK。
+<code>db2 &quot;update &lt;制御表スキーマ&gt;.&lt;制御表&gt; set &lt;設定項目&gt;=&lt;設定値&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="qアプライの起動">Qアプライの起動</h4>
+<p>Qアプライ起動、停止のシェルスクリプトを作成して起動・停止できることを確認する。
+ここまでできれば後はQサブスクリプションを作成するだけなので最低限の環境構築は完了。
+それぞれのスクリプトの中で<code>TMPDIR</code>環境変数を指定することを忘れずに。(Tips参照)
+appyl_pathはアプライログが出力されるディレクトリ。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Qアプライ起動スクリプトの作成</span>
+cat /xxx/xxx/applystart.sh <span class="s">&lt;&lt; EOF
+</span><span class="s">export DB2CODEPAGE=943
+</span><span class="s">export TMPDIR=/home/db2qrep/qapp
+</span><span class="s">nohup asnqapp apply_server=&lt;ターゲットDB名&gt; apply_schema=&lt;制御表スキーマ名&gt; apply_path=/home/db2qrep/qapp &amp;
+</span><span class="s">EOF</span>
+chown u+x /xxx/xxx/applystart.sh
+
+<span class="c1"># Qアプライ停止スクリプトの作成</span>
+cat /xxx/xxx/applystop.sh <span class="s">&lt;&lt; EOF
+</span><span class="s">export TMPDIR=/home/db2qrep/qapp
+</span><span class="s">asnqacmd apply_server=&lt;ターゲットDB名&gt; apply_schema=&lt;制御表スキーマ名&gt; stop
+</span><span class="s">EOF</span>
+chown u+x /xxx/xxx/applystop.sh
+
+<span class="c1"># Qアプライの起動</span>
+/xxx/xxx/applystart.sh
+
+<span class="c1"># アプライログとプロセスを確認</span>
+<span class="c1"># プロセスが存在し、ログに「The Q Apply program has started processing ...」と記録されていればOK</span>
+ps -ef <span class="p">|</span> grep asnqapp <span class="p">|</span> grep -v grep
+cat /home/db2qrep/qapp/db2qrep.&lt;ターゲットDB名&gt;.&lt;制御表スキーマ名&gt;.QAPP.log
+
+<span class="c1"># Qアプライの停止</span>
+/xxx/xxx/applystop.sh
+
+<span class="c1"># プロセスが消えたことを確認</span>
+ps -ef <span class="p">|</span> grep asnqapp <span class="p">|</span> grep -v grep
+</code></pre></div>
+        </div>
+    </article>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>
