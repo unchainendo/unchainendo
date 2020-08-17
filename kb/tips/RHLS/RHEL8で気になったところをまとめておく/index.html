@@ -20,7 +20,7 @@
         
 
         
-            <meta name="author" content="unchainendo" />
+            <meta name="author" content="UNCHAINENDO" />
         
 
         
@@ -52,7 +52,7 @@
 <link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
 
 
-<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+<link rel="stylesheet" href="https://unchainendo.github.io/unchainendo/scss/style.d7ec4e37ce499205bd5614dfd96b11cf2b51f15f94b1dd0aea11cfad4f9672ae.css" />
 
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
@@ -265,17 +265,17 @@ cronだと何分後、何日後といった書き方はできないのでatの�
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># echoでスケジュールしたいコマンドを文字列として出力してatコマンドにパイプで渡す
-$ echo &#34;date &gt;&gt; ./test.txt&#34; | at now +3min
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># echoでスケジュールしたいコマンドを文字列として出力してatコマンドにパイプで渡す</span>
+$ <span class="nb">echo</span> <span class="s2">&#34;date &gt;&gt; ./test.txt&#34;</span> <span class="p">|</span> at now +3min
 warning: commands will be executed using /bin/sh
-job 1 at Thu Mar 21 12:30:00 2019
+job <span class="m">1</span> at Thu Mar <span class="m">21</span> 12:30:00 <span class="m">2019</span>
 
-# atq または at -l でジョブを確認
+<span class="c1"># atq または at -l でジョブを確認</span>
 $ atq
-1 Thu Mar 21 12:30:00 2019 a student
+<span class="m">1</span> Thu Mar <span class="m">21</span> 12:30:00 <span class="m">2019</span> a student
 
-# ジョブ番号1のユーザージョブを削除
-$ atrm 1
+<span class="c1"># ジョブ番号1のユーザージョブを削除</span>
+$ atrm <span class="m">1</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>少し逸れるが<code>watch</code>コマンドってのも初めて知った。
@@ -863,7 +863,7 @@ Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span
     </div>
     <div class="m-aside-widget__profile-author">
         
-            unchainendo
+            UNCHAINENDO
         
     </div>
     <div class="m-aside-widget__profile-description">
@@ -1007,7 +1007,7 @@ Aug <span class="m">13</span> 14:15:30 RHEL8TEST stratisd<span class="o">[</span
         <footer class="m-global-footer">
             <span class="a-copy-right">
     Copyright 2020
-    unchainendo
+    UNCHAINENDO
     All rights reserved.
 </span>
 
