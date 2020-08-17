@@ -81,12 +81,35 @@
 トラブルが起きているとすればこのあたりのどれかが間違ったファイルを指定してしまっているか、
 またはCertificateそのものの情報が間違っている可能性がある。
 Certificateの情報は以下のコマンドで確認できる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ openssl x509  -noout -text -in ./server.crt
-</code></pre></div><p>特にapiserverがetcdに接続するためのCertificateファイル群は別パスに置かれていることがあるので注意が必要。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ openssl x509  -noout -text -in ./server.crt
+</code></pre></td></tr></table>
+</div>
+</div><p>特にapiserverがetcdに接続するためのCertificateファイル群は別パスに置かれていることがあるので注意が必要。</p>
 <h4 id="certificaterequestの作成と承認">CertificateRequestの作成と承認</h4>
 <p>以下のYAMLを作ってCertificateRequestを作成する。
 前提として未署名のキーペアが用意されていること。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>certificates.k8s.io/v1beta1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>certificates.k8s.io/v1beta1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CertificateSigningRequest<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>akshay<span class="w">
@@ -98,31 +121,128 @@ Certificateの情報は以下のコマンドで確認できる。</p>
 </span><span class="w">  </span>- digital<span class="w"> </span>signature<span class="w">
 </span><span class="w">  </span>- key<span class="w"> </span>encipherment<span class="w">
 </span><span class="w">  </span>- server<span class="w"> </span>auth<span class="w">
-</span></code></pre></div><p>requestにはCSRをbase64でハッシュ化したものを貼り付ける。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ cat akshay.csr <span class="p">|</span> base64 <span class="p">|</span> tr -d <span class="s1">&#39;\n&#39;</span>
+</span></code></pre></td></tr></table>
+</div>
+</div><p>requestにはCSRをbase64でハッシュ化したものを貼り付ける。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat akshay.csr <span class="p">|</span> base64 <span class="p">|</span> tr -d <span class="s1">&#39;\n&#39;</span>
 <span class="nv">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZV3R6YUdGNU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQXpmQ01EZnRBTVcvT3JXSElJTEEvRVQrNGNEbThXY1dsOG9TdmJTd1pvb2dtCjVuUVB4UmErMTFRZjV3eEh5WnpUU1EvVnJzMlVVTXdZZ2N0aHY4SE5jcnVaYWQvTTVFWkhVU0l5SEM0dDk2KzYKcmJHd2ZNWUYxWnQzYWp5L2xoVkZsOUNiTXJXaitqL09YY3Fyay93MmF3ZXN2Z01rSkZyTUZCYUJQdllGcnpJaQpQNnZyK2kzczM3b1d3bVlaSzRUaGVxaHFQUzhFU09YR3laWS9JY1Q2YkRrSmk1ZFAyMEJpaUhIVjNhWFhEUWNVCmxYUmxzSDFnTjdIamJnMmRWRnBSK0VLRThYMXFsaHNiZERWcm1CK2dEOElJci9nN1d5YmZaTnlPSnlEMnd6YlUKWGJ0NE95ekM1Z0Y2TWpTbDhPR015Q0d3NU54aVlIOFBIRjlILzNTWnZRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBS0VxaDZ1azVsbjJIai9oZGFLV1cxYXdaZ3RtamtmMEZWQ2hvbGdtY2NLTXJjdXR5K1pYCit1Z0N4eHYzWUtZTlhuS1A4RVBaUnE5NTNsUGNZbmNpRlZPN0dLblNoY1NwNzViZXcrOXZrYzF4a1MxMVoxVlcKakg1aTVkREdLTFl0ZlRRTkhNeGlTQnlWMStBQVBXUmJkd2EzWmFEQ3lBOUVXUTFXVmVmMWIwa0U4U0JoQ3RkOApjbUdGdHRoVFkxbmY3ZStGbjlpT2ZyaE9Lc2paWVFHVTM1UzJabmIvN2ZqYlJpejY4U3dhSm9WVERFNnEvYlFCCnh5WlFubEFqUEhiTXNNL1ZsT053RkdQYXVVN3RHaWtIT2pmZ0gwYlNGWUkrNUpRSWFod3VBV1ZkbzRvTTlwNUMKc0ZqNm1SUlFYMjRldmRVOGlYUitDM1BIa1R3NTc3UVdvQ0E9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo</span><span class="o">=</span>
-</code></pre></div><p>Requestの作成と確認はappy&amp;get&amp;describeの組み合わせでOK。
+</code></pre></td></tr></table>
+</div>
+</div><p>Requestの作成と確認はappy&amp;get&amp;describeの組み合わせでOK。
 リソース名は略称の<code>csr</code>が楽。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get csr
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get csr
 NAME          AGE     REQUESTOR          CONDITION
 agent-smith   3m54s   agent-x            Denied
 akshay        9m52s   kubernetes-admin   Approved,Issued
-</code></pre></div><h4 id="certificaterequestの承認と却下">CertificateRequestの承認と却下</h4>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="certificaterequestの承認と却下">CertificateRequestの承認と却下</h4>
 <p>承認は<code>kubectl certificate approbe &lt;CSR名&gt;</code>
 却下は<code>kubectl certificate deny &lt;CSR名&gt;</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;akshay&#34;を承認</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;akshay&#34;を承認</span>
 $ kubectl certificate approve akshay
 certificatesigningrequest.certificates.k8s.io/akshay approved
 
 <span class="c1"># &#34;agent-smith&#34;を却下</span>
 $ kubectl certificate deny agent-smith
 certificatesigningrequest.certificates.k8s.io/agent-smith approved
-</code></pre></div><h4 id="kubeconfigの設定">kubeconfigの設定</h4>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="kubeconfigの設定">kubeconfigの設定</h4>
 <p>kubeconfigは以下のフォーマットで設定する。
 複数Cluster、複数User、その組み合わせからなる複数のContextを定義する。
 <code>current-context</code>が現在設定されているContext。
 kubeconfigは必ず<code>~/.kube/config</code>として配置すること。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Config<span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="k">clusters</span><span class="p">:</span><span class="w">
@@ -182,9 +302,26 @@ kubeconfigは必ず<code>~/.kube/config</code>として配置すること。</p>
 </span><span class="w">    </span><span class="k">client-key</span><span class="p">:</span><span class="w"> </span>/etc/kubernetes/pki/users/aws-user/aws-user.key<span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="k">current-context</span><span class="p">:</span><span class="w"> </span>test-user@development<span class="w">
-</span></code></pre></div><h4 id="contextの確認変更">contextの確認・変更</h4>
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="contextの確認変更">contextの確認・変更</h4>
 <p>context関連の操作は<code>kubectl config</code>を使用する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeconfigに設定されているcontextと現在セットされているcontextを確認</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeconfigに設定されているcontextと現在セットされているcontextを確認</span>
 $ kubectl config get-contexts
 CURRENT   NAME                         CLUSTER             AUTHINFO    NAMESPACE
           aws-user@kubernetes-on-aws   kubernetes-on-aws   aws-user
@@ -195,10 +332,25 @@ CURRENT   NAME                         CLUSTER             AUTHINFO    NAMESPACE
 <span class="c1"># contextを変更(kubeconfigファイルも書き換えられる)</span>
 $ kubectl config use-context research
 Switched to context <span class="s2">&#34;research&#34;</span>.
-</code></pre></div><h3 id="rbac">RBAC</h3>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="rbac">RBAC</h3>
 <h4 id="roleとrolebinding">RoleとRolebinding</h4>
 <p>Roleで「どのリソースにどのような操作ができるか」を設定する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Role<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
@@ -207,8 +359,27 @@ Switched to context <span class="s2">&#34;research&#34;</span>.
 </span><span class="w"></span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
 </span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;pods&#34;</span><span class="p">]</span><span class="w">
 </span><span class="w">  </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">]</span><span class="w">
-</span></code></pre></div><p>RolebindingではRoleとUserやGroupを紐付けることで権限を付与する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>RolebindingではRoleとUserやGroupを紐付けることで権限を付与する。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>RoleBinding<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>read-pods<span class="w">
@@ -221,11 +392,25 @@ Switched to context <span class="s2">&#34;research&#34;</span>.
 </span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Role<span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>pod-reader<span class="w">
 </span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
-</span></code></pre></div><h4 id="clusterroleとclusterrolebindings">ClusterRoleとClusterRoleBindings</h4>
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="clusterroleとclusterrolebindings">ClusterRoleとClusterRoleBindings</h4>
 <p>Roleに似た概念としてClusterRoleというものがある。
 Roleは各Namespace内のリソースに対する操作権限を扱いのに対して、ClusterRoleは一段外側のCluster全体の操作に対する権限を扱う。
 具体的にはSecretだったりNodeだったり。あとはPodについても<code>--all-namespaces</code>として扱う場合はこちらで設定する必要がある。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>secret-reader<span class="w">
@@ -233,8 +418,26 @@ Roleは各Namespace内のリソースに対する操作権限を扱いのに対�
 </span><span class="w"></span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
 </span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;secrets&#34;</span><span class="p">]</span><span class="w">
 </span><span class="w">  </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">]</span><span class="w">
-</span></code></pre></div><p>作成したClusterRoleはClusterRoleBindingsで割り当てる。これもRolebindingsと似ている。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>作成したClusterRoleはClusterRoleBindingsで割り当てる。これもRolebindingsと似ている。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRoleBinding<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>read-secrets-global<span class="w">
@@ -246,7 +449,9 @@ Roleは各Namespace内のリソースに対する操作権限を扱いのに対�
 </span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>secret-reader<span class="w">
 </span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
-</span></code></pre></div>
+</span></code></pre></td></tr></table>
+</div>
+</div>
         </div>
     </article>
 

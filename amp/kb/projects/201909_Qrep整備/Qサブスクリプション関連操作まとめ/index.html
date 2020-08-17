@@ -87,7 +87,28 @@
 <code>SET RUN SCRIPT NOW STOP ON SQL ERROR ON</code>としているのでasnclpコマンド実行と同時に制御表が更新される。
 SUBS表、TARGETS表に入る設定はQsub定義時に指定する。
 ここでは</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /home/db2qrep/QREP/define/create_qsub_&lt;Qsub名&gt;.txt <span class="s">&lt;&lt; EOF
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /home/db2qrep/QREP/define/create_qsub_&lt;Qsub名&gt;.txt <span class="s">&lt;&lt; EOF
 </span><span class="s">ASNCLP SESSION SET TO Q REPLICATION;
 </span><span class="s">SET PWDFILE &#34;&lt;パスワードファイル(フルパス)&gt;&#34;;
 </span><span class="s">
@@ -104,7 +125,9 @@ SUBS表、TARGETS表に入る設定はQsub定義時に指定する。
 </span><span class="s">HAS LOAD PHASE I CAPTURE_LOAD R REPLICATE ADD COLUMN Y START AUTOMATICALLY NO EXIST TARGET NAME &#34;&lt;ターゲット表スキーマ名&gt;&#34;.&#34;&lt;ターゲット表名&gt;&#34;
 </span><span class="s">CONFLICT ACTION F ERROR ACTION S);
 </span><span class="s">EOF</span>
-</code></pre></div><p>以下はまた時間があるときに。。</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>以下はまた時間があるときに。。</p>
 <ul>
 <li>Qサブスクリプションの作成</li>
 <li>Qサブスクリプションの削除</li>

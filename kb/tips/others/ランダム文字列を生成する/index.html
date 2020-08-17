@@ -215,8 +215,15 @@
             <p>めったにないのだけど、ランダムな文字列を生成する場合は<code>urandom</code>と<code>base64</code>を組み合わせて使うのがメジャーらしい。
 <code>fold</code>は指定した幅で改行するためのコマンド。
 <code>fold</code>への引数の数字を変えることで文字列の文字数を指定できる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cat /dev/urandom <span class="p">|</span> base64 <span class="p">|</span> fold -w <span class="m">5</span> <span class="p">|</span> head -1
-</code></pre></div><p>参考: <a href="https://qiita.com/567000/items/81b2c742f87eb7ff6504">コマンドでランダムなパスワードを作る</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat /dev/urandom <span class="p">|</span> base64 <span class="p">|</span> fold -w <span class="m">5</span> <span class="p">|</span> head -1
+</code></pre></td></tr></table>
+</div>
+</div><p>参考: <a href="https://qiita.com/567000/items/81b2c742f87eb7ff6504">コマンドでランダムなパスワードを作る</a></p>
 
         </div>
         <div class="m-entry__footer">

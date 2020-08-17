@@ -216,7 +216,24 @@
 <h4 id="podがpending状態のままのとき">PodがPending状態のままのとき</h4>
 <p><code>kube-scheduler</code>が動いていないからかもしれない。
 <code>kube-system</code>NamespaceでPodを確認してみる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get po -n kube-system
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get po -n kube-system
 NAME                                      READY   STATUS    RESTARTS   AGE
 coredns-66bff467f8-59x22                  1/1     Running   <span class="m">0</span>          3m45s
 coredns-66bff467f8-5nwnt                  1/1     Running   <span class="m">0</span>          3m45s
@@ -229,10 +246,25 @@ kube-flannel-ds-amd64-p2lrp               1/1     Running   <span class="m">1</s
 kube-keepalived-vip-tr856                 1/1     Running   <span class="m">0</span>          3m12s
 kube-proxy-c9xqc                          1/1     Running   <span class="m">0</span>          3m45s
 kube-proxy-q9gcx                          1/1     Running   <span class="m">0</span>          3m34s
-</code></pre></div><h4 id="podの稼働nodeを指定して起動する">Podの稼働Nodeを指定して起動する</h4>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="podの稼働nodeを指定して起動する">Podの稼働Nodeを指定して起動する</h4>
 <p>PodのYAMLマニフェストの中で<code>spec.nodeName</code>に稼働Node名を指定できる。
 ただし、稼働中のPodに<code>kubectl apply</code>してNodeを変更することはできないので削除＆再作成が必要。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
@@ -241,12 +273,33 @@ kube-proxy-q9gcx                          1/1     Running   <span class="m">0</s
 </span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
 </span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
-</span></code></pre></div><h3 id="labelとselector">LabelとSelector</h3>
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="labelとselector">LabelとSelector</h3>
 <h4 id="selectorを使って指定したlabelのオブジェクトのみ表示する">selectorを使って指定したLabelのオブジェクトのみ表示する</h4>
 <p>kubectlコマンドに<code>--selector</code>オプションをつけることでLabelでフィルターできる。
 複数のLabelでフィルターするときは<code>,</code>で区切って指定するがスペース入れるとエラーになるので注意。
 <code>--selector</code>は<code>-l</code>でもOK。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Labelが&#34;env=dev&#34;のPodだけを表示</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Labelが&#34;env=dev&#34;のPodだけを表示</span>
 $ kubectl get pod --selector <span class="nv">env</span><span class="o">=</span>dev
 NAME          READY   STATUS    RESTARTS   AGE
 app-1-7tjv9   1/1     Running   <span class="m">0</span>          3m39s
@@ -261,7 +314,9 @@ db-1-nmhnd    1/1     Running   <span class="m">0</span>          3m38s
 $ kubectl get po --selector <span class="nv">env</span><span class="o">=</span>prod,bu<span class="o">=</span>finance,tier<span class="o">=</span>frontend
 NAME          READY   STATUS    RESTARTS   AGE
 app-1-zzxdf   1/1     Running   <span class="m">0</span>          6m51s
-</code></pre></div><h4 id="annotation">Annotation</h4>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="annotation">Annotation</h4>
 <p>Labelと同様にAnnotation(<code>.metadata.annotaions</code>)というmetadataを各リソースに付与することができる。
 これはSelectorで抽出できるものではないので、バージョンとか担当者の連絡先とか、そういった情報を自由に書き足すときに使うようだ。
 このあたりの使い方のベストプラクティスがどんどん広まっていけば無駄な設計書は消えていくのだろう。。</p>
@@ -276,24 +331,63 @@ TaintsなしのNodeが空いていればそこにScheduleされることもあ�
 意図的にこのNodeにScheduleさせたい、といったことは後述のNode Selector/Node Affinityで対応できる。</p>
 <h3 id="master-nodeのtaint">Master NodeのTaint</h3>
 <p>Master Nodeでは管理系のPod以外稼働させないためにTaintがデフォルトで設定されている。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl describe node master <span class="p">|</span> grep -i taint
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl describe node master <span class="p">|</span> grep -i taint
 Taints:             node-role.kubernetes.io/master:NoSchedule
-</code></pre></div><h3 id="taintsの作成削除">Taintsの作成・削除</h3>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="taintsの作成削除">Taintsの作成・削除</h3>
 <p>KeyとValueだけでなくEffectも一緒に指定する必要がある。
 Effectの選択肢は3つ。<code>NoSchedule</code>は条件を満たさない場合そのNodeにScheduleできない。
 <code>PreferNoSchedule</code>は<code>NoSchedule</code>に近いがPreferなので保証はされない。
 <code>NoExecute</code>は新規Podだけでなく既に稼働中のPodも条件を満たさなければそのNodeから追い出してしまう。
 Taintsの作成は<code>kubectl taint</code>コマンドを使い、削除はEffectの最後に&rdquo;-&ldquo;をつけるだけ。わっかりにくい。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Key:spray Value:mortein Effect:NoScheduleのTaintを作成</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Key:spray Value:mortein Effect:NoScheduleのTaintを作成</span>
 $ kubectl taint nodes node01 <span class="nv">spray</span><span class="o">=</span>mortein:NoSchedule
 node/node01 tainted
 
 <span class="c1"># デフォルトで定義されているTaintを削除</span>
 $ kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-
 node/master untainted
-</code></pre></div><h3 id="tolerationsの定義">Tolerationsの定義</h3>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="tolerationsの定義">Tolerationsの定義</h3>
 <p>PodにTolerationsを定義するときは<code>spec.tolerations</code>にTolerationの条件を記載する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>/var/answers/bee.yaml<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>/var/answers/bee.yaml<span class="w">
 </span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
@@ -307,7 +401,9 @@ node/master untainted
 </span><span class="w">    </span><span class="k">value</span><span class="p">:</span><span class="w"> </span>mortein<span class="w">
 </span><span class="w">    </span><span class="k">effect</span><span class="p">:</span><span class="w"> </span>NoSchedule<span class="w">
 </span><span class="w">    </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>Equal<span class="w">
-</span></code></pre></div><h3 id="node-selector-と-node-affinity">Node Selector と Node Affinity</h3>
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="node-selector-と-node-affinity">Node Selector と Node Affinity</h3>
 <h4 id="概要-1">概要</h4>
 <p>Node SelectorとNode AffinityはどちらもPodを意図したNode上で稼働させるための仕組み。
 Node Selectorはシンプルに、Podに設定された<code>spec.nodeSelector</code>と一致するLabelを持つNodeにPodがScheduleされる。</p>
@@ -316,7 +412,24 @@ Node Selectorはシンプルに、Podに設定された<code>spec.nodeSelector</
 <h4 id="node-selectorを設定する">Node Selectorを設定する</h4>
 <p>PodにNode Selectorを設定する例は以下のとおり。
 <code>disktype: ssd</code>のLabelをもつNodeにPodをアサインする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
@@ -329,14 +442,46 @@ Node Selectorはシンプルに、Podに設定された<code>spec.nodeSelector</
 </span><span class="w">    </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
 </span><span class="w">  </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="k">disktype</span><span class="p">:</span><span class="w"> </span>ssd<span class="w">
-</span></code></pre></div><h4 id="node-affinityを設定する">Node Affinityを設定する</h4>
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="node-affinityを設定する">Node Affinityを設定する</h4>
 <p>Node Affinityの場合はちょっと複雑。
 <code>spec.affinity.nodeAffinity</code>の1つ目の<code>requiredDuringSchdulingIgnoredDuringExecution</code>は新たにScheduleするときの絶対条件。
 以下の例だとKeyが<code>kubernetes.io/e2e-az-name</code>でValueが<code>e2e-az1</code>か<code>e2e-az2</code>のいずれかのNodeでなければならない。
 operatorを<code>Exists</code>にすればvaluesが不要になり、Keyが存在していればOK、という設定になる。
 2つ目の<code>preferredDuringSchedulingIgnoredDuringExecution</code>は優先度の設定みたいなもの。
 条件を満たすNodeの優先度(<code>weight</code>)を設定することができ、その合算値が最も高いNodeにScheduleされる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>with-node-affinity<span class="w">
@@ -362,14 +507,34 @@ operatorを<code>Exists</code>にすればvaluesが不要になり、Keyが存�
 </span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>with-node-affinity<span class="w">
 </span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/pause<span class="p">:</span><span class="m">2.0</span><span class="w">
-</span></code></pre></div><p>Node Affinityの設定は長いから覚えるより公式から引っ張ってきたほうが早いな。</p>
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Node Affinityの設定は長いから覚えるより公式から引っ張ってきたほうが早いな。</p>
 <h3 id="resource-requirements">Resource Requirements</h3>
 <h4 id="cpuやメモリのrequestlimitを変更する">CPUやメモリのRequest/Limitを変更する</h4>
 <p>稼働中のPodのリソースは変えられないので<code>kubectl get po &lt;pod名&gt; -o yaml</code>でYAMLに書き出して、
 Pod削除、YAML編集、<code>kubectl apply</code>とするしかない。
 YAMLの構造は以下のとおり、<code>spec.containers[*].resources</code>に<code>limits</code>と<code>requests</code>を指定する。
 リソース不足のときは<code>limits</code>の方を大きくなるように変更する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cpu-demo<span class="w">
@@ -383,13 +548,37 @@ YAMLの構造は以下のとおり、<code>spec.containers[*].resources</code>�
 </span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
 </span><span class="w">      </span><span class="k">requests</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.5&#34;</span><span class="w">
-</span></code></pre></div><h3 id="daemon-sets">Daemon Sets</h3>
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="daemon-sets">Daemon Sets</h3>
 <h4 id="概要-2">概要</h4>
 <p>クラスタの各Nodeで1台ずつPodを稼働させるリソース。
 Nodeが増えたらそのNodeでも1台PodをScheduleする。</p>
 <h3 id="yamlマニフェスト">YAMLマニフェスト</h3>
 <p>ReplicaSetに似ている、というかkind以外完全に一緒。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>test.yaml<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>test.yaml<span class="w">
 </span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>DaemonSet<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
@@ -407,17 +596,53 @@ Nodeが増えたらそのNodeでも1台PodをScheduleする。</p>
 </span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
 </span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/fluentd-elasticsearch<span class="p">:</span><span class="m">1.20</span><span class="w">
-</span></code></pre></div><p>YAMLは公式サイトからひっぱってくるか、Deploymentを作成してファイルを編集する形がスムーズみたい。</p>
+</span></code></pre></td></tr></table>
+</div>
+</div><p>YAMLは公式サイトからひっぱってくるか、Deploymentを作成してファイルを編集する形がスムーズみたい。</p>
 <h3 id="static-pod">Static Pod</h3>
 <p>似た概念としてStatic Podというものがある。
 これはKubeletだけが稼働しているサーバー上でもPodを作成できる仕組みで、
 <code>kube-system</code>NamespaceのPodはこの形でScheduleされている。(kube-apiserverなど)
 Static Podはkubeletに指定されたパス(<code>staticPodPath: /etc/kubernetes/manifests</code>)にPodのYAMLマニフェストを置くだけで自動的に作成される。
 削除するときはYAMLファイルを削除するだけでよいし、変更するときもファイルを直接書き換えれば良い。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;busybox&#34;のイメージを使用し1000秒SleepするPodを作成</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;busybox&#34;のイメージを使用し1000秒SleepするPodを作成</span>
 $ kubectl run --restart<span class="o">=</span>Never --image<span class="o">=</span>busybox static-busybox --dry-run -o yaml --command -- sleep <span class="m">1000</span> &gt; /etc/kubernetes/manifests/static-busybox.yaml
-</code></pre></div><p>Static Podの定義ファイルのパスは以下の流れで確認する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeletプロセスの引数から&#34;--config&#34;で指定されているファイルを確認</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Static Podの定義ファイルのパスは以下の流れで確認する。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeletプロセスの引数から&#34;--config&#34;で指定されているファイルを確認</span>
 $ ps -ef <span class="p">|</span> grep kubelet
 root      <span class="m">3026</span>  <span class="m">2550</span>  <span class="m">0</span> 01:22 pts/1    00:00:00 grep --color<span class="o">=</span>auto kubelet
 root     <span class="m">30193</span>     <span class="m">1</span>  <span class="m">2</span> 01:18 ?        00:00:06 /usr/bin/kubelet --bootstrap-kubeconfig<span class="o">=</span>/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig<span class="o">=</span>/etc/kubernetes/kubelet.conf --config<span class="o">=</span>/var/lib/kubelet/config.yaml --cgroup-driver<span class="o">=</span>systemd --network-plugin<span class="o">=</span>cni --pod-infra-container-image<span class="o">=</span>k8s.gcr.io/pause:3.2 --resolv-conf<span class="o">=</span>/run/systemd/resolve/resolv.conf
@@ -439,7 +664,9 @@ staticPodPath: /etc/just-to-mess-with-you
 streamingConnectionIdleTimeout: 0s
 syncFrequency: 0s
 volumeStatsAggPeriod: 0s
-</code></pre></div><h3 id="multiple-scheduler">Multiple Scheduler</h3>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="multiple-scheduler">Multiple Scheduler</h3>
 <h4 id="default以外のschedulerを個別に作成する">default以外のSchedulerを個別に作成する</h4>
 <p>kube-schedulerはデフォルトのもの以外に新しく定義したものを追加したり、入れ替えたりできる。
 kube-schedulerは、kubeadm環境だとPod、手組み環境だとsystemdのServiceとして動いているので
@@ -448,7 +675,80 @@ kube-schedulerは、kubeadm環境だとPod、手組み環境だとsystemdのServ
 複数のMasterが存在する場合は<code>--lock-object-name=&lt;Scheduler名&gt;</code>を追記する必要がある。
 ちょっとこのあたりのロジックがわかっていないので後で勉強する。
 あとは<code>--port</code>に使われていないPortを指定する。(<code>netstat -natulp</code>で確認)</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># デフォルトのSchedulerのマニフェストファイルをコピーして書き換えてオリジナルのSchedulerを起動</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># デフォルトのSchedulerのマニフェストファイルをコピーして書き換えてオリジナルのSchedulerを起動</span>
 $ cp -p /etc/kubernetes/manifests/kube-scheduler.yaml ./my-scheduler.yaml
 $ vi my-scheduler.yaml
 $ cat my-scheduler.yaml
@@ -517,9 +817,24 @@ kube-proxy-6wdc4                          1/1     Running            <span class
 kube-proxy-sgrmq                          1/1     Running            <span class="m">0</span>          19m
 kube-scheduler-master                     1/1     Running            <span class="m">0</span>          20m
 my-scheduler                              1/1     Running            <span class="m">0</span>          45s
-</code></pre></div><h4 id="schedulerを指定してpodを起動する">Schedulerを指定してPodを起動する</h4>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="schedulerを指定してpodを起動する">Schedulerを指定してPodを起動する</h4>
 <p><code>spec.schedulerName</code>にScheduler名を指定すればそのSchedulerが使われる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
@@ -528,11 +843,34 @@ my-scheduler                              1/1     Running            <span class
 </span><span class="w">  </span>- <span class="w"> </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
 </span><span class="w">     </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
 </span><span class="w">  </span><span class="k">schedulerName</span><span class="p">:</span><span class="w"> </span>my-scheduler<span class="w">
-</span></code></pre></div><h4 id="指定したschedulerが使われたことを確認する">指定したSchedulerが使われたことを確認する</h4>
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="指定したschedulerが使われたことを確認する">指定したSchedulerが使われたことを確認する</h4>
 <p>Schdulerに限らず、Kubernetesの簡単なイベントログは<code>kubectl get events</code>で確認する。
 自分で作成したSchedulerがちゃんと機能したかどうかは<code>SOURCE</code>や<code>MESSAGE</code>から確認できる。
 詳細なログは<code>kubectl logs</code>コマンドで確認。引数にはリソース名、必要に応じてNamespace名を指定する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl logs my-scheduler -n kube-system
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl logs my-scheduler -n kube-system
 I0623 03:42:55.376469       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
 I0623 03:42:55.376518       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
 I0623 03:42:55.792830       <span class="m">1</span> serving.go:313<span class="o">]</span> Generated self-signed cert in-memory
@@ -549,7 +887,9 @@ I0623 03:42:56.209399       <span class="m">1</span> configmap_cafile_content.go
 I0623 03:42:56.209527       <span class="m">1</span> shared_informer.go:223<span class="o">]</span> Waiting <span class="k">for</span> caches to sync <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::client-ca-file
 I0623 03:42:56.308877       <span class="m">1</span> shared_informer.go:230<span class="o">]</span> Caches are synced <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file
 I0623 03:42:56.309719       <span class="m">1</span> shared_informer.go:230<span class="o">]</span> Caches are synced <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::client-ca-file
-</code></pre></div>
+</code></pre></td></tr></table>
+</div>
+</div>
         </div>
         <div class="m-entry__footer">
             <div class="m-entry__footer-sns-buttons">
