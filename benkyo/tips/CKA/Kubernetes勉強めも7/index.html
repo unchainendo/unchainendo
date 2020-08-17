@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://pages.github.ibm.com/YUENDO/yuendo/" />
+        <link rel="canonical" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://pages.github.ibm.com/YUENDO/yuendo/amp/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/">
+        <title> 
+            Kubernetes勉強めも7 | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="Volume関連 Volume Containerは停止するとデータが残らないのでログとかデータベースとか恒久的に残したいデータはVolumeを利用する。" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="Kubernetes勉強めも7 | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="Volume関連 Volume Containerは停止するとデータが残らないのでログとかデータベースとか恒久的に残したいデータはVolumeを利用する。" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://pages.github.ibm.com/YUENDO/yuendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://pages.github.ibm.com/YUENDO/yuendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://pages.github.ibm.com/YUENDO/yuendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/post">Blog</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/test">Test</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/" itemprop="item" >
+                    
+                        べんきょう
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/" itemprop="item" >
+                    
+                        Kubernetes勉強めも7
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/">
+                                CKA
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/">kubernetes</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも7</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/26</time>
+            </div>
+
+            
+            
+                <div class="m-entry__header-eyecache">
+                    <img class="m-entry__header-eyecache-img" src="https://pages.github.ibm.com/YUENDO/yuendo/images/yukb.b1b9047d8bef62a1022745783862cc386960801a6015b5eab912f289dc625f78.png" >
+                </div>
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="volume関連">Volume関連</h3>
+<h4 id="volume">Volume</h4>
+<p>Containerは停止するとデータが残らないのでログとかデータベースとか恒久的に残したいデータはVolumeを利用する。
+Volumeにはローカルディスクや外部ディスク、クラウドベンダーのストレージサービスとかを使うこともできるし、
+Podが稼働するNodeのディレクトリをそのまま見せてしまう<code>HostPath</code>という形式も選択できる。
+<code>HostPath</code>は本番環境では利用非推奨のようだがぱぱっと機能確認するには一番わかりやすいと思う。
+YAMLでは<code>spec.volumes</code>でVolumeの設定を行い、<code>spec.containers.volumeMounts</code>でどこにどのVolumeをマウントするか定義する。
+以下の例では、Container内の処理で<code>/test-pd</code>配下に配置したデータは稼働Nodeの<code>/data</code>に保管される。
+注意点としては、Podは稼働NodeのディレクトリをマウントするのでどのNodeでどのPodが稼働するかわからないような構成の場合は
+なんのデータがどのNodeにあるかわからなくなってしまうし、場合によっては複数Podが一つのディレクトリをマウントする可能性もあるので利用時はその特性を考慮しなければいけない。
+DaemonSetであれば各Nodeで均等にContainerが稼働するので各Containerのログ保管などで活用できるかもしれない。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: k8s.gcr.io/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /test-pd
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      path: /data
+      type: Directory
+</code></pre></div><h4 id="persistentvolume">PersistentVolume</h4>
+<p>予めVolumeを定義してPodから利用する場合は<code>PersistentVolume</code>を利用する。
+<code>local</code>とする場合は<code>spec.nodeAffinity</code>の設定(どのNodeのローカルストレージを利用するか)が必須。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolume<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>example-pv<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">capacity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>100Gi<span class="w">
+</span><span class="w">  </span><span class="k">volumeMode</span><span class="p">:</span><span class="w"> </span>Filesystem<span class="w">
+</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- ReadWriteOnce<span class="w">
+</span><span class="w">  </span><span class="k">persistentVolumeReclaimPolicy</span><span class="p">:</span><span class="w"> </span>Delete<span class="w">
+</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>local-storage<span class="w">
+</span><span class="w">  </span><span class="k">local</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/mnt/disks/ssd1<span class="w">
+</span><span class="w">  </span><span class="k">nodeAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">required</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>kubernetes.io/hostname<span class="w">
+</span><span class="w">          </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
+</span><span class="w">          </span><span class="k">values</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- example-node<span class="w">
+</span></code></pre></div><h4 id="persistentvolumeclaim">PersistentVolumeClaim</h4>
+<p>PersistentVolumeを利用するためにPersistentVolumeClaimを定義する。
+PersistentVolumeClaimにはどのようなVolumeが必要かってことを書いておいて、そこに適切なPersistentVolumeがアサインされる。
+PVはPVCの<code>spec.resources.requests.storage</code>を満たすだけでなく、<code>spec.accessModes</code>も合致していないといけない。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>myclaim<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- ReadWriteOnce<span class="w">
+</span><span class="w">  </span><span class="k">volumeMode</span><span class="p">:</span><span class="w"> </span>Filesystem<span class="w">
+</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>8Gi<span class="w">
+</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>slow<span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">release</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;stable&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- {<span class="k">key: environment, operator: In, values</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>dev<span class="p">]</span>}<span class="w">
+</span></code></pre></div><p>PVCが作成されたときに、条件に合致するPVが存在していれば自動的にアサインされる。</p>
+
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25827%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25827%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25827%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25827%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?Kubernetes%e5%8b%89%e5%bc%b7%e3%82%81%e3%82%827%20%7c%20YuKB https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25827%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25827%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25827%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                
+                 <a class="m-entry__page-navigation-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/" itemprop="item" >
+                    
+                        べんきょう
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/" itemprop="item" >
+                    
+                        Kubernetes勉強めも7
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://pages.github.ibm.com/YUENDO/yuendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

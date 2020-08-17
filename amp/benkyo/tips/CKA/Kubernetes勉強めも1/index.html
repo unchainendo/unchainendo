@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html ⚡ lang="ja">
+    <head>
+        
+
+        <meta charset="utf-8" />
+        <script async src="https://cdn.ampproject.org/v0.js"></script>
+        <title>Kubernetes勉強めも1 | YuKB</title>
+        
+            <link rel="canonical" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%821/" />
+        
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+        
+        
+
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "NewsArticle",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https:\/\/pages.github.ibm.com\/YUENDO\/yuendo\/benkyo\/tips\/CKA\/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%821\/"
+                },
+                "headline": "Kubernetes勉強めも1",
+                
+                "image": ["https:\/\/pages.github.ibm.com\/YUENDO\/yuendo\/images\/yukb.b1b9047d8bef62a1022745783862cc386960801a6015b5eab912f289dc625f78.png"],
+                
+                "datePublished": "2020-06-18T00:00:00"},
+                "author": {
+                    "@type": "Person",
+                    "name": "unchainendo"
+                },
+                "publisher": {
+                    "name": "YuKB",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": ""
+                }
+            }
+        </script>
+        <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+        
+        
+        
+        <style amp-custom>;@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:100}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:200}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:300}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:400}@font-face{font-family:yu gothic;src:local("Yu Gothic Bold");font-weight:700}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:100}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:200}@font-face{font-family:myyugothicm;font-weight:100;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:200;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:300;src:local("YuGothic-Regular"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:400;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:500;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:600;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:700;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:800;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:900;src:local("YuGothic-Bold"),local("Yu Gothic")}body{font-family:-apple-system,BlinkMacSystemFont,helvetica neue,biz udpゴシック,BIZ-UDPGothic,ud digi kyokasho n-r,hiragino kaku gothic pron,noto sans jp,MyYuGothicM,Verdana,Meiryo,"m+ 1p",sans-serif;font-feature-settings:"palt" 1}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-logo__link,.a-breadcrumbs__list-item-link{text-decoration:none}.chroma{color:#f8f8f2;background-color:#272822}.chroma .err{color:#960050;background-color:#1e0010}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .ln{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .k{color:#66d9ef}.chroma .kc{color:#66d9ef}.chroma .kd{color:#66d9ef}.chroma .kn{color:#f92672}.chroma .kp{color:#66d9ef}.chroma .kr{color:#66d9ef}.chroma .kt{color:#66d9ef}.chroma .na{color:#a6e22e}.chroma .nc{color:#a6e22e}.chroma .no{color:#66d9ef}.chroma .nd{color:#a6e22e}.chroma .ne{color:#a6e22e}.chroma .nf{color:#a6e22e}.chroma .nx{color:#a6e22e}.chroma .nt{color:#f92672}.chroma .l{color:#ae81ff}.chroma .ld{color:#e6db74}.chroma .s{color:#e6db74}.chroma .sa{color:#e6db74}.chroma .sb{color:#e6db74}.chroma .sc{color:#e6db74}.chroma .dl{color:#e6db74}.chroma .sd{color:#e6db74}.chroma .s2{color:#e6db74}.chroma .se{color:#ae81ff}.chroma .sh{color:#e6db74}.chroma .si{color:#e6db74}.chroma .sx{color:#e6db74}.chroma .sr{color:#e6db74}.chroma .s1{color:#e6db74}.chroma .ss{color:#e6db74}.chroma .m{color:#ae81ff}.chroma .mb{color:#ae81ff}.chroma .mf{color:#ae81ff}.chroma .mh{color:#ae81ff}.chroma .mi{color:#ae81ff}.chroma .il{color:#ae81ff}.chroma .mo{color:#ae81ff}.chroma .o{color:#f92672}.chroma .ow{color:#f92672}.chroma .c{color:#75715e}.chroma .ch{color:#75715e}.chroma .cm{color:#75715e}.chroma .c1{color:#75715e}.chroma .cs{color:#75715e}.chroma .cp{color:#75715e}.chroma .cpf{color:#75715e}.chroma .gd{color:#f92672}.chroma .ge{font-style:italic}.chroma .gi{color:#a6e22e}.chroma .gs{font-weight:700}.chroma .gu{color:#75715e}.a-copy-right{display:block;padding:2rem}.a-breadcrumbs__list{flex-wrap:wrap;list-style:none;margin:0;padding:0}.a-breadcrumbs__list-item{display:inline-block;white-space:nowrap}.a-breadcrumbs__list-item-link{font-size:.875rem}.a-breadcrumbs__list-item-link,.a-breadcrumbs__list-item-link:active,.a-breadcrumbs__list-item-link:hover,.a-breadcrumbs__list-item-link:visited{color:#212529}.a-breadcrumbs__list-item-link:hover{color:#0056b3;text-decoration:underline}.a-breadcrumbs__list-item-link-gt{padding-left:.5rem;padding-right:.5rem}.m-logo{padding:2rem}.m-logo__link{font-size:2rem}.m-logo__link,.m-logo__link:active,.m-logo__link:hover,.m-logo__link:visited{color:#212529}.m-global-menu{display:flex}.m-global-menu__navigation{display:flex}.m-global-menu__navigation-list{display:flex;align-items:baseline;padding:0;margin:0;list-style:none}.m-global-menu__navigation-list-item{display:flex;align-items:baseline;margin:0;padding:1rem}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active{display:block;font-weight:400}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link:active,.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link:visited{text-decoration:none;color:#212529}.m-global-menu__navigation-list-item-link--active{font-weight:700}.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link--active:active,.m-global-menu__navigation-list-item-link--active:hover,.m-global-menu__navigation-list-item-link--active:visited{text-decoration:none;border-bottom:2px solid #212529}.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link--active:hover{color:#0056b3}.m-body{display:block;width:100%}.m-global-header{display:flex;align-items:baseline;max-width:1260px;margin-left:auto;margin-right:auto;height:100px}@media screen and (max-width:1024px){.m-global-header{flex-direction:column;align-items:center;height:auto}}.m-main{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-main-container{display:flex}@media screen and (max-width:1024px){.m-main-container{flex-direction:column}}.m-content-container{width:auto}.m-aside-container{flex-shrink:0;width:400px}@media screen and (max-width:1024px){.m-aside-container{width:auto}}.m-global-footer{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-entry{padding:2rem}.m-entry__breadcrumbs{padding-bottom:2rem}.m-entry__header{padding-bottom:2rem}.m-entry__header-taxonomies{display:flex}.m-entry__header-taxonomies-category{padding-right:1rem}.m-entry__header-taxonomies-category-title-link,.m-entry__header-taxonomies-category-title-link:active,.m-entry__header-taxonomies-category-title-link:hover,.m-entry__header-taxonomies-category-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-category-title-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-category-title-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-taxonomies-tags-list{display:flex;list-style:none;padding:0}.m-entry__header-taxonomies-tags-list-item{padding-right:1rem}.m-entry__header-taxonomies-tags-list-item-link,.m-entry__header-taxonomies-tags-list-item-link:active,.m-entry__header-taxonomies-tags-list-item-link:hover,.m-entry__header-taxonomies-tags-list-item-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-title-link,.m-entry__header-title-link:active,.m-entry__header-title-link:hover,.m-entry__header-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-title-link-text{font-size:2rem;padding-top:1rem;padding-bottom:1rem}.m-entry__header-eyecache{padding-top:1rem}.m-entry__header-eyecache-img{width:100%}.m-entry__footer{padding:1rem}.m-entry__footer-sns-buttons{display:flex;justify-content:center;width:100%;padding-bottom:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu{display:block;padding-right:1rem;font-size:1.5rem;line-height:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu,.m-entry__footer-sns-buttons-icon:active,.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon:visited{text-decoration:none;color:#212529}.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon-hatebu:hover{color:#0056b3}.m-entry__footer-sns-buttons-icon-hatebu{position:relative;top:4px;font-family:Verdana;font-weight:700}.m-entry__page-navigation{display:flex;justify-content:center;padding-bottom:2rem}.m-entry__page-navigation-link{padding-right:1rem}.m-entry__page-navigation-link,.m-entry__page-navigation-link:active,.m-entry__page-navigation-link:hover,.m-entry__page-navigation-link:visited{text-decoration:none;color:#212529}.m-entry__page-navigation-link:hover{color:#0056b3}.m-entry__content{line-height:170%}.m-entry__content h2{padding-top:2rem;padding-bottom:1rem}.m-entry__content h3{padding-top:1rem;padding-bottom:1rem}.m-entry__content img{width:100%}.m-entry__content code{background-color:#eee;padding-left:8px;padding-right:8px;font-weight:400;border-radius:4px}.m-entry__content pre{padding:1rem}.m-entry__content .highlight pre code{padding:0;background-color:transparent}.m-entry__content table{margin:1rem;width:100%;border-collapse:collapse}.m-entry__content table tr th{padding:.5rem;border:1px solid #ccc;background-color:#ccc}.m-entry__content table tr td{padding:.5rem;border:1px solid #ccc}.m-entry__content blockquote{padding:1rem;margin:2rem;border-left:3px solid #ccc}.m-entry__content a[target=_blank]::after{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;margin-left:5px;margin-right:3px;display:inline-block}.m-list__breadcrumbs{padding-top:2rem;padding-left:2rem;padding-right:2rem}.m-paginator{padding-left:2rem;padding-right:2rem}.m-paginator__list{display:flex;justify-content:center;list-style:none;margin:0;padding:0}.m-paginator__list-item{display:block;padding:.5rem}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-paginator__list-item-link:active,.m-paginator__list-item-link:hover,.m-paginator__list-item-link:visited{color:#212529}.m-paginator__list-item-link:hover,.m-paginator__list-item-link--current:hover{color:#0056b3}.m-paginator__list-item-link--current{font-weight:700}.m-paginator__list-item-link--current,.m-paginator__list-item-link--current:active,.m-paginator__list-item-link--current:hover,.m-paginator__list-item-link--current:visited{text-decoration:none;border-bottom:2px solid #212529}.m-aside-container{padding:1rem}.m-aside-widget,.m-aside-widget__tags,.m-aside-widget__category,.m-aside-widget__profile{padding:1rem}.m-aside-widget__profile-avatar{text-align:center}.m-aside-widget__profile-avatar-img{border-radius:30rem}.m-aside-widget__profile-author{padding:1rem;text-align:center}.m-aside-widget__category-list{list-style:none}.m-aside-widget__category-list-item{padding-bottom:.5rem}.m-aside-widget__category-list-item-link,.m-aside-widget__category-list-item-link:active,.m-aside-widget__category-list-item-link:hover,.m-aside-widget__category-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__category-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__category-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__category>.m-aside-widget__category-list{padding:0}.m-aside-widget__tags-list{list-style:none}.m-aside-widget__tags-list-item{padding-bottom:.5rem}.m-aside-widget__tags-list-item-link,.m-aside-widget__tags-list-item-link:active,.m-aside-widget__tags-list-item-link:hover,.m-aside-widget__tags-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__tags>.m-aside-widget__tags-list{padding:0}</style>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    </head>
+    <body>
+        <header class="m-global-header">
+            <div class="m-logo">
+                <a class="m-logo__link" href="/" >YuKB</a>
+            </div>
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry" >
+        <div class="m-entry__header">
+            <div class="m-entry__header-category">
+                <span class="m-entry__header-category-title">
+                    CKA
+                </span>
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/amp/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%821/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも1</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/18</time>
+            </div>
+
+            
+            
+                <div class="m-entry__header-eyecache">
+                    <amp-img src="https://pages.github.ibm.com/YUENDO/yuendo/images/yukb.b1b9047d8bef62a1022745783862cc386960801a6015b5eab912f289dc625f78.png" width="121" height="85" layout="responsive" />
+                </div>
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="pod関連">Pod関連</h3>
+<h4 id="pod数簡単なpod一覧を確認する">Pod数、簡単なPod一覧を確認する</h4>
+<p><code>kubectl get pods</code>で簡単に確認可能。
+オプション省略時は<code>default</code>のNamespace、指定する場合は<code>--namespace</code>を使う。
+オプションに値を指定するときは<code>=xxx</code>でも<code> xxx</code>でも良いみたい。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># default NamespaceのPod一覧を表示</span>
+$ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   <span class="m">0</span>          24s
+
+<span class="c1"># kube-system NamespaceのPod一覧を表示</span>
+$ kubectl get pods --namespace<span class="o">=</span>kube-system
+NAME                                      READY   STATUS    RESTARTS   AGE
+coredns-66bff467f8-frkbj                  1/1     Running   <span class="m">0</span>          15m
+coredns-66bff467f8-s2cpz                  1/1     Running   <span class="m">0</span>          15m
+etcd-master                               1/1     Running   <span class="m">0</span>          15m
+katacoda-cloud-provider-58f89f7d9-d2flg   1/1     Running   <span class="m">7</span>          15m
+kube-apiserver-master                     1/1     Running   <span class="m">0</span>          15m
+kube-controller-manager-master            1/1     Running   <span class="m">0</span>          15m
+kube-flannel-ds-amd64-8nt7w               1/1     Running   <span class="m">0</span>          15m
+kube-flannel-ds-amd64-krl25               1/1     Running   <span class="m">1</span>          14m
+kube-keepalived-vip-xktmr                 1/1     Running   <span class="m">0</span>          14m
+kube-proxy-7p46n                          1/1     Running   <span class="m">0</span>          14m
+kube-proxy-d22fh                          1/1     Running   <span class="m">0</span>          15m
+kube-scheduler-master                     1/1     Running   <span class="m">0</span>          15m
+</code></pre></div><h4 id="コマンドでpodを作成する">コマンドでPodを作成する</h4>
+<p><code>kubectl run xxx</code>とオプションフル活用でyamlなしでいろいろ作成できてしまう。
+一番シンプルで初歩的な使い方は以下のとおり。
+<code>--restart=Never</code>としているところは3つ選択肢があり、</p>
+<ul>
+<li><code>--restart=Always</code> → Deployment</li>
+<li><code>--restart=OnFailure</code> → Job</li>
+<li><code>--restart=Never</code> → Pod
+と、作成されるものがかわってくるとのこと。
+<a href="https://qiita.com/oguogura/items/2d7df2b645063dc47804">kubernetesのrestartPolicyを理解する</a></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl run nginx --image<span class="o">=</span>nginx --restart<span class="o">=</span>Never
+pod/nginx created
+</code></pre></div><h4 id="yamlでpodを定義する">yamlでPodを定義する</h4>
+<p>ベースとなるテンプレートに必要な情報はこれだけ。
+<code>containers</code>のアレイに書き足していくことでPodを構成するコンテナを定義する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>myapp-pod<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>myapp<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx-container<span class="w">
+</span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span></code></pre></div><h4 id="podの詳細情報を確認する">Podの詳細情報を確認する</h4>
+<p>詳細情報は<code>kubectl describe pods</code>。
+特定のPodの情報だけを確認したければ最後にPod名を指定する。
+descirbeするとどのNodeで稼働しているか、何のImageを使っているか、どんなContainerが動いているか、等々いろんなことがわかる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 全Podの詳細情報を表示</span>
+$ kubectl describe pods
+Name:         newpods-8p4hg
+Namespace:    default
+Priority:     <span class="m">0</span>
+Node:         node01/172.17.0.45
+Start Time:   Thu, <span class="m">18</span> Jun <span class="m">2020</span> 06:59:56 +0000
+Labels:       <span class="nv">tier</span><span class="o">=</span>busybox
+Annotations:  &lt;none&gt;
+Status:       Running
+IP:           10.244.1.6
+IPs:
+  IP:           10.244.1.6
+Controlled By:  ReplicaSet/newpods
+
+<span class="o">(</span>中略<span class="o">)</span>
+
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  8m5s   default-scheduler  Successfully assigned default/nginx to node01
+  Normal  Pulling    8m4s   kubelet, node01    Pulling image <span class="s2">&#34;nginx&#34;</span>
+  Normal  Pulled     7m56s  kubelet, node01    Successfully pulled image <span class="s2">&#34;nginx&#34;</span>
+  Normal  Created    7m54s  kubelet, node01    Created container nginx
+  Normal  Started    7m54s  kubelet, node01    Started container nginx
+
+<span class="c1"># &#34;nginx&#34;Podの詳細情報を表示</span>
+$ kubectl describe pod nginx
+Name:         nginx
+Namespace:    default
+Priority:     <span class="m">0</span>
+Node:         node01/172.17.0.45
+Start Time:   Thu, <span class="m">18</span> Jun <span class="m">2020</span> 06:56:43 +0000
+Labels:       <span class="nv">run</span><span class="o">=</span>nginx
+Annotations:  &lt;none&gt;
+Status:       Running
+IP:           10.244.1.4
+IPs:
+  IP:  10.244.1.4
+Containers:
+  nginx:
+    Container ID:   docker://952c9dd47e828d55fb540ad69dd18b32f990903404f15f744c504b41fc5f8d99
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:21f32f6c08406306d822a0e6e8b7dc81f53f336570e852e25fbe1e3e3d0d0133
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Thu, <span class="m">18</span> Jun <span class="m">2020</span> 06:56:54 +0000
+    Ready:          True
+    Restart Count:  <span class="m">0</span>
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-pdwcq <span class="o">(</span>ro<span class="o">)</span>
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-pdwcq:
+    Type:        Secret <span class="o">(</span>a volume populated by a Secret<span class="o">)</span>
+    SecretName:  default-token-pdwcq
+    Optional:    <span class="nb">false</span>
+QoS Class:       BestEffort
+Node-Selectors:  &lt;none&gt;
+Tolerations:     node.kubernetes.io/not-ready:NoExecute <span class="k">for</span> 300s
+                 node.kubernetes.io/unreachable:NoExecute <span class="k">for</span> 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  8m29s  default-scheduler  Successfully assigned default/nginx to node01
+  Normal  Pulling    8m28s  kubelet, node01    Pulling image <span class="s2">&#34;nginx&#34;</span>
+  Normal  Pulled     8m20s  kubelet, node01    Successfully pulled image <span class="s2">&#34;nginx&#34;</span>
+  Normal  Created    8m18s  kubelet, node01    Created container nginx
+  Normal  Started    8m18s  kubelet, node01    Started container nginx
+</code></pre></div><h4 id="podを削除する">Podを削除する</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp&#34;Podを削除</span>
+$ kubectl delete pod webapp
+pod <span class="s2">&#34;webapp&#34;</span> deleted
+</code></pre></div><h4 id="podの情報を編集する">Podの情報を編集する</h4>
+<p>YAMLファイルを修正してApplyするか<code>kubectl edit pod</code>するかの2通りある。
+当然きちんとした手順は前者だけれども簡単に済ませたいとき、<code>kubectl run</code>で作ったPodを編集するときはeditが便利。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;radis&#34;Podの情報を編集</span>
+$ kubectl edit pod radis
+<span class="o">(</span>viでyamlが開くので修正して保存<span class="p">&amp;</span>閉じる<span class="o">)</span>
+</code></pre></div><h3 id="replicaset関連">ReplicaSet関連</h3>
+<h4 id="replicationcontrollerとapiversion">ReplicationControllerとapiVersion</h4>
+<p>ReplicationControllerの定義の1行目は<code>apiVersion: v1</code>だがReplicaSetは<code>apiVersion: apps/v1</code>に変わっている。
+間違うと当然エラーになってしまうので注意が必要なところ。</p>
+<p>対象コンポーネントがどの<code>APIGROUP</code>に属しているか、あるいは属していないかでapiVersionの書き方が変わってくるとのこと。
+つまりReplicationControllerはどこにも属していなかったが、後続のReplicaSetは<code>apps</code>に属することになったってことのようだ。
+<a href="https://qiita.com/soymsk/items/69aeaa7945fe1f875822">Kubernetesの apiVersion に何を書けばよいのか</a></p>
+<h4 id="yamlでreplicasetを定義する">YAMLでReplicaSetを定義する</h4>
+<p>テンプレートは以下のとおり。
+<code>selector</code>ではReplicaSetの対象になるPodをLabelで指定するときの条件を書く。
+<code>matchLabels</code>はLabelの完全一致。
+<code>matchExplessions</code>はoperator(<code>In</code>,<code>NotIn</code>,<code>Exists</code>,<code>DoesNotExists</code>)を使って柔軟に選択できる。</p>
+<p><code>template</code>ではReplicasetが生成するPodの情報を指定する。
+当然ながら、上の<code>selector</code>の条件に合ったものを定義しないときちんと生成されない。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ReplicaSet<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>frontend<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>guestbook<span class="w">
+</span><span class="w">    </span><span class="k">tier</span><span class="p">:</span><span class="w"> </span>frontend<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">tier</span><span class="p">:</span><span class="w"> </span>frontend<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">tier</span><span class="p">:</span><span class="w"> </span>frontend<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>php-redis<span class="w">
+</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>gcr.io/google_samples/gb-frontend<span class="p">:</span>v3<span class="w">
+</span></code></pre></div><h4 id="replicasetの状態を確認する">ReplicaSetの状態を確認する</h4>
+<p>Podと同様、<code>get</code>または<code>describe</code>で確認できる。
+<code>get</code>の方で表示される<code>DESIRED</code>は<code>replicas</code>で指定したレプリカ数、<code>CURRENT</code>は起動中のPod数、<code>READY</code>がエラーなく起動しているPod数。
+<code>replicaset</code>って毎回入力するのは大変なので略称の<code>rs</code>を使う。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ReplicaSet一覧を表示</span>
+$ kubectl get rs
+NAME              DESIRED   CURRENT   READY   AGE
+new-replica-set   <span class="m">4</span>         <span class="m">4</span>         <span class="m">0</span>       15s
+
+<span class="c1"># ReplicaSetの詳細情報を表示</span>
+$ kubectl describe rs new-replica-set
+Name:         new-replica-set
+Namespace:    default
+Selector:     <span class="nv">name</span><span class="o">=</span>busybox-pod
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+Replicas:     <span class="m">4</span> current / <span class="m">4</span> desired
+Pods Status:  <span class="m">0</span> Running / <span class="m">4</span> Waiting / <span class="m">0</span> Succeeded / <span class="m">0</span> Failed
+Pod Template:
+  Labels:  <span class="nv">name</span><span class="o">=</span>busybox-pod
+  Containers:
+   busybox-container:
+    Image:      busybox777
+    Port:       &lt;none&gt;
+    Host Port:  &lt;none&gt;
+    Command:
+      sh
+      -c
+      <span class="nb">echo</span> Hello Kubernetes! <span class="o">&amp;&amp;</span> sleep <span class="m">3600</span>
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  59s   replicaset-controller  Created pod: new-replica-set-w6stj
+  Normal  SuccessfulCreate  59s   replicaset-controller  Created pod: new-replica-set-rvzrg
+  Normal  SuccessfulCreate  59s   replicaset-controller  Created pod: new-replica-set-wp89m
+  Normal  SuccessfulCreate  59s   replicaset-controller  Created pod: new-replica-set-bflp4
+</code></pre></div><h4 id="replicasetのスケール">ReplicaSetのスケール</h4>
+<p>検証用途など簡単に作って試しているような環境では<code>kubectl scale</code>や<code>kubectl edit</code>でぱぱっとスケールできる。
+YAMLファイルで管理している場合は<code>replicas</code>の値を変更して<code>kubectl apply</code>でOK。簡単。</p>
+<h3 id="deployment関連">Deployment関連</h3>
+<h4 id="yamlでdeploymentを定義する">YAMLでDeploymentを定義する</h4>
+<p>基本的な設定項目はReplicaSetとほぼ同じ。というか<code>kind</code>以外全く一緒。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>test-deploy<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>test-deploy<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>test-deploy<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>test-deploy<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span></code></pre></div><p>Deploymentを作成すると自動的にReplicaSetが作成され、その中にPodが作成される。
+<code>kubectl get all</code>を使うと全リソースを表示させることができるけれど、こんなのいつ使うんだろう。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Deploymentの一覧を表示</span>
+$ kubectl get deploy
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+frontend-deployment   0/4     <span class="m">4</span>            <span class="m">0</span>           12s
+
+<span class="c1"># ReplicaSetの一覧を表示</span>
+$ kubectl get rs
+NAME                             DESIRED   CURRENT   READY   AGE
+frontend-deployment-66687b8d77   <span class="m">4</span>         <span class="m">4</span>         <span class="m">0</span>       30s
+
+<span class="c1"># Podの一覧を表示</span>
+$ kubectl get po
+NAME                                   READY   STATUS         RESTARTS   AGE
+frontend-deployment-66687b8d77-4wp6w   0/1     ErrImagePull   <span class="m">0</span>          41s
+frontend-deployment-66687b8d77-52vr4   0/1     ErrImagePull   <span class="m">0</span>          41s
+frontend-deployment-66687b8d77-729hx   0/1     ErrImagePull   <span class="m">0</span>          41s
+frontend-deployment-66687b8d77-qlwln   0/1     ErrImagePull   <span class="m">0</span>          41s
+</code></pre></div><h3 id="namespace関連">Namespace関連</h3>
+<h4 id="kubernetesリソース作成時にnamespaceを指定する">Kubernetesリソース作成時にNamespaceを指定する</h4>
+<p>Namespaceを明示的に指定して<code>default</code>以外のNamespaceを利用するときは、<code>--namespace=&lt;Namespace名&gt;</code>オプションをつけるか、リソース定義のYAMLファイルのmetadataセクションに<code>namespace: &lt;Namespace名&gt;</code>を指定する。
+YAMLファイルをNamespace間で流用するなら前者、NamespaceごとにYAMLを分けるなら後者か。</p>
+<h4 id="namespaceを作成する">Namespaceを作成する</h4>
+<p>Namespaceを作成するときのYAMLの書き方は以下のとおり。
+Namespaceだから名前決めればOK。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Namespace<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>dev<span class="w">
+</span></code></pre></div><p>Namespaceは設定も名前だけだし一回作って終わりだろうからコマンドだけで作ってしまっても良いかもしれない。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;dev&#34;Namespaceを作成</span>
+$ kubectl create namespace dev
+namespace/dev created
+</code></pre></div><h4 id="現在のcontextにnamespaceをセットする">現在のContextにNamespaceをセットする</h4>
+<p><code>default</code>以外のNamespaceを使う場合、毎回<code>--namespace=dev</code>と指定しなくて済むようにNamespaceを現在のContextにセットすることができる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 現在のContextに&#34;dev&#34;Namespaceをセット</span>
+$ kubectl config set-context <span class="k">$(</span>kubectl config current context<span class="k">)</span> --namespace<span class="o">=</span>dev
+</code></pre></div><h4 id="resource-quotaを使ってnamespaceにアサイン可能なリソースを制限する">Resource Quotaを使ってNamespaceにアサイン可能なリソースを制限する</h4>
+<p>Resource Quotaを使うとNamespaceごとにリソースの条件を設けることができる。
+テンプレートは以下のような感じで、metadataにNamespace名を指定することで個別に設定できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ResourceQuota<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>object-quota-demo<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>dev<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">hard</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">persistentvolumeclaims</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">services.loadbalancers</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">services.nodeports</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
+</span></code></pre></div><h4 id="namespace一覧を確認する">Namespace一覧を確認する</h4>
+<p>Namespaceの略称は<code>ns</code>で、ちなみに<code>--namespace</code>オプションは<code>-n</code>でもOKとのこと。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get ns
+NAME              STATUS   AGE
+default           Active   57m
+dev               Active   21s
+finance           Active   21s
+kube-node-lease   Active   57m
+kube-public       Active   57m
+kube-system       Active   57m
+manufacturing     Active   21s
+marketing         Active   21s
+prod              Active   21s
+research          Active   21s
+</code></pre></div><h3 id="service関連">Service関連</h3>
+<h4 id="seriviceの種類">Seriviceの種類</h4>
+<p>Serviceはざっくりと以下の3つに分類される。</p>
+<ul>
+<li>NodePort</li>
+<li>ClusterIP</li>
+<li>LoadBalancer</li>
+</ul>
+<h4 id="nodeport">NodePort</h4>
+<p>Kubernetes NodeのIPアドレスを使って静的なポート上でServiceを公開する方法。
+SSHのポートフォワーディングに近い感覚ですね。
+Service自体もIPアドレス(ClusterIP)を持っていて、Nodeの特定ポート(NodePort)への通信を配下のPodに転送する。
+NodePortは30000~32767のレンジの中で割り当てなければいけないとのこと。
+例) Node1の30008番ポートをその内部で稼働するPod1の80番ポートに紐付ける
+→ http://&lt;Node1のIPアドレス&gt;:30008 でPod1のWebサービスにアクセスできるようになる。</p>
+<p>NodePortのYAMLマニフェストは以下のとおり。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-service<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span><span class="k">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">30008</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>myapp<span class="w">
+</span><span class="w">    </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>front-end<span class="w">
+</span></code></pre></div><p><code>targetPort</code>がPodのポート、つまり公開しているアプリケーションへの接続ポート。
+指定しないと次の<code>port</code>と同じものが割り当てられる。
+<code>port</code>がServiceオブジェクトそのものにアクセスするときのポート。
+<code>nodePort</code>は外部に公開するノードのポート。
+こちらを指定しないと有効なレンジの中から自動的に割り当てられる。まあ公開用のポートを決めないということはないだろうけど。</p>
+<p>あとはこのPort群、アレイで指定できる＝複数ペアを指定できるので、一つのサービスで複数のポートへの振り分けもできるみたい。
+使い所としてはHTTP/HTTPSとかになるのかな。</p>
+<p>最後のselectorで転送先のPodを指定する。
+selectorに合致するPodが複数あれば、Serviceがランダムに振り分けてくれるくれる。</p>
+<p>特に指定しない限り、Serviceは全Nodeをまたいで機能する。
+つまり、どのNodeのIPアドレスを使っても後段のPodにアクセスできるってわけ。
+複数Node、複数Podのための設定がこんなにもシンプルって素晴らしい。</p>
+<h4 id="clusterip">ClusterIP</h4>
+<p>クラスタ内でVIPを生成する。
+当然ながら、クラスタ外からはアクセスできないので、主にクラスタ内のService間の通信で使われる。
+YAMLはNodePortとほとんど一緒。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-service<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>MyApp<span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></code></pre></div><h4 id="deploymentを公開するためのserviceを作成する">Deploymentを公開するためのServiceを作成する</h4>
+<p>Deploymentが存在する場合は<code>expose deployment</code>してYAMLファイルを生成するとselectorに適切な情報が入る。
+deploymentのところをPodにすればPodもexposeできる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl expose deployment simple-weball-deployment --type<span class="o">=</span>NodePort --target-port<span class="o">=</span><span class="m">8080</span> --port<span class="o">=</span><span class="m">8080</span> --name<span class="o">=</span>webapp-service --dry-run -o yaml &gt; svc.yaml
+</code></pre></div><h3 id="kubectl関連">kubectl関連</h3>
+<h4 id="各リソースのyamlを生成する">各リソースのYAMLを生成する</h4>
+<p>リソース作成コマンドに<code>-o yaml</code>と<code>--dry-run</code>オプションをつければYAMLの雛形が出力される。
+あとはファイルにリダイレクトするだけ。
+<code>creationTimestamp</code>などのゴミもはいっちゃうので消してから使うこと。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># PodのYAMLマニフェスト</span>
+$ kubectl run &lt;Pod名&gt; --image<span class="o">=</span>&lt;Image名&gt; --restart<span class="o">=</span>Never --dry-run -o yaml &gt; pod.yaml
+
+<span class="c1"># DeploymentのYAMLマニフェスト</span>
+$ kubectl run &lt;Deployment名&gt; ‐-image<span class="o">=</span>&lt;Image名&gt; --dry-run -o yaml &gt; deployment.yaml
+</code></pre></div>
+        </div>
+    </article>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

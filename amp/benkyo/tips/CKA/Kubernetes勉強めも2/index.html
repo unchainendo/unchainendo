@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html ⚡ lang="ja">
+    <head>
+        
+
+        <meta charset="utf-8" />
+        <script async src="https://cdn.ampproject.org/v0.js"></script>
+        <title>Kubernetes勉強めも2 | YuKB</title>
+        
+            <link rel="canonical" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" />
+        
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+        
+        
+
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "NewsArticle",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https:\/\/pages.github.ibm.com\/YUENDO\/yuendo\/benkyo\/tips\/CKA\/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822\/"
+                },
+                "headline": "Kubernetes勉強めも2",
+                
+                "image": ["https:\/\/pages.github.ibm.com\/YUENDO\/yuendo\/images\/yukb.b1b9047d8bef62a1022745783862cc386960801a6015b5eab912f289dc625f78.png"],
+                
+                "datePublished": "2020-06-21T00:00:00"},
+                "author": {
+                    "@type": "Person",
+                    "name": "unchainendo"
+                },
+                "publisher": {
+                    "name": "YuKB",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": ""
+                }
+            }
+        </script>
+        <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+        
+        
+        
+        <style amp-custom>;@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:100}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:200}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:300}@font-face{font-family:yu gothic;src:local("Yu Gothic Medium");font-weight:400}@font-face{font-family:yu gothic;src:local("Yu Gothic Bold");font-weight:700}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:100}@font-face{font-family:helvetica neue;src:local("Helvetica Neue Regular");font-weight:200}@font-face{font-family:myyugothicm;font-weight:100;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:200;src:local("YuGothic-Light"),local("Yu Gothic Light")}@font-face{font-family:myyugothicm;font-weight:300;src:local("YuGothic-Regular"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:400;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:500;src:local("YuGothic-Medium"),local("Yu Gothic Medium"),local("YuGothic-Regular")}@font-face{font-family:myyugothicm;font-weight:600;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:700;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:800;src:local("YuGothic-Bold"),local("Yu Gothic")}@font-face{font-family:myyugothicm;font-weight:900;src:local("YuGothic-Bold"),local("Yu Gothic")}body{font-family:-apple-system,BlinkMacSystemFont,helvetica neue,biz udpゴシック,BIZ-UDPGothic,ud digi kyokasho n-r,hiragino kaku gothic pron,noto sans jp,MyYuGothicM,Verdana,Meiryo,"m+ 1p",sans-serif;font-feature-settings:"palt" 1}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-logo__link,.a-breadcrumbs__list-item-link{text-decoration:none}.chroma{color:#f8f8f2;background-color:#272822}.chroma .err{color:#960050;background-color:#1e0010}.chroma .lntd{vertical-align:top;padding:0;margin:0;border:0}.chroma .lntable{border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block}.chroma .hl{display:block;width:100%;background-color:#ffc}.chroma .lnt{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .ln{margin-right:.4em;padding:0 .4em;color:#7f7f7f}.chroma .k{color:#66d9ef}.chroma .kc{color:#66d9ef}.chroma .kd{color:#66d9ef}.chroma .kn{color:#f92672}.chroma .kp{color:#66d9ef}.chroma .kr{color:#66d9ef}.chroma .kt{color:#66d9ef}.chroma .na{color:#a6e22e}.chroma .nc{color:#a6e22e}.chroma .no{color:#66d9ef}.chroma .nd{color:#a6e22e}.chroma .ne{color:#a6e22e}.chroma .nf{color:#a6e22e}.chroma .nx{color:#a6e22e}.chroma .nt{color:#f92672}.chroma .l{color:#ae81ff}.chroma .ld{color:#e6db74}.chroma .s{color:#e6db74}.chroma .sa{color:#e6db74}.chroma .sb{color:#e6db74}.chroma .sc{color:#e6db74}.chroma .dl{color:#e6db74}.chroma .sd{color:#e6db74}.chroma .s2{color:#e6db74}.chroma .se{color:#ae81ff}.chroma .sh{color:#e6db74}.chroma .si{color:#e6db74}.chroma .sx{color:#e6db74}.chroma .sr{color:#e6db74}.chroma .s1{color:#e6db74}.chroma .ss{color:#e6db74}.chroma .m{color:#ae81ff}.chroma .mb{color:#ae81ff}.chroma .mf{color:#ae81ff}.chroma .mh{color:#ae81ff}.chroma .mi{color:#ae81ff}.chroma .il{color:#ae81ff}.chroma .mo{color:#ae81ff}.chroma .o{color:#f92672}.chroma .ow{color:#f92672}.chroma .c{color:#75715e}.chroma .ch{color:#75715e}.chroma .cm{color:#75715e}.chroma .c1{color:#75715e}.chroma .cs{color:#75715e}.chroma .cp{color:#75715e}.chroma .cpf{color:#75715e}.chroma .gd{color:#f92672}.chroma .ge{font-style:italic}.chroma .gi{color:#a6e22e}.chroma .gs{font-weight:700}.chroma .gu{color:#75715e}.a-copy-right{display:block;padding:2rem}.a-breadcrumbs__list{flex-wrap:wrap;list-style:none;margin:0;padding:0}.a-breadcrumbs__list-item{display:inline-block;white-space:nowrap}.a-breadcrumbs__list-item-link{font-size:.875rem}.a-breadcrumbs__list-item-link,.a-breadcrumbs__list-item-link:active,.a-breadcrumbs__list-item-link:hover,.a-breadcrumbs__list-item-link:visited{color:#212529}.a-breadcrumbs__list-item-link:hover{color:#0056b3;text-decoration:underline}.a-breadcrumbs__list-item-link-gt{padding-left:.5rem;padding-right:.5rem}.m-logo{padding:2rem}.m-logo__link{font-size:2rem}.m-logo__link,.m-logo__link:active,.m-logo__link:hover,.m-logo__link:visited{color:#212529}.m-global-menu{display:flex}.m-global-menu__navigation{display:flex}.m-global-menu__navigation-list{display:flex;align-items:baseline;padding:0;margin:0;list-style:none}.m-global-menu__navigation-list-item{display:flex;align-items:baseline;margin:0;padding:1rem}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active{display:block;font-weight:400}.m-global-menu__navigation-list-item-link,.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link:active,.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link:visited{text-decoration:none;color:#212529}.m-global-menu__navigation-list-item-link--active{font-weight:700}.m-global-menu__navigation-list-item-link--active,.m-global-menu__navigation-list-item-link--active:active,.m-global-menu__navigation-list-item-link--active:hover,.m-global-menu__navigation-list-item-link--active:visited{text-decoration:none;border-bottom:2px solid #212529}.m-global-menu__navigation-list-item-link:hover,.m-global-menu__navigation-list-item-link--active:hover{color:#0056b3}.m-body{display:block;width:100%}.m-global-header{display:flex;align-items:baseline;max-width:1260px;margin-left:auto;margin-right:auto;height:100px}@media screen and (max-width:1024px){.m-global-header{flex-direction:column;align-items:center;height:auto}}.m-main{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-main-container{display:flex}@media screen and (max-width:1024px){.m-main-container{flex-direction:column}}.m-content-container{width:auto}.m-aside-container{flex-shrink:0;width:400px}@media screen and (max-width:1024px){.m-aside-container{width:auto}}.m-global-footer{display:block;max-width:1260px;margin-left:auto;margin-right:auto}.m-entry{padding:2rem}.m-entry__breadcrumbs{padding-bottom:2rem}.m-entry__header{padding-bottom:2rem}.m-entry__header-taxonomies{display:flex}.m-entry__header-taxonomies-category{padding-right:1rem}.m-entry__header-taxonomies-category-title-link,.m-entry__header-taxonomies-category-title-link:active,.m-entry__header-taxonomies-category-title-link:hover,.m-entry__header-taxonomies-category-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-category-title-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-category-title-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-taxonomies-tags-list{display:flex;list-style:none;padding:0}.m-entry__header-taxonomies-tags-list-item{padding-right:1rem}.m-entry__header-taxonomies-tags-list-item-link,.m-entry__header-taxonomies-tags-list-item-link:active,.m-entry__header-taxonomies-tags-list-item-link:hover,.m-entry__header-taxonomies-tags-list-item-link:visited{text-decoration:none;color:#212529}.m-entry__header-taxonomies-tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-entry__header-taxonomies-tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-entry__header-title-link,.m-entry__header-title-link:active,.m-entry__header-title-link:hover,.m-entry__header-title-link:visited{text-decoration:none;color:#212529}.m-entry__header-title-link-text{font-size:2rem;padding-top:1rem;padding-bottom:1rem}.m-entry__header-eyecache{padding-top:1rem}.m-entry__header-eyecache-img{width:100%}.m-entry__footer{padding:1rem}.m-entry__footer-sns-buttons{display:flex;justify-content:center;width:100%;padding-bottom:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu{display:block;padding-right:1rem;font-size:1.5rem;line-height:1rem}.m-entry__footer-sns-buttons-icon,.m-entry__footer-sns-buttons-icon-hatebu,.m-entry__footer-sns-buttons-icon:active,.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon:visited{text-decoration:none;color:#212529}.m-entry__footer-sns-buttons-icon:hover,.m-entry__footer-sns-buttons-icon-hatebu:hover{color:#0056b3}.m-entry__footer-sns-buttons-icon-hatebu{position:relative;top:4px;font-family:Verdana;font-weight:700}.m-entry__page-navigation{display:flex;justify-content:center;padding-bottom:2rem}.m-entry__page-navigation-link{padding-right:1rem}.m-entry__page-navigation-link,.m-entry__page-navigation-link:active,.m-entry__page-navigation-link:hover,.m-entry__page-navigation-link:visited{text-decoration:none;color:#212529}.m-entry__page-navigation-link:hover{color:#0056b3}.m-entry__content{line-height:170%}.m-entry__content h2{padding-top:2rem;padding-bottom:1rem}.m-entry__content h3{padding-top:1rem;padding-bottom:1rem}.m-entry__content img{width:100%}.m-entry__content code{background-color:#eee;padding-left:8px;padding-right:8px;font-weight:400;border-radius:4px}.m-entry__content pre{padding:1rem}.m-entry__content .highlight pre code{padding:0;background-color:transparent}.m-entry__content table{margin:1rem;width:100%;border-collapse:collapse}.m-entry__content table tr th{padding:.5rem;border:1px solid #ccc;background-color:#ccc}.m-entry__content table tr td{padding:.5rem;border:1px solid #ccc}.m-entry__content blockquote{padding:1rem;margin:2rem;border-left:3px solid #ccc}.m-entry__content a[target=_blank]::after{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;margin-left:5px;margin-right:3px;display:inline-block}.m-list__breadcrumbs{padding-top:2rem;padding-left:2rem;padding-right:2rem}.m-paginator{padding-left:2rem;padding-right:2rem}.m-paginator__list{display:flex;justify-content:center;list-style:none;margin:0;padding:0}.m-paginator__list-item{display:block;padding:.5rem}.m-paginator__list-item-link,.m-paginator__list-item-link--current,.m-paginator__list-item-link:active,.m-paginator__list-item-link:hover,.m-paginator__list-item-link:visited{color:#212529}.m-paginator__list-item-link:hover,.m-paginator__list-item-link--current:hover{color:#0056b3}.m-paginator__list-item-link--current{font-weight:700}.m-paginator__list-item-link--current,.m-paginator__list-item-link--current:active,.m-paginator__list-item-link--current:hover,.m-paginator__list-item-link--current:visited{text-decoration:none;border-bottom:2px solid #212529}.m-aside-container{padding:1rem}.m-aside-widget,.m-aside-widget__tags,.m-aside-widget__category,.m-aside-widget__profile{padding:1rem}.m-aside-widget__profile-avatar{text-align:center}.m-aside-widget__profile-avatar-img{border-radius:30rem}.m-aside-widget__profile-author{padding:1rem;text-align:center}.m-aside-widget__category-list{list-style:none}.m-aside-widget__category-list-item{padding-bottom:.5rem}.m-aside-widget__category-list-item-link,.m-aside-widget__category-list-item-link:active,.m-aside-widget__category-list-item-link:hover,.m-aside-widget__category-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__category-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__category-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__category>.m-aside-widget__category-list{padding:0}.m-aside-widget__tags-list{list-style:none}.m-aside-widget__tags-list-item{padding-bottom:.5rem}.m-aside-widget__tags-list-item-link,.m-aside-widget__tags-list-item-link:active,.m-aside-widget__tags-list-item-link:hover,.m-aside-widget__tags-list-item-link:visited{text-decoration:none;color:#212529}.m-aside-widget__tags-list-item-link:hover{color:#0056b3;text-decoration:underline}.m-aside-widget__tags-list-item-link::before{font-family:"font awesome 5 free";content:"";-webkit-font-smoothing:antialiased;display:inline-block;text-rendering:auto;line-height:1;font-weight:800;padding-right:5px}.m-aside-widget__tags>.m-aside-widget__tags-list{padding:0}</style>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    </head>
+    <body>
+        <header class="m-global-header">
+            <div class="m-logo">
+                <a class="m-logo__link" href="/" >YuKB</a>
+            </div>
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry" >
+        <div class="m-entry__header">
+            <div class="m-entry__header-category">
+                <span class="m-entry__header-category-title">
+                    CKA
+                </span>
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/amp/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも2</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/21</time>
+            </div>
+
+            
+            
+                <div class="m-entry__header-eyecache">
+                    <amp-img src="https://pages.github.ibm.com/YUENDO/yuendo/images/yukb.b1b9047d8bef62a1022745783862cc386960801a6015b5eab912f289dc625f78.png" width="121" height="85" layout="responsive" />
+                </div>
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="手動でスケジューリング">手動でスケジューリング</h3>
+<h4 id="podがpending状態のままのとき">PodがPending状態のままのとき</h4>
+<p><code>kube-scheduler</code>が動いていないからかもしれない。
+<code>kube-system</code>NamespaceでPodを確認してみる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get po -n kube-system
+NAME                                      READY   STATUS    RESTARTS   AGE
+coredns-66bff467f8-59x22                  1/1     Running   <span class="m">0</span>          3m45s
+coredns-66bff467f8-5nwnt                  1/1     Running   <span class="m">0</span>          3m45s
+etcd-master                               1/1     Running   <span class="m">0</span>          3m52s
+katacoda-cloud-provider-58f89f7d9-sndp7   1/1     Running   <span class="m">1</span>          3m43s
+kube-apiserver-master                     1/1     Running   <span class="m">0</span>          3m52s
+kube-controller-manager-master            1/1     Running   <span class="m">0</span>          3m52s
+kube-flannel-ds-amd64-4p5dr               1/1     Running   <span class="m">0</span>          3m44s
+kube-flannel-ds-amd64-p2lrp               1/1     Running   <span class="m">1</span>          3m34s
+kube-keepalived-vip-tr856                 1/1     Running   <span class="m">0</span>          3m12s
+kube-proxy-c9xqc                          1/1     Running   <span class="m">0</span>          3m45s
+kube-proxy-q9gcx                          1/1     Running   <span class="m">0</span>          3m34s
+</code></pre></div><h4 id="podの稼働nodeを指定して起動する">Podの稼働Nodeを指定して起動する</h4>
+<p>PodのYAMLマニフェストの中で<code>spec.nodeName</code>に稼働Node名を指定できる。
+ただし、稼働中のPodに<code>kubectl apply</code>してNodeを変更することはできないので削除＆再作成が必要。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">nodeName</span><span class="p">:</span><span class="w"> </span>node01<span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span></code></pre></div><h3 id="labelとselector">LabelとSelector</h3>
+<h4 id="selectorを使って指定したlabelのオブジェクトのみ表示する">selectorを使って指定したLabelのオブジェクトのみ表示する</h4>
+<p>kubectlコマンドに<code>--selector</code>オプションをつけることでLabelでフィルターできる。
+複数のLabelでフィルターするときは<code>,</code>で区切って指定するがスペース入れるとエラーになるので注意。
+<code>--selector</code>は<code>-l</code>でもOK。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Labelが&#34;env=dev&#34;のPodだけを表示</span>
+$ kubectl get pod --selector <span class="nv">env</span><span class="o">=</span>dev
+NAME          READY   STATUS    RESTARTS   AGE
+app-1-7tjv9   1/1     Running   <span class="m">0</span>          3m39s
+app-1-gl7xv   1/1     Running   <span class="m">0</span>          3m39s
+app-1-xm8bf   1/1     Running   <span class="m">0</span>          3m39s
+db-1-9qjnx    1/1     Running   <span class="m">0</span>          3m38s
+db-1-hh9q4    1/1     Running   <span class="m">0</span>          3m38s
+db-1-mr5hv    1/1     Running   <span class="m">0</span>          3m38s
+db-1-nmhnd    1/1     Running   <span class="m">0</span>          3m38s
+
+<span class="c1"># Labelが&#34;env=prod&#34;かつ&#34;bu=finance&#34;かつ&#34;tier=frontend&#34;のPodのみ表示</span>
+$ kubectl get po --selector <span class="nv">env</span><span class="o">=</span>prod,bu<span class="o">=</span>finance,tier<span class="o">=</span>frontend
+NAME          READY   STATUS    RESTARTS   AGE
+app-1-zzxdf   1/1     Running   <span class="m">0</span>          6m51s
+</code></pre></div><h4 id="annotation">Annotation</h4>
+<p>Labelと同様にAnnotation(<code>.metadata.annotaions</code>)というmetadataを各リソースに付与することができる。
+これはSelectorで抽出できるものではないので、バージョンとか担当者の連絡先とか、そういった情報を自由に書き足すときに使うようだ。
+このあたりの使い方のベストプラクティスがどんどん広まっていけば無駄な設計書は消えていくのだろう。。</p>
+<h3 id="taintsとtolerations">TaintsとTolerations</h3>
+<h4 id="概要">概要</h4>
+<p>TaintsはNodeに、TolerationsはPodに割り当てられるもの。
+Taintsは「このNodeには〜の条件を満たすPodしかScheduleできませんよー」というもので、
+Tolerationsは「〜のTaintsのNodeならScheduleできますよー」というもの。
+Taints/Tolerationsは特定のNodeで稼働するPodを制限する場合に使う。
+注意点としては、TaintsとTolerationsが合致しているからといってPodが必ずそのNodeにアサインされるわけではないということ。
+TaintsなしのNodeが空いていればそこにScheduleされることもある、と。
+意図的にこのNodeにScheduleさせたい、といったことは後述のNode Selector/Node Affinityで対応できる。</p>
+<h3 id="master-nodeのtaint">Master NodeのTaint</h3>
+<p>Master Nodeでは管理系のPod以外稼働させないためにTaintがデフォルトで設定されている。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl describe node master <span class="p">|</span> grep -i taint
+Taints:             node-role.kubernetes.io/master:NoSchedule
+</code></pre></div><h3 id="taintsの作成削除">Taintsの作成・削除</h3>
+<p>KeyとValueだけでなくEffectも一緒に指定する必要がある。
+Effectの選択肢は3つ。<code>NoSchedule</code>は条件を満たさない場合そのNodeにScheduleできない。
+<code>PreferNoSchedule</code>は<code>NoSchedule</code>に近いがPreferなので保証はされない。
+<code>NoExecute</code>は新規Podだけでなく既に稼働中のPodも条件を満たさなければそのNodeから追い出してしまう。
+Taintsの作成は<code>kubectl taint</code>コマンドを使い、削除はEffectの最後に&rdquo;-&ldquo;をつけるだけ。わっかりにくい。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Key:spray Value:mortein Effect:NoScheduleのTaintを作成</span>
+$ kubectl taint nodes node01 <span class="nv">spray</span><span class="o">=</span>mortein:NoSchedule
+node/node01 tainted
+
+<span class="c1"># デフォルトで定義されているTaintを削除</span>
+$ kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-
+node/master untainted
+</code></pre></div><h3 id="tolerationsの定義">Tolerationsの定義</h3>
+<p>PodにTolerationsを定義するときは<code>spec.tolerations</code>にTolerationの条件を記載する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>/var/answers/bee.yaml<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>bee<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>bee<span class="w">
+</span><span class="w">  </span><span class="k">tolerations</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>spray<span class="w">
+</span><span class="w">    </span><span class="k">value</span><span class="p">:</span><span class="w"> </span>mortein<span class="w">
+</span><span class="w">    </span><span class="k">effect</span><span class="p">:</span><span class="w"> </span>NoSchedule<span class="w">
+</span><span class="w">    </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>Equal<span class="w">
+</span></code></pre></div><h3 id="node-selector-と-node-affinity">Node Selector と Node Affinity</h3>
+<h4 id="概要-1">概要</h4>
+<p>Node SelectorとNode AffinityはどちらもPodを意図したNode上で稼働させるための仕組み。
+Node Selectorはシンプルに、Podに設定された<code>spec.nodeSelector</code>と一致するLabelを持つNodeにPodがScheduleされる。</p>
+<p>Node Affinityは「高度な」Node Selectorといった感じ。
+条件や挙動をより細かく設定できる。</p>
+<h4 id="node-selectorを設定する">Node Selectorを設定する</h4>
+<p>PodにNode Selectorを設定する例は以下のとおり。
+<code>disktype: ssd</code>のLabelをもつNodeにPodをアサインする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">env</span><span class="p">:</span><span class="w"> </span>test<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">imagePullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
+</span><span class="w">  </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">disktype</span><span class="p">:</span><span class="w"> </span>ssd<span class="w">
+</span></code></pre></div><h4 id="node-affinityを設定する">Node Affinityを設定する</h4>
+<p>Node Affinityの場合はちょっと複雑。
+<code>spec.affinity.nodeAffinity</code>の1つ目の<code>requiredDuringSchdulingIgnoredDuringExecution</code>は新たにScheduleするときの絶対条件。
+以下の例だとKeyが<code>kubernetes.io/e2e-az-name</code>でValueが<code>e2e-az1</code>か<code>e2e-az2</code>のいずれかのNodeでなければならない。
+operatorを<code>Exists</code>にすればvaluesが不要になり、Keyが存在していればOK、という設定になる。
+2つ目の<code>preferredDuringSchedulingIgnoredDuringExecution</code>は優先度の設定みたいなもの。
+条件を満たすNodeの優先度(<code>weight</code>)を設定することができ、その合算値が最も高いNodeにScheduleされる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>with-node-affinity<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">affinity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">nodeAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>kubernetes.io/e2e-az-name<span class="w">
+</span><span class="w">            </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
+</span><span class="w">            </span><span class="k">values</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- e2e-az1<span class="w">
+</span><span class="w">            </span>- e2e-az2<span class="w">
+</span><span class="w">      </span><span class="k">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">weight</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">        </span><span class="k">preference</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>another-node-label-key<span class="w">
+</span><span class="w">            </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
+</span><span class="w">            </span><span class="k">values</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- another-node-label-value<span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>with-node-affinity<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/pause<span class="p">:</span><span class="m">2.0</span><span class="w">
+</span></code></pre></div><p>Node Affinityの設定は長いから覚えるより公式から引っ張ってきたほうが早いな。</p>
+<h3 id="resource-requirements">Resource Requirements</h3>
+<h4 id="cpuやメモリのrequestlimitを変更する">CPUやメモリのRequest/Limitを変更する</h4>
+<p>稼働中のPodのリソースは変えられないので<code>kubectl get po &lt;pod名&gt; -o yaml</code>でYAMLに書き出して、
+Pod削除、YAML編集、<code>kubectl apply</code>とするしかない。
+YAMLの構造は以下のとおり、<code>spec.containers[*].resources</code>に<code>limits</code>と<code>requests</code>を指定する。
+リソース不足のときは<code>limits</code>の方を大きくなるように変更する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cpu-demo<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>cpu-example<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>cpu-demo-ctr<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>vish/stress<span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">limits</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span><span class="w">      </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.5&#34;</span><span class="w">
+</span></code></pre></div><h3 id="daemon-sets">Daemon Sets</h3>
+<h4 id="概要-2">概要</h4>
+<p>クラスタの各Nodeで1台ずつPodを稼働させるリソース。
+Nodeが増えたらそのNodeでも1台PodをScheduleする。</p>
+<h3 id="yamlマニフェスト">YAMLマニフェスト</h3>
+<p>ReplicaSetに似ている、というかkind以外完全に一緒。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">$<span class="w"> </span>cat<span class="w"> </span>test.yaml<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>DaemonSet<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/fluentd-elasticsearch<span class="p">:</span><span class="m">1.20</span><span class="w">
+</span></code></pre></div><p>YAMLは公式サイトからひっぱってくるか、Deploymentを作成してファイルを編集する形がスムーズみたい。</p>
+<h3 id="static-pod">Static Pod</h3>
+<p>似た概念としてStatic Podというものがある。
+これはKubeletだけが稼働しているサーバー上でもPodを作成できる仕組みで、
+<code>kube-system</code>NamespaceのPodはこの形でScheduleされている。(kube-apiserverなど)
+Static Podはkubeletに指定されたパス(<code>staticPodPath: /etc/kubernetes/manifests</code>)にPodのYAMLマニフェストを置くだけで自動的に作成される。
+削除するときはYAMLファイルを削除するだけでよいし、変更するときもファイルを直接書き換えれば良い。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;busybox&#34;のイメージを使用し1000秒SleepするPodを作成</span>
+$ kubectl run --restart<span class="o">=</span>Never --image<span class="o">=</span>busybox static-busybox --dry-run -o yaml --command -- sleep <span class="m">1000</span> &gt; /etc/kubernetes/manifests/static-busybox.yaml
+</code></pre></div><p>Static Podの定義ファイルのパスは以下の流れで確認する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubeletプロセスの引数から&#34;--config&#34;で指定されているファイルを確認</span>
+$ ps -ef <span class="p">|</span> grep kubelet
+root      <span class="m">3026</span>  <span class="m">2550</span>  <span class="m">0</span> 01:22 pts/1    00:00:00 grep --color<span class="o">=</span>auto kubelet
+root     <span class="m">30193</span>     <span class="m">1</span>  <span class="m">2</span> 01:18 ?        00:00:06 /usr/bin/kubelet --bootstrap-kubeconfig<span class="o">=</span>/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig<span class="o">=</span>/etc/kubernetes/kubelet.conf --config<span class="o">=</span>/var/lib/kubelet/config.yaml --cgroup-driver<span class="o">=</span>systemd --network-plugin<span class="o">=</span>cni --pod-infra-container-image<span class="o">=</span>k8s.gcr.io/pause:3.2 --resolv-conf<span class="o">=</span>/run/systemd/resolve/resolv.conf
+
+<span class="c1"># 設定ファイルから&#34;staticPodPath&#34;を確認</span>
+$ cat /var/lib/kubelet/config.yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+authentication:
+  anonymous:
+    enabled: <span class="nb">false</span>
+  webhook:
+    cacheTTL: 0s
+    enabled: <span class="nb">true</span>
+
+<span class="o">(</span>中略<span class="o">)</span>
+
+runtimeRequestTimeout: 0s
+staticPodPath: /etc/just-to-mess-with-you
+streamingConnectionIdleTimeout: 0s
+syncFrequency: 0s
+volumeStatsAggPeriod: 0s
+</code></pre></div><h3 id="multiple-scheduler">Multiple Scheduler</h3>
+<h4 id="default以外のschedulerを個別に作成する">default以外のSchedulerを個別に作成する</h4>
+<p>kube-schedulerはデフォルトのもの以外に新しく定義したものを追加したり、入れ替えたりできる。
+kube-schedulerは、kubeadm環境だとPod、手組み環境だとsystemdのServiceとして動いているので
+それらの定義ファイルをコピって名前(<code>--scheduler-name</code>)変えて起動すればOK。
+複数のMasterが存在しない場合は全てのScheduleで<code>--leader-elect=false</code>にする必要がある。
+複数のMasterが存在する場合は<code>--lock-object-name=&lt;Scheduler名&gt;</code>を追記する必要がある。
+ちょっとこのあたりのロジックがわかっていないので後で勉強する。
+あとは<code>--port</code>に使われていないPortを指定する。(<code>netstat -natulp</code>で確認)</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># デフォルトのSchedulerのマニフェストファイルをコピーして書き換えてオリジナルのSchedulerを起動</span>
+$ cp -p /etc/kubernetes/manifests/kube-scheduler.yaml ./my-scheduler.yaml
+$ vi my-scheduler.yaml
+$ cat my-scheduler.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    component: kube-scheduler
+    tier: control-plane
+  name: my-scheduler
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-scheduler
+    - --authentication-kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf
+    - --authorization-kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf
+    - --bind-address<span class="o">=</span>127.0.0.1
+    - --kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf
+    - --leader-elect<span class="o">=</span><span class="nb">false</span>
+    - --scheduler-name<span class="o">=</span>my-scheduler
+    - --port<span class="o">=</span><span class="m">10253</span>
+    image: k8s.gcr.io/kube-scheduler:v1.18.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: <span class="m">8</span>
+      httpGet:
+        host: 127.0.0.1
+        path: /healthz
+        port: <span class="m">10259</span>
+        scheme: HTTPS
+      initialDelaySeconds: <span class="m">15</span>
+      timeoutSeconds: <span class="m">15</span>
+    name: kube-scheduler
+    resources:
+      requests:
+        cpu: 100m
+    volumeMounts:
+    - mountPath: /etc/kubernetes/scheduler.conf
+      name: kubeconfig
+      readOnly: <span class="nb">true</span>
+  hostNetwork: <span class="nb">true</span>
+  priorityClassName: system-cluster-critical
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes/scheduler.conf
+      type: FileOrCreate
+    name: kubeconfig
+
+<span class="c1"># いつもどおりapplyして作成</span>
+$ kubectl apply -f my-scheduler.yaml
+pod/my-scheduler created
+$ kubectl get po -n kube-system
+NAME                                      READY   STATUS             RESTARTS   AGE
+coredns-66bff467f8-nmvfh                  1/1     Running            <span class="m">0</span>          19m
+coredns-66bff467f8-npdcr                  1/1     Running            <span class="m">0</span>          19m
+etcd-master                               1/1     Running            <span class="m">0</span>          20m
+katacoda-cloud-provider-58f89f7d9-m78lz   0/1     CrashLoopBackOff   <span class="m">7</span>          19m
+kube-apiserver-master                     1/1     Running            <span class="m">0</span>          20m
+kube-controller-manager-master            1/1     Running            <span class="m">0</span>          20m
+kube-flannel-ds-amd64-9nplh               1/1     Running            <span class="m">0</span>          19m
+kube-flannel-ds-amd64-g5k4r               1/1     Running            <span class="m">0</span>          19m
+kube-keepalived-vip-brz8x                 1/1     Running            <span class="m">0</span>          19m
+kube-proxy-6wdc4                          1/1     Running            <span class="m">0</span>          19m
+kube-proxy-sgrmq                          1/1     Running            <span class="m">0</span>          19m
+kube-scheduler-master                     1/1     Running            <span class="m">0</span>          20m
+my-scheduler                              1/1     Running            <span class="m">0</span>          45s
+</code></pre></div><h4 id="schedulerを指定してpodを起動する">Schedulerを指定してPodを起動する</h4>
+<p><code>spec.schedulerName</code>にScheduler名を指定すればそのSchedulerが使われる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="w"> </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">     </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">  </span><span class="k">schedulerName</span><span class="p">:</span><span class="w"> </span>my-scheduler<span class="w">
+</span></code></pre></div><h4 id="指定したschedulerが使われたことを確認する">指定したSchedulerが使われたことを確認する</h4>
+<p>Schdulerに限らず、Kubernetesの簡単なイベントログは<code>kubectl get events</code>で確認する。
+自分で作成したSchedulerがちゃんと機能したかどうかは<code>SOURCE</code>や<code>MESSAGE</code>から確認できる。
+詳細なログは<code>kubectl logs</code>コマンドで確認。引数にはリソース名、必要に応じてNamespace名を指定する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl logs my-scheduler -n kube-system
+I0623 03:42:55.376469       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+I0623 03:42:55.376518       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+I0623 03:42:55.792830       <span class="m">1</span> serving.go:313<span class="o">]</span> Generated self-signed cert in-memory
+I0623 03:42:56.205514       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+I0623 03:42:56.205699       <span class="m">1</span> registry.go:150<span class="o">]</span> Registering EvenPodsSpread predicate and priority <span class="k">function</span>
+W0623 03:42:56.206953       <span class="m">1</span> authorization.go:47<span class="o">]</span> Authorization is disabled
+W0623 03:42:56.207041       <span class="m">1</span> authentication.go:40<span class="o">]</span> Authentication is disabled
+I0623 03:42:56.207117       <span class="m">1</span> deprecated_insecure_serving.go:51<span class="o">]</span> Serving healthz insecurely on <span class="o">[</span>::<span class="o">]</span>:10251
+I0623 03:42:56.208400       <span class="m">1</span> secure_serving.go:178<span class="o">]</span> Serving securely on 127.0.0.1:10259
+I0623 03:42:56.208661       <span class="m">1</span> configmap_cafile_content.go:202<span class="o">]</span> Starting client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file
+I0623 03:42:56.208738       <span class="m">1</span> shared_informer.go:223<span class="o">]</span> Waiting <span class="k">for</span> caches to sync <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file
+I0623 03:42:56.208817       <span class="m">1</span> tlsconfig.go:240<span class="o">]</span> Starting DynamicServingCertificateController
+I0623 03:42:56.209399       <span class="m">1</span> configmap_cafile_content.go:202<span class="o">]</span> Starting client-ca::kube-system::extension-apiserver-authentication::client-ca-file
+I0623 03:42:56.209527       <span class="m">1</span> shared_informer.go:223<span class="o">]</span> Waiting <span class="k">for</span> caches to sync <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::client-ca-file
+I0623 03:42:56.308877       <span class="m">1</span> shared_informer.go:230<span class="o">]</span> Caches are synced <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::requestheader-client-ca-file
+I0623 03:42:56.309719       <span class="m">1</span> shared_informer.go:230<span class="o">]</span> Caches are synced <span class="k">for</span> client-ca::kube-system::extension-apiserver-authentication::client-ca-file
+</code></pre></div>
+        </div>
+    </article>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <base href="https://pages.github.ibm.com/YUENDO/yuendo/" />
+        <link rel="canonical" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="amphtml" type="text/html" href="https://pages.github.ibm.com/YUENDO/yuendo/amp/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/">
+        <title> 
+            Kubernetes勉強めも4 | YuKB
+        </title>
+
+        
+        
+            
+        
+        
+            <meta name="description" content="Rolling Update/Rollback関連 Deploymentをバージョンアップしてみる Deployment内のImageのバージョンを変更すると" />
+        
+
+        
+            <meta name="author" content="unchainendo" />
+        
+
+        
+<meta property="og:title" content="Kubernetes勉強めも4 | YuKB" />
+
+
+    <meta property="og:type" content="article" />
+
+
+<meta property="og:url" content="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/" />
+
+
+
+    
+
+
+
+<meta property="og:site_name" content="YuKB" />
+
+
+
+    
+
+
+    <meta property="og:description" content="Rolling Update/Rollback関連 Deploymentをバージョンアップしてみる Deployment内のImageのバージョンを変更すると" />
+
+
+
+
+        
+<link rel="stylesheet" href="https://pages.github.ibm.com/YUENDO/yuendo/css/reset.524633911eadaf3cb674408574038ab61826bbd094638faef366ddcaf13e56ab.css" />
+
+
+<link rel="stylesheet" href="https://pages.github.ibm.com/YUENDO/yuendo/scss/style.10edae46d9f81f5614a2948ad849646e1db60c0a332e3c53c5b62027c7ba5018.css" />
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.css"/></noscript>
+
+<!-- loadCSS. [c]2017 Filament Group, Inc. MIT License -->
+<script>
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(a){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){function e(){t.addEventListener?t.removeEventListener("load",e):t.attachEvent&&t.detachEvent("onload",e),t.setAttribute("onload",null),t.media=a}var a=t.media||"all";t.addEventListener?t.addEventListener("load",e):t.attachEvent&&t.attachEvent("onload",e),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(e,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+
+    </head>
+    <body class="m-body">
+        <header class="m-global-header">
+            <div class="m-logo">
+    <a class="m-logo__link" href="https://pages.github.ibm.com/YUENDO/yuendo/" >YuKB</a>
+</div>
+<div class="m-global-menu">
+    
+    <nav class="m-global-menu__navigation" >
+        <ul class="m-global-menu__navigation-list">
+            
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/">Home</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/post">Blog</a>
+                </li>
+            
+                
+                
+                
+                <li class="m-global-menu__navigation-list-item">
+                    
+                    
+                    <a class="m-global-menu__navigation-list-item-link" href="/YUENDO/yuendo/test">Test</a>
+                </li>
+            
+        </ul>
+    </nav>
+</div>
+
+        </header>
+        <main class="m-main">
+            <div class="m-main-container">
+                <div class="m-content-container">
+                    
+    <article class="m-entry">
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/" itemprop="item" >
+                    
+                        べんきょう
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/" itemprop="item" >
+                    
+                        Kubernetes勉強めも4
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+        <div class="m-entry__header">
+            <div class="m-entry__header-taxonomies">
+                
+                
+                    <div class="m-entry__header-taxonomies-category">
+                        <span class="m-entry__header-taxonomies-category-title">
+                            <a class="m-entry__header-taxonomies-category-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/">
+                                CKA
+                            </a>
+                        </span>
+                    </div>
+                
+                
+                    <div class="m-entry__header-taxonomies-tags">
+                        <ul class="m-entry__header-taxonomies-tags-list" >
+                            
+                                
+                                
+                                    <li class="m-entry__header-taxonomies-tags-list-item">
+                                        <a class="m-entry__header-taxonomies-tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/">kubernetes</a>
+                                    </li>
+                                
+                            
+                        </ul>
+                    </div>
+                
+            </div>
+            <div class="m-entry__header-title">
+                <a class="m-entry__header-title-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/" >
+                    <h1 class="m-entry__header-title-link-text">Kubernetes勉強めも4</h1>
+                </a>
+            </div>
+            <div class="m-entry__header-date">
+                <time>2020/06/23</time>
+            </div>
+
+            
+            
+                <div class="m-entry__header-eyecache">
+                    <img class="m-entry__header-eyecache-img" src="https://pages.github.ibm.com/YUENDO/yuendo/images/yukb.b1b9047d8bef62a1022745783862cc386960801a6015b5eab912f289dc625f78.png" >
+                </div>
+            
+        </div>
+        <div class="m-entry__content">
+            <h3 id="rolling-updaterollback関連">Rolling Update/Rollback関連</h3>
+<h4 id="deploymentをバージョンアップしてみる">Deploymentをバージョンアップしてみる</h4>
+<p>Deployment内のImageのバージョンを変更すると自動的にアップデートがかかる。
+内部的には、新しいバージョン用のReplicaSetが生成され、そこで新しいバージョンのPodが生成されていく。</p>
+<p>デフォルトのポリシーはRolling Updateで、常にPodにアクセス可能な状態を保ちながら
+少しずつアップデートを進めていく方式。
+<code>spec.strategy.type=RollingUpdate</code>という形で指定する。
+Rolling Updateのオプションは2つ。
+1つは<code>maxUnavailable</code>で、これはUpdate中にどれだけのPodが利用不可になってもよいかを指定するもの。
+デフォルトは25％で、同じように%で指定するか(0%は不可)数量を指定することもできる。
+Pod数が10個で<code>maxUnavailable</code>を30%とすると、ReplicaSetは即座に70%(7個)までスケールダウンしてUpdateを開始する。</p>
+<p>2つ目のオプションは<code>maxSurge</code>で、こっちは逆にどれだけのPodがReplica数を超えて良いかを決めるもの。
+値の指定の仕方は<code>maxUnavailable</code>と同じで、こちらもデフォルト25%。</p>
+<p>Rolling Update以外のポリシーとして<code>Recreate</code>というものもある。
+これは一度全Podを削除して新しいバージョンのPodをデプロイするというもの。
+当然該当するPodのサービスは一時的に停止するが、複数バージョンが混在する、といったことは発生しない。
+このポリシーには<code>maxUnavailable</code>のようなオプションはない。</p>
+<p>Updateの手順は2択、1つ目はYAMLマニフェストを編集してImageのバージョンを変えて保存・適用するパターン。
+<code>kubectl apply -f &lt;YAMLマニフェスト&gt;</code>か<code>kubectl edit deploy &lt;deployment名&gt;</code>か。
+2つ目はコマンドで直接バージョンアップする方法。
+<code>kubectl set image deploy/&lt;Deployment名&gt; &lt;Container名&gt;=&lt;Image名&gt;:&lt;Version&gt;</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 定義ファイルでUpdateするパターン</span>
+$ kubectl get deploy frontend -o yaml &gt; deploy.yaml
+$ vi deploy.yaml
+$ cat deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+
+<span class="o">(</span>中略<span class="o">)</span>
+
+  name: frontend
+  namespace: default
+  resourceVersion: <span class="s2">&#34;1517&#34;</span>
+  selfLink: /apis/apps/v1/namespaces/default/deployments/frontend
+  uid: 665b5893-711f-4cfb-875a-6eceeedfd2e4
+spec:
+  minReadySeconds: <span class="m">20</span>
+  progressDeadlineSeconds: <span class="m">600</span>
+  replicas: <span class="m">4</span>
+  revisionHistoryLimit: <span class="m">10</span>
+  selector:
+    matchLabels:
+      name: webapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: webapp
+    spec:
+      containers:
+      - image: kodekloud/webapp-color:v2
+        imagePullPolicy: IfNotPresent
+        name: simple-webapp
+        ports:
+        - containerPort: <span class="m">8080</span>
+          protocol: TCP
+        resources: <span class="o">{}</span>
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: <span class="o">{}</span>
+      terminationGracePeriodSeconds: <span class="m">30</span>
+<span class="o">(</span>後略<span class="o">)</span>
+$ kubectl apply -f deploy.yaml
+Warning: kubectl apply should be used on resource created by either kubectl create --save-config or kubectl apply
+deployment.apps/frontend configured
+
+<span class="c1"># 途中経過(ReplicaSetの様子)</span>
+$ kubectl get rs
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend-6bb4f9cdc8   <span class="m">1</span>         <span class="m">1</span>         <span class="m">1</span>       5m47s
+frontend-b84595c9     <span class="m">4</span>         <span class="m">4</span>         <span class="m">4</span>       34s
+
+<span class="c1"># 完了</span>
+$ kubectl get rs
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend-6bb4f9cdc8   <span class="m">0</span>         <span class="m">0</span>         <span class="m">0</span>       6m17s
+frontend-b84595c9     <span class="m">4</span>         <span class="m">4</span>         <span class="m">4</span>       64s
+
+<span class="c1"># コマンドでUpdateするパターン</span>
+$ kubectl <span class="nb">set</span> image deploy/frontend simple-webapp<span class="o">=</span>kodekloud/webapp-color:v3
+deployment.apps/frontend image updated
+
+<span class="c1"># Recreateにすると一時的にPod数が0になってしまう</span>
+$ kubectl get rs
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend-6bb4f9cdc8   <span class="m">0</span>         <span class="m">0</span>         <span class="m">0</span>       21m
+frontend-b84595c9     <span class="m">0</span>         <span class="m">0</span>         <span class="m">0</span>       16m
+</code></pre></div><h4 id="アップデートをロールバックする">アップデートをロールバックする</h4>
+<p>アップデートしたものを戻すときは<code>kubectl rollout undo</code>を使う。
+アップデートのステータス、履歴確認はそれぞれ<code>kubectl rollout status</code>と<code>kubectl rollout history</code>を使う。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ステータス確認</span>
+$ kubectl rollout status deploy/frontend
+deployment <span class="s2">&#34;frontend&#34;</span> successfully rolled out
+
+<span class="c1"># 履歴確認</span>
+$ kubectl rollout <span class="nb">history</span> deploy/frontend
+deployment.apps/frontend
+REVISION  CHANGE-CAUSE
+<span class="m">1</span>         &lt;none&gt;
+<span class="m">2</span>         &lt;none&gt;
+
+<span class="c1"># ロールバック</span>
+$ kubectl rollout undo deploy/frontend
+deployment.apps/frontend rolled back
+
+<span class="c1"># ロールバック中のステータス</span>
+$ kubectl rollout status deploy/frontend
+Waiting <span class="k">for</span> deployment <span class="s2">&#34;frontend&#34;</span> rollout to finish: <span class="m">2</span> out of <span class="m">4</span> new replicas have been updated...
+Waiting <span class="k">for</span> deployment <span class="s2">&#34;frontend&#34;</span> rollout to finish: <span class="m">2</span> out of <span class="m">4</span> new replicas have been updated...
+Waiting <span class="k">for</span> deployment <span class="s2">&#34;frontend&#34;</span> rollout to finish: <span class="m">2</span> out of <span class="m">4</span> new replicas have been updated...
+Waiting <span class="k">for</span> deployment <span class="s2">&#34;frontend&#34;</span> rollout to finish: <span class="m">1</span> old replicas are pending termination...
+Waiting <span class="k">for</span> deployment <span class="s2">&#34;frontend&#34;</span> rollout to finish: <span class="m">1</span> old replicas are pending termination...
+Waiting <span class="k">for</span> deployment <span class="s2">&#34;frontend&#34;</span> rollout to finish: <span class="m">1</span> old replicas are pending termination...
+Waiting <span class="k">for</span> deployment <span class="s2">&#34;frontend&#34;</span> rollout to finish: <span class="m">1</span> old replicas are pending termination...
+deployment <span class="s2">&#34;frontend&#34;</span> successfully rolled out
+
+<span class="c1"># ロールバック完了を確認</span>
+$ kubectl rollout status deploy/frontend
+deployment <span class="s2">&#34;frontend&#34;</span> successfully rolled out
+$ kubectl rollout <span class="nb">history</span> deploy/frontend
+deployment.apps/frontend
+REVISION  CHANGE-CAUSE
+<span class="m">2</span>         &lt;none&gt;
+<span class="m">3</span>         &lt;none&gt;
+$ kubectl describe deploy frontend <span class="p">|</span> grep -i image
+    Image:        kodekloud/webapp-color:v1
+</code></pre></div><h3 id="commandarg関連">Command/Arg関連</h3>
+<h4 id="まずはdockerイメージのコマンドと引数の話">まずはDockerイメージのコマンドと引数の話</h4>
+<p>例えばデフォルトで5秒間Sleepし、引数を数字で与えたときは5秒ではなく与えられた秒数だけSleepするような挙動をさせたいとする。
+Dockerイメージには<code>ENTRYPOINT</code>と<code>CMD</code>という設定があり、<code>ENTRYPOINT</code>には実行可能なコマンド等を指定する必要がある。
+また、<code>CMD</code>は<code>ENTRYPOINT</code>が指定されているときはそのコマンドの引数として付与される(&ldquo;ENTRYPOINT CMD&quot;という形で実行される)ものである。
+今回の例だと<code>ENTRYPOINT[&quot;sleep&quot;]</code>とし、<code>CMD[&quot;5&quot;]</code>とすることで、引数なしの場合は<code>sleep 5</code>が実行され、引数として10を与えた場合は<code>sleep 10</code>が実行される。</p>
+<h4 id="dockerを踏まえてkubernetesの話">Dockerを踏まえてKubernetesの話</h4>
+<p>上記の例で取り上げた&quot;デフォルトで5秒Sleepする&quot;イメージを使ってPodを作成するとする。
+Dockerのように引数を与えて10秒Sleepさせたい場合はPodマニフェストの中で<code>spec.containers[*].args</code>にJSON形式で引数を指定する。
+<code>spec.containers[*].args</code>はDockerイメージの<code>CMD</code>を上書きする。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper-pod<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper<span class="w">
+</span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper<span class="w">
+</span><span class="w">      </span><span class="k">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;10&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div><p>ではSleepコマンドそのもの(=<code>ENTRYPOINT</code>)を上書きしたい場合はどうか。
+Dockerでは<code>--entrypoint</code>オプションで書いたものが<code>ENTRYPOINT</code>を上書きする。
+Kubernetesの場合、<code>spec.containers[*].command</code>にJSON形式で指定したものが<code>ENTRYPOINT</code>を上書いてくれる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper-pod<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper<span class="w">
+</span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>ubuntu-sleeper<span class="w">
+</span><span class="w">      </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;sleep-new&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">      </span><span class="k">args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;10&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div><p>つまり<code>ENTRYPOINT</code>が<code>command</code>に、<code>CMD</code>が<code>args</code>に対応する。
+<code>CMD</code>と<code>command</code>が対応するわけではないからヤヤコシイ。</p>
+<h3 id="env関連">ENV関連</h3>
+<h4 id="configmap">ConfigMap</h4>
+<p>環境変数は各Podマニフェストの<code>spec.containers[*].env</code>にKey-Value形式で指定できるが、管理対象のPodが増えてくると
+全てを個別に設定するのは大変になってくる。
+そこでConfigMapという機能を利用して、各Podが共有して利用できる環境変数をまとめて保管する。</p>
+<h4 id="configmapの確認">ConfigMapの確認</h4>
+<p>他のリソースと同じく<code>get</code>と<code>describe</code>を使う。
+<code>describe</code>の方は登録されているKey-Valueを全て確認できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ConfigMap一覧を表示</span>
+$ kubectl get cm
+NAME        DATA   AGE
+db-config   <span class="m">3</span>      13s
+
+<span class="c1"># &#34;db-config&#34;ConfigMapの詳細表示</span>
+$ kubectl describe cm db-config
+Name:         db-config
+Namespace:    default
+Labels:       &lt;none&gt;
+Annotations:  &lt;none&gt;
+
+<span class="nv">Data</span>
+<span class="o">====</span>
+DB_PORT:
+----
+<span class="m">3306</span>
+DB_HOST:
+----
+SQL01.example.com
+DB_NAME:
+----
+SQL01
+Events:  &lt;none&gt;
+</code></pre></div><h4 id="configmapを作成する">ConfigMapを作成する</h4>
+<p>こちらも他のリソースと同様にコマンドで作るかマニフェストファイルで作るかの2択。
+コマンド版は以下のとおり。
+<code>--from-literal=&lt;Key&gt;=&lt;Value&gt;</code>で環境変数を登録する。複数登録したい場合はこのオプションのセットを複数書けばOK。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># &#34;webapp-config-map&#34;ConfigMapを作成しAPP_COLOR:darkblueを登録</span>
+$ kubectl create cm webapp-config-map --from-literal<span class="o">=</span><span class="nv">APP_COLOR</span><span class="o">=</span>darkblue
+configmap/webapp-config-map created
+</code></pre></div><p>YAML版は以下のとおり。
+他のリソースと異なり、<code>spec</code>が<code>data</code>になっていることに注意。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>test<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
+</span><span class="w"></span><span class="k">data</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">test-key</span><span class="p">:</span><span class="w"> </span>test-value<span class="w">
+</span></code></pre></div><h4 id="configmapをpodから使用する">ConfigMapをPodから使用する</h4>
+<p>Podのマニフェストにて<code>spec.conteiners[*].envFrom[*].configMapRef</code>でConfigMapを指定する。
+ConfigMapだけを指定すれば登録されている全Key−ValueがENVとして登録される。
+特定Keyのみ選択したい場合は<code>key: &lt;Key&gt;</code>を追加。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>dapi-test-pod<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-container<span class="w">
+</span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>k8s.gcr.io/busybox<span class="w">
+</span><span class="w">      </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;-c&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;env&#34;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">      </span><span class="k">envFrom</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">configMapRef</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>special-config<span class="w">
+</span><span class="w">  </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>Never<span class="w">
+</span></code></pre></div><h3 id="secrets">Secrets</h3>
+<p>センシティブな情報はConfigMapではなくSecretを利用する。
+情報確認や作り方はほとんど同じだが、Valueを指定するときは<code>base64</code>で取得したハッシュ値を使う。
+結局誰にでもdecodeできるのであまり意味はないと思うがそういうお作法らしい。</p>
+<h3 id="multi-container-pod">Multi Container Pod</h3>
+<h4 id="initconitainer">initConitainer</h4>
+<p>initContainerはPod作成後最初に処理を実行するためだけに用意されたContainer。
+Podのマニフェストに<code>spec.initContainers</code>を追記すれば良い。
+複数指定すれば順番に実行され、実行待ちのConitanerは&quot;Waiting&quot;状態になる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>myapp-pod<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>myapp<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>myapp-container<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="p">:</span><span class="m">1.28</span><span class="w">
+</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;echo The app is running! &amp;&amp; sleep 3600&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="k">initContainers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>init-myservice<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="p">:</span><span class="m">1.28</span><span class="w">
+</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+        </div>
+        <div class="m-entry__footer">
+            <div class="m-entry__footer-sns-buttons">
+                
+                
+                    
+                
+    
+                
+                <a class="m-entry__footer-sns-buttons-icon-hatebu" href="https://b.hatena.ne.jp/my/add.confirm?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25824%2F" target="_blank" rel="noopener noreferrer">
+                    B!
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://twitter.com/intent/tweet?text=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25824%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25824%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://getpocket.com/edit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25824%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-get-pocket">&nbsp;</i>
+                </a>
+                <a class="m-entry__footer-sns-buttons-icon" href="https://line.me/R/msg/text/?Kubernetes%e5%8b%89%e5%bc%b7%e3%82%81%e3%82%824%20%7c%20YuKB https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i>
+                </a>
+                
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.reddit.com/submit?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25824%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-reddit">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25824%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin-in">&nbsp;</i>
+                </a>
+                
+                <a class="m-entry__footer-sns-buttons-icon" href="https://pinboard.in/popup_login/?title=Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824&#43;%7C&#43;YuKB&amp;url=https%3A%2F%2Fpages.github.ibm.com%2FYUENDO%2Fyuendo%2Fbenkyo%2Ftips%2FCKA%2FKubernetes%25E5%258B%2589%25E5%25BC%25B7%25E3%2582%2581%25E3%2582%25824%2F" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-thumbtack">&nbsp;</i>
+                </a>
+            </div>
+        </div>
+        <div class="m-entry__page-navigation">
+                 <a class="m-entry__page-navigation-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%825/">&lt; prev</a> 
+                 <a class="m-entry__page-navigation-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/">next &gt; </a> 
+        </div>
+        
+            <div class="m-entry__breadcrumbs">
+                <div class="a-breadcrumbs">
+    
+    
+    
+
+    <ul class="a-breadcrumbs__list" itemscope itemtype="http://schema.org/BreadcrumbList" >
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/" itemprop="item" >
+                    
+                        <span itemprop="name">Home</span></span>
+                    
+                    
+                    <meta itemprop="position" content="1" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/" itemprop="item" >
+                    
+                        べんきょう
+                    
+                    
+                    <meta itemprop="position" content="2" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/" itemprop="item" >
+                    
+                        Tips
+                    
+                    
+                    <meta itemprop="position" content="3" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/" itemprop="item" >
+                    
+                        CKA
+                    
+                    
+                    <meta itemprop="position" content="4" />
+                </a>
+                <span class="a-breadcrumbs__list-item-link-gt">&gt;</span>
+            </li>
+        
+            <li class="a-breadcrumbs__list-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                <a class="a-breadcrumbs__list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/" itemprop="item" >
+                    
+                        Kubernetes勉強めも4
+                    
+                    
+                    <meta itemprop="position" content="5" />
+                </a>
+                
+            </li>
+        
+    </ul>
+</div>
+
+            </div>
+        
+
+    </article>
+    
+
+                </div>
+                <div class="m-aside-container">
+                    <div class="m-aside-widget__profile">
+    <div class="m-aside-widget__profile-avatar">
+        
+        
+            
+        
+        
+            
+                
+            
+        
+        
+            <img class="m-aside-widget__profile-avatar-img" src="https://pages.github.ibm.com/YUENDO/yuendo/images/blank-profile.png" />
+        
+    </div>
+    <div class="m-aside-widget__profile-author">
+        
+            unchainendo
+        
+    </div>
+    <div class="m-aside-widget__profile-description">
+        
+            
+            がんばる。
+        
+    </div>
+</div>
+
+    
+        
+        
+        
+            <div class="m-aside-widget__category">
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/">
+                    <span class="m-aside-widget__category-list-link-title" >Projects
+                    <span class="m-aside-widget__category-list-link-count"> (10) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/">
+                    <span class="m-aside-widget__category-list-link-title" >202010_シンクラ更改
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/">
+                    <span class="m-aside-widget__category-list-link-title" >Tips
+                    <span class="m-aside-widget__category-list-link-count"> (14) </span>
+                </a>
+            </li>
+            
+                
+    <ul class="m-aside-widget__category-list" >
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/">
+                    <span class="m-aside-widget__category-list-link-title" >CKA
+                    <span class="m-aside-widget__category-list-link-count"> (8) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/others/">
+                    <span class="m-aside-widget__category-list-link-title" >Others
+                    <span class="m-aside-widget__category-list-link-count"> (2) </span>
+                </a>
+            </li>
+            
+        
+            <li class="m-aside-widget__category-list-item">
+                <a class="m-aside-widget__category-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/RHLS/">
+                    <span class="m-aside-widget__category-list-link-title" >RHLS
+                    <span class="m-aside-widget__category-list-link-count"> (1) </span>
+                </a>
+            </li>
+            
+        
+    </ul>
+
+            
+        
+    </ul>
+
+            </div>
+        
+    
+
+
+
+
+    <div class="m-aside-widget__tags">
+        <ul class="m-aside-widget__tags-list">
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Db2/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Db2</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/MQ/">
+                        <span class="m-aside-widget__tags-list-item-link-name">MQ</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/NetApp/">
+                        <span class="m-aside-widget__tags-list-item-link-name">NetApp</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/">
+                        <span class="m-aside-widget__tags-list-item-link-name">Qrep</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/">
+                        <span class="m-aside-widget__tags-list-item-link-name">RHEL</span>
+                    </a>
+                </li>
+            
+                <li class="m-aside-widget__tags-list-item">
+                    <a class="m-aside-widget__tags-list-item-link" href="https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/">
+                        <span class="m-aside-widget__tags-list-item-link-name">kubernetes</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer class="m-global-footer">
+            <span class="a-copy-right">
+    Copyright 2020
+    unchainendo
+    All rights reserved.
+</span>
+
+
+        </footer>
+    </body>
+</html>

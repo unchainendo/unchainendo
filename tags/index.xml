@@ -21,9 +21,18 @@
     </item>
     
     <item>
+      <title>RHEL</title>
+      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</link>
+      <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>kubernetes</title>
       <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/</link>
-      <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 26 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/</guid>
       <description></description>
@@ -53,33 +62,6 @@
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/Qrep/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>RHEL</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</link>
-      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dummy tag 1</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-1/</link>
-      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-1/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dummy tag 2</title>
-      <link>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-2/</link>
-      <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-2/</guid>
       <description></description>
     </item>
     

@@ -8,7 +8,7 @@
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/ONTAP%E3%81%AEEOS/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/ONTAP%E3%81%AEEOS/</loc>
     <lastmod>2020-08-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -28,52 +28,57 @@
   </url>
   
   <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</loc>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/RHLS/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/</loc>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/kubernetes/</loc>
-    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/RHEL8%E3%81%A7%E6%B0%97%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%8A%E3%81%8F/</loc>
-    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/</loc>
     <lastmod>2020-06-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%827/</loc>
+    <lastmod>2020-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%826/</loc>
     <lastmod>2020-06-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%825/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%825/</loc>
     <lastmod>2020-06-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%824/</loc>
     <lastmod>2020-06-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%823/</loc>
     <lastmod>2020-06-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%822/</loc>
     <lastmod>2020-06-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%821/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/Kubernetes%E5%8B%89%E5%BC%B7%E3%82%81%E3%82%821/</loc>
     <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/KubernetesTheHardWay%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/KubernetesTheHardWay%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</loc>
     <lastmod>2020-04-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -133,22 +138,27 @@
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/RHEL/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/others/%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%8B%E3%82%89%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%90%8D%E3%82%92%E8%AA%BF%E3%81%B9%E3%82%8B/</loc>
     <lastmod>2020-02-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%8B%E3%82%89%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%90%8D%E3%82%92%E8%AA%BF%E3%81%B9%E3%82%8B/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/others/%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E6%96%87%E5%AD%97%E5%88%97%E3%82%92%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B/</loc>
     <lastmod>2020-02-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E6%96%87%E5%AD%97%E5%88%97%E3%82%92%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B/</loc>
-    <lastmod>2020-02-01T00:00:00+00:00</lastmod>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/202010_%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%A9%E6%9B%B4%E6%94%B9/</loc>
+    <lastmod>2019-06-17T20:28:10+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/201909_Qrep%E6%95%B4%E5%82%99/</loc>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/CKA/</loc>
+    <lastmod>2019-06-17T20:28:10+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/others/</loc>
     <lastmod>2019-06-17T20:28:10+09:00</lastmod>
   </url>
   
@@ -158,18 +168,13 @@
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-1/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/RHLS/</loc>
+    <lastmod>2019-06-17T20:28:10+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/tags/dummy-tag-2/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/projects/sample/</loc>
-    <lastmod>2019-06-17T00:00:00+00:00</lastmod>
+    <loc>https://pages.github.ibm.com/YUENDO/yuendo/benkyo/tips/</loc>
+    <lastmod>2019-06-17T20:28:10+09:00</lastmod>
   </url>
   
 </urlset>
